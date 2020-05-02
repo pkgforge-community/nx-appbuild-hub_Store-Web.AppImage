@@ -1,0 +1,86 @@
+@startuml
+participant web
+participant server
+participant database
+participant email
+
+web -> server : signin(<Login>)
+activate server
+server -> database : customer_find(<Login>)
+activate database
+server <-- database: Customer
+deactivate database
+server -> database : password_valid(<Login>)
+activate database
+server <-- database: True
+deactivate database
+web <-- server: Customer
+deactivate server
+web -> server : signup(<CustomerModel>)
+activate server
+server -> database : customer_find(<CustomerModel>)
+activate database
+server <-- database: False
+deactivate database
+server -> database : customer_create(<CustomerModel>)
+activate database
+server <-- database: Customer
+deactivate database
+server -> email : confirmation(<Customer>)
+activate email
+email -> web : confirmation(token)
+deactivate email
+deactivate server
+web -> server : confirmation(<token>)
+activate server
+server -> database : customer_find(<token>)
+activate database
+server <-- database: Customer
+deactivate database
+server -> database : customer_activate(<token>)
+activate database
+server <-- database: Customer
+deactivate database
+web <-- server: <Customer>
+deactivate server
+web -> server : invite(<CustomerGroupInvite>)
+activate server
+server -> email : send(<CustomerGroupInvite>)
+activate email
+server <-- email: True
+deactivate email
+web <-- server: True
+deactivate server
+web -> server : invite_accept(<CustomerGroupInvite>)
+activate server
+server -> database : invite_valid(<CustomerGroupInvite>)
+activate database
+server <-- database: True
+deactivate database
+server -> database : add_group_member(<CustomerGroup>, <Customer>)
+activate database
+server <-- database: True
+deactivate database
+web <-- server: CustomerGroup
+deactivate server
+web -> server : packages()
+activate server
+server -> database : customer_groups(<Customer>)
+activate database
+server <-- database: [<CustomerGroup>,]
+deactivate database
+server -> database : customer_company_groups(<Customer>)
+activate database
+server <-- database: [<CompanyGroup>,]
+deactivate database
+server -> database : packages([<CustomerGroup>,])
+activate database
+server <-- database: [<Package>,]
+deactivate database
+server -> database : packages([<CompanyGroup>,])
+activate database
+server <-- database: [<Package>,]
+deactivate database
+web <-- server: [<Package>,]
+deactivate server
+@enduml

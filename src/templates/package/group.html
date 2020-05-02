@@ -1,0 +1,55 @@
+{% extends '_layout.html' %}
+{% load math %}
+
+{% block content %}
+    <div class="tile is-vertical">
+        <div class="tile is-parent is-12">
+            <article class="tile is-child">
+                <div class="content">
+                    <h1 class="title">{{ entity.name }}</h1>
+                    <p>
+                        {% autoescape off %}
+                            {{ entity.description }}
+                        {% endautoescape %}
+                    </p>
+                </div>
+            </article>
+        </div>
+
+        <div class="columns">
+            {% for package in entity.packages.all %}
+            <div class="column is-6">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <a href="{% url 'package' package.id %}">
+                                {% if package.image %}
+                                    <img src="{{ package.image.url }}" alt="{{ package.name }}">
+                                {% else %}
+                                    <img src="https://bulma.io/images/placeholders/1280x960.png" alt="{{ package.name }}">
+                                {% endif %}
+                            </a>
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-content">
+                                <p class="title is-4">{{ package.name }}</p>
+                            </div>
+                        </div>
+                        <div class="content">
+                            {% autoescape off %}
+                                {{ package.description }}
+                            {% endautoescape %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                {% if forloop.counter|modulo:'2' == 0 %}
+                    </div> <div class="columns">
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

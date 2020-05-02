@@ -1,0 +1,43 @@
+@startuml
+participant web
+participant server
+participant database
+participant email
+
+web -> server : invite(<CompanyInvite>)
+activate server
+server -> email : send(<CompanyInvite>)
+activate email
+server <-- email: True
+deactivate email
+web <-- server: True
+deactivate server
+web -> server : invite_accept(<CompanyInvite>)
+activate server
+server -> database : invite_valid(<CompanyInvite>)
+activate database
+server <-- database: True
+deactivate database
+server -> database : add_company_member(<Company>, <Customer>)
+activate database
+server <-- database: True
+deactivate database
+web <-- server: Company
+deactivate server
+web -> server : companies()
+activate server
+server -> database : companies()
+activate database
+server <-- database: [<Company>,]
+deactivate database
+web <-- server: [<Company>,]
+deactivate server
+web -> server : company_groups()
+activate server
+server -> database : company_groups()
+activate database
+server <-- database: [<CompanyGroup>,]
+deactivate database
+web <-- server: [<CompanyGroup>,]
+deactivate server
+@enduml

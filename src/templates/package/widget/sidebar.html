@@ -1,0 +1,13 @@
+<aside class="menu">
+<!--    <p class="menu-label">-->
+<!--        Categories-->
+<!--    </p>-->
+    <ul class="menu-list">
+        {% for group in collection %}
+        <li><a href="{% url 'package_group' group.id %}">{{ group.name }}</a></li>
+        {% endfor %}
+    </ul>
+<!--    <p class="menu-label">-->
+<!--        Requests-->
+<!--    </p>-->
+</aside>

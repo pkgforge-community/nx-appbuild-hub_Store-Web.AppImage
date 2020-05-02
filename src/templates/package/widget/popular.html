@@ -1,0 +1,34 @@
+<div class="tile is-parent is-vertical">
+    {% for package in collection %}
+    <article class="tile is-child notification ">
+        <div class="columns">
+            <div class="column is-3">
+                <figure class="image is-4by3">
+                    <a href="{% url 'package' package.id %}">
+                        {% for image in package.images %}
+                        {% if forloop.counter == 1 %}
+                        <img src="{{ image.url }}" alt="Placeholder image">
+                        {% endif %}
+                        {% empty %}
+                        <img src="{{ image.url }}" alt="Placeholder image">
+                        {% endfor %}
+                    </a>
+                </figure>
+            </div>
+            <div class="column is-9">
+                <p class="title">{{ package.name }}</p>
+                <p class="subtitle">
+                    {% autoescape off %}
+                    {{ package.description }}
+                    {% endautoescape %}
+                </p>
+                <div class="has-text-centered">
+                    <a class="button" href="{% url 'package' package.id %}">
+                        Take a closer look
+                    </a>
+                </div>
+            </div>
+        </div>
+    </article>
+    {% endfor %}
+</div>

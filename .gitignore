@@ -1,0 +1,13 @@
+.idea
+__pycache__
+AppDir/build
+/AppDir/opt
+/AppDir/venv
+venv
+*.pyc
+**.pyc
+*/**.pyc
+src/default.conf
+src/static/
+src/secure_medias/
+build

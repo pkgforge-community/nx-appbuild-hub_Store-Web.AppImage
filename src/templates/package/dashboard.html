@@ -1,0 +1,77 @@
+{% extends '_layout.html' %}
+{% load widgets %}
+
+
+{% block body %}
+{% load widgets %}
+<nav class="bd-navbar navbar has-shadow is-spaced" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="{% url 'package_dashboard' %}">
+                <img src="/uploads/logo.png" >
+            </a>
+        </div>
+        <div class="navbar-start" style="margin-left:80px;">
+            {% widget 'menu.main' %}
+        </div>
+    </div>
+</nav>
+<section class="section">
+    {% block layout %}
+    <div class="container">
+        <div class="columns">
+            <div class="column is-2">
+                {% widget 'dashboard.sidebar' %}
+            </div>
+            <div class="column">
+                <section class="hero">
+                    <div class="hero-body">
+                        <div class="container">
+                            <div class="columns is-centered">
+                                <div class="column has-text-centered is-10">
+                                    <div class="title">Welcome to AOD-Store</div>
+                                </div>
+                            </div>
+                            <div class="columns is-centered">
+                                <div class="column has-text-centered is-12">
+                                    {% widget 'dashboard.search' %}
+                                </div>
+                            </div>
+                            <div class="columns is-centered">
+                                <div class="column has-text-centered is-10">
+                                    <p>
+                                        the home of <span class="tag is-light is-info">{{total }}</span>
+                                        high-quality apps which can be easily installed on
+                                        any Linux distribution.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                    </div>
+                </section>
+
+                <div class="tile is-ancestor">
+                    <div class="tile is-vertical">
+                        <div class="tile">
+                            {% widget 'dashboard.featured' %}
+                            {% widget 'dashboard.latest' %}
+                        </div>
+                        {% widget 'dashboard.popular' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock layout %}
+</section>
+<footer class="footer">
+    <div class="content has-text-centered">
+        {% widget 'menu.footer' %}
+    </div>
+</footer>
+{% endblock body %}
+
+
+
+

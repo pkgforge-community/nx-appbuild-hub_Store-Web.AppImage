@@ -1,0 +1,108 @@
+{% extends '_layout.html' %}
+
+{% block content %}
+<div class="tile is-vertical">
+    <div class="tile is-parent is-12">
+        <article class="tile is-child">
+            <div class="content">
+                <h1 class="title">{{ entity.name }}</h1>
+            </div>
+        </article>
+    </div>
+
+    <div class="tile is-ancestor">
+        <div class="tile is-vertical is-10">
+            <div class="tile">
+                <div class="tile is-parent is-vertical">
+                    {% for image in entity.images %}
+                    {% if forloop.counter == 1 %}
+                    <div class="tile is-parent">
+                        <article class="tile is-child">
+                            <figure class="image is-4by3">
+                                <img src="{{ image.url }}" alt="Placeholder image">
+                            </figure>
+                        </article>
+                    </div>
+                    {% endif %}
+                    {% empty %}
+                    <div class="tile is-parent">
+                        <article class="tile is-child">
+                            <figure class="image is-4by3">
+                                <img src="{{ image.url }}" alt="Placeholder image">
+                            </figure>
+                        </article>
+                    </div>
+                    {% endfor %}
+                    <div class="tile is-parent">
+                        {% for image in entity.images.all %}
+                        <div class="tile is-parent">
+                            <article class="tile is-child">
+                                <figure class="image is-4by3">
+                                    <img src="{{ image.url }}">
+                                </figure>
+                            </article>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="tile is-parent is-vertical is-5">
+                    <article class="tile is-child notification is-white">
+                        <h4 class="title is-4">Latest version</h4>
+                        {% if entity.version %}
+                            <p>Updated at: {{ entity.version.created|date:'Y M d' }}</p>
+                            <br/>
+                            <a href="{% url 'package_download' slug=entity.slug %}"
+                               class="button is-medium is-fullwidth  is-success is-outlined">
+                                Download
+                            </a>
+                            <br/>
+                            <p>MD5 Hash:<br/>{{ entity.version.hash }}</p>
+                            <br/>
+                            <div class="content">
+                                <h4 class="is-4">Comments:</h4>
+                                <ul type="1">
+                                    {% for comments in entity.comments.all %}
+                                        <li>{{ comments.text }}</li>
+                                    {% endfor %}
+                                </ul>
+                        </div>
+                        {% endif %}
+                    </article>
+                </div>
+            </div>
+            <div class="tile is-vertical is-parent">
+                <article class="tile is-child notification is-white">
+                    <div class="content">
+                        {% autoescape off %}
+                        {{ entity.description }}
+                        {% endautoescape %}
+                    </div>
+                    <div class="content">
+                        <h4 class="is-4">Version history:</h4>
+                        <ul type="1">
+                            {% for version in entity.versions.all %}
+                            <li>{{ version.name }}, {{ version.description }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div class="tile is-parent">
+            <article class="tile is-child notification is-white">
+                <div class="content">
+                    <div class="buttons">
+                        {% for group in entity.groups.all %}
+                        <a href="{% url 'package_group' group.id %}"
+                           class="button is-info is-outlined">
+                            {{ group.name }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+{% endblock %}

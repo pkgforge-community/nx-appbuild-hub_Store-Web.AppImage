@@ -1,0 +1,17 @@
+<div class="tile is-parent is-vertical">
+    {% for package in collection %}
+        <article class="tile is-child notification ">
+            <p class="title">{{ package.name }}</p>
+            <p class="subtitle">
+                {% autoescape off %}
+                    {{ package.description }}
+                {% endautoescape %}
+            </p>
+            <div class="has-text-centered">
+                <a class="button" href="{% url 'package' package.id %}">
+                    Take a closer look
+                </a>
+            </div>
+        </article>
+    {% endfor %}
+</div>

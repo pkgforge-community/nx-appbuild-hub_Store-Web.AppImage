@@ -1,0 +1,39 @@
+@startuml
+participant console
+participant server
+participant database
+participant clamav
+
+console -> server : packages(<string>)
+activate server
+server -> database : packages(<string>)
+activate database
+server <-- database: [<Package>, ]
+deactivate database
+console <-- server: [<Package>, ]
+deactivate server
+console -> server : groups(<string>)
+activate server
+server -> database : groups(<string>)
+activate database
+server <-- database: [<PackageGroup>, ]
+deactivate database
+console <-- server: [<PackageGroup>, ]
+deactivate server
+console -> server : upload_version(<PackageVersionModel>)
+activate server
+server -> clamav : scan(<PackageVersionModel>)
+activate clamav
+server <-- clamav: True
+deactivate clamav
+server -> database : get_package(<PackageVersionModel>)
+activate database
+server <-- database: Package
+deactivate database
+server -> database : create_version(<PackageVersionModel>)
+activate database
+server <-- database: PackageVersion
+deactivate database
+console <-- server: PackageVersion
+deactivate server
+@enduml
