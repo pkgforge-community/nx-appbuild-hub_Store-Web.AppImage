@@ -3,7 +3,7 @@
     <article class="tile is-child notification ">
         <div class="columns">
             <div class="column is-3">
-                <figure class="image is-4by3">
+                <figure class="image">
                     <a href="{% url 'package' package.id %}">
                         {% for image in package.images %}
                         {% if forloop.counter == 1 %}

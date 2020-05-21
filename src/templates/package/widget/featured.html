@@ -1,7 +1,7 @@
 <div class="tile is-parent">
     <article class="tile is-child notification">
         <p class="title">{{ package.name }}</p>
-        <figure class="image is-4by3">
+        <figure class="image">
             <a href="{% url 'package' package.id %}">
                 {% for image in package.images %}
                     {% if forloop.counter == 1 %}
