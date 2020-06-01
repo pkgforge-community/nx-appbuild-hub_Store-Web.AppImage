@@ -11,7 +11,16 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 from chunked_upload.models import ChunkedUpload
+from django.db import models
+
+from apps.customer.models import Customer
 
 
 class PackageUpload(ChunkedUpload):
-    pass
+    customer = models.ForeignKey(
+        Customer,
+        on_delete=models.CASCADE,
+        related_name='customer_uploads',
+        null=True,
+        blank=True
+    )

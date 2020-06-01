@@ -37,6 +37,11 @@ class PackageUploadView(viewsets.GenericViewSet, ChunkedUploadView):
     def get_queryset(self, request):
         return self.model.objects.all()
 
+    def get_extra_attrs(self, request):
+        if hasattr(request, 'customer'):
+            return {'customer': request.customer}
+        return {}
+
     def create_chunked_upload(self, save=False, **attrs):
         if 'user' in attrs: del attrs['user']
         entity = self.model(**attrs)
