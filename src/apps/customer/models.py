@@ -16,7 +16,7 @@ from django.db import models
 class CustomerToken(models.Model):
     token = models.CharField(max_length=255)
     created = models.DateTimeField(auto_now=True)
-    expired = models.DateTimeField(null=True, default=None)
+    expired = models.DateTimeField(null=True, default=None, blank=True)
 
     customer = models.ForeignKey('customer.Customer', on_delete=models.CASCADE)
 
@@ -118,6 +118,9 @@ class Customer(models.Model):
     member_company_groups = models.ManyToManyField(
         'company.CompanyPackageGroup', related_name='member_company_groups',
         through='company.CompanyPackageGroupMember')
+
+    def is_authenticated(self):
+        return True
 
     @property
     def tokens(self):

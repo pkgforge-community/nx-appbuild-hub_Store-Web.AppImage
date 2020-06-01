@@ -13,7 +13,6 @@
 from rest_framework import mixins
 from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework.decorators import action
 
 from apps.package.model.package import Package
 from .serializer.package import PackageSerializer
@@ -21,6 +20,7 @@ from .serializer.package import PackageSerializer
 
 class PackageList(viewsets.GenericViewSet, mixins.RetrieveModelMixin, mixins.ListModelMixin):
     serializer_class = PackageSerializer
+    permission_classes = []
     queryset = Package.objects
     pagination_class = None
     lookup_url_kwarg = "slug"
@@ -28,7 +28,7 @@ class PackageList(viewsets.GenericViewSet, mixins.RetrieveModelMixin, mixins.Lis
     def get_queryset(self, search=None):
         if search is None or not len(search):
             return self.queryset.all()
-        return self.queryset.filter(name__contains=search)
+        return self.queryset.filter(name__icontains=search)
 
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset(request.query_params.get('search'))

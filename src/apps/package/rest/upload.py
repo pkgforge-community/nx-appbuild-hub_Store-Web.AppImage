@@ -10,38 +10,47 @@
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
+from chunked_upload.views import ChunkedUploadCompleteView
+from chunked_upload.views import ChunkedUploadView
+from django.core.files.base import ContentFile
 from rest_framework import viewsets
 from rest_framework.decorators import action
-from chunked_upload.views import ChunkedUploadView
-from chunked_upload.views import ChunkedUploadCompleteView
 
+from apps.customer.middleware import permissions
 from apps.package.model.package import Package
-from apps.package.model.version import PackageVersion
 from apps.package.model.upload import PackageUpload
-
-from .serializer.upload import PackageUploadSerializer
+from apps.package.model.version import PackageVersion
 from .serializer.upload import PackageUploadInitializeSerializer
+from .serializer.upload import PackageUploadSerializer
 
 
-class PackageUploadView(ChunkedUploadView, viewsets.GenericViewSet):
+class PackageUploadView(viewsets.GenericViewSet, ChunkedUploadView):
     serializer_class = PackageUploadInitializeSerializer
+    permission_classes = [permissions.IsAuthenticated]
     queryset = PackageUpload.objects
     model = PackageUpload
     pagination_class = None
 
     field_name = 'file'
 
-    def check_permissions(self, request):
-        # Allow non authenticated users to make uploads
-        pass
+    def get_queryset(self, request):
+        return self.model.objects.all()
+
+    def create_chunked_upload(self, save=False, **attrs):
+        if 'user' in attrs: del attrs['user']
+        entity = self.model(**attrs)
+        entity.file.save(name='', content=ContentFile(''), save=save)
+        return entity
 
     @action(detail=False, methods=['post'])
     def initialize(self, request, *args, **kwargs):
         return self._post(request, *args, **kwargs)
 
 
-class PackageUploadCompleteView(ChunkedUploadCompleteView, viewsets.GenericViewSet):
+class PackageUploadCompleteView(viewsets.GenericViewSet, ChunkedUploadCompleteView):
     serializer_class = PackageUploadSerializer
+    permission_classes = [permissions.IsAuthenticated]
     queryset = PackageUpload.objects
     model = PackageUpload
 
@@ -49,9 +58,8 @@ class PackageUploadCompleteView(ChunkedUploadCompleteView, viewsets.GenericViewS
     def finalize(self, request, *args, **kwargs):
         return self._post(request, *args, **kwargs)
 
-    def check_permissions(self, request):
-        # Allow non authenticated users to make uploads
-        pass
+    def get_queryset(self, request):
+        return self.model.objects.all()
 
     def get_response_data(self, chunked_upload, request):
         data = request.data

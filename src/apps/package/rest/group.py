@@ -20,6 +20,7 @@ from .serializer.group import PackageGroupSerializer
 class PackageGroupList(viewsets.GenericViewSet):
     serializer_class = PackageGroupSerializer
     queryset = PackageGroup.objects
+    permission_classes = []
     pagination_class = None
 
     def get_queryset(self, search=None):
