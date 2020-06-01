@@ -9,6 +9,9 @@ class IsAuthenticated(BasePermission):
     """
 
     def has_permission(self, request, view):
+        if hasattr(request, 'user'):
+            return True
+
         if not hasattr(request, 'customer'):
             return False
 
