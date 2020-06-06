@@ -1,10 +1,12 @@
 <form method="get" action="{% url 'package_dashboard' %}">
-    <div class="field has-addons has-addons-centered">
-        <p class="control" style="width:600px;">
-            <input class="input is-light" type="text" name="search" placeholder="Enter search string...">
-        </p>
-        <p class="control">
-            <input type="submit" class="button is-light is-info" value="Engage"></input>
-        </p>
+    <div class="row">
+        <div class="input-field col s9">
+            <input type="text" class="validate" name="search" id="search" placeholder="Enter search string...">
+        </div>
+        <div class="input-field col s3">
+            <input type="submit" class="btn-flat" value="">
+              <i class="material-icons">search</i>
+            </input>
+        </div>
     </div>
 </form>

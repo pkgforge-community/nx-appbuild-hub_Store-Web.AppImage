@@ -1,26 +1,16 @@
-<aside class="menu">
-    <a class="menu-label">
-        © {% now "Y" %} A.O.D.
-    </a>
-    |
-    <a href="{% url 'page' 'terms-and-conditions' %}"
-       class="menu-label">
-        Terms and Conditions
-    </a>
-    |
-    <a href="{% url 'page' 'data-protection' %}"
-       class="menu-label">
-        Datenschutz
-    </a>
-    |
-    <a href="{% url 'page' 'impressum' %}"
-       class="menu-label">
-        Impressum
-    </a>
-    |
-    <a href="{% url 'page' 'github' %}"
-       class="menu-label">
-        Github
-    </a>
-</aside>
-
+<a href="{% url 'page' 'github' %}"
+   class="grey-text text-lighten-4 right">
+    Github&nbsp;
+</a>
+<a href="{% url 'page' 'impressum' %}"
+   class="grey-text text-lighten-4 right">
+    Impressum&nbsp;|&nbsp;
+</a>
+<a href="{% url 'page' 'data-protection' %}"
+   class="grey-text text-lighten-4 right">
+    Datenschutz&nbsp;|&nbsp;
+</a>
+<a href="{% url 'page' 'terms-and-conditions' %}"
+   class="grey-text text-lighten-4 right">
+    Terms and Conditions&nbsp;|&nbsp;
+</a>

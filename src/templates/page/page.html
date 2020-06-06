@@ -1,11 +1,8 @@
 {% extends '_layout.html' %}
 
 {% block content %}
-<div class="container">
-    <h1 class="title">{{ entity.name }}</h1>
-    {% autoescape off %}
-        {{ entity.content }}
-    {% endautoescape %}
-
-</div>
+<h3 class="title">{{ entity.name }}</h3>
+{% autoescape off %}
+{{ entity.content }}
+{% endautoescape %}
 {% endblock %}

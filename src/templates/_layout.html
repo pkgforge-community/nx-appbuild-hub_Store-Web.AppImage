@@ -4,7 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AOD - Application store</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">-->
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <style>
         .card { height: 100%; }
@@ -14,44 +19,38 @@
 <body>
 {% block body %}
 {% load widgets %}
-<nav class="bd-navbar navbar has-shadow is-spaced" role="navigation" aria-label="main navigation">
-    <div class="container">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="{% url 'package_dashboard' %}">
-                <img src="/uploads/logo.png" >
+<nav>
+    <div class="nav-wrapper">
+        <div class="container">
+            <a href="{% url 'package_dashboard' %}" class="brand-logo">
+                <img src="/uploads/logo.png" class="materialboxed" width="150">
             </a>
-        </div>
-        <div class="navbar-start" style="margin-left:80px;">
             {% widget 'menu.main' %}
         </div>
-        <div class="navbar-end">
-            {% widget 'dashboard.search' %}
-        </div>
-    </div>
     </div>
 </nav>
 
-<section class="section">
-    {% block layout %}
-    <div class="container">
-        <div class="columns">
-            <div class="column is-2">
-                {% widget 'dashboard.sidebar' %}
-            </div>
-            <div class="column">
-                <div class="tile is-ancestor">
-                    {% block content %}
-                    {% endblock content %}
-                </div>
-            </div>
+{% block layout %}
+<div class="container">
+    <div class="row">
+        <div class="col s3">
+            {% widget 'dashboard.sidebar' %}
+        </div>
+        <div class="col s9">
+            {% block title %}
+            {% endblock title %}
+            {% block content %}
+            {% endblock content %}
         </div>
     </div>
-    {% endblock layout %}
-</section>
-<footer class="footer">
-    <div class="content has-text-centered">
-        {% widget 'menu.footer' %}
+</div>
+{% endblock layout %}
+
+<footer class="page-footer">
+    <div class="container">
+        © {% now "Y" %} A.O.D. {% widget 'menu.footer' %}
     </div>
+    <br/>
 </footer>
 {% endblock body %}
 </body>
