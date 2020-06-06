@@ -23,7 +23,7 @@ from .form.package import PackageForm
 
 class PackageAdmin(admin.ModelAdmin):
     form = PackageForm
-    list_display = ['name', 'description', 'icon', 'preview', 'created']
+    list_display = ['name', 'token', 'slug', 'package', 'created']
     search_fields = ('icon', 'name', 'description')
     readonly_fields = ["preview"]
 

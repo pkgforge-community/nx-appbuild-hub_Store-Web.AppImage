@@ -16,11 +16,10 @@ server:
 	source venv/bin/activate && python3 -m PyInstaller --additional-hooks-dir=hooks src/server.py --distpath $(APPDIR) --name application --noconfirm
 	cp -r ./src/apps $(APPDIR_APPLICATION)
 	cp -r ./src/aodstore $(APPDIR_APPLICATION)
-	cp -r ./src/medias $(APPDIR_APPLICATION)
 	cp -r ./src/templates $(APPDIR_APPLICATION)
 	cp -r ./src/static $(APPDIR_APPLICATION)
-	export ARCH=x86_64 && bin/appimagetool-x86_64.AppImage  ./AppDir store-web.AppImage
-	@echo "done: bin/store-web.AppImage"
+	export ARCH=x86_64 && bin/appimagetool-x86_64.AppImage  ./AppDir apprepo.AppImage
+	@echo "done: apprepo.AppImage"
 
 clean:
 	rm -rf ${APPDIR}/venv
