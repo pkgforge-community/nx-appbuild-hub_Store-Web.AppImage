@@ -24,11 +24,12 @@ from apps.package.model.version import PackageVersion
 from .serializer.upload import PackageUploadInitializeSerializer
 from .serializer.upload import PackageUploadSerializer
 
+from chunked_upload.models import ChunkedUpload
 
 class PackageUploadView(viewsets.GenericViewSet, ChunkedUploadView):
     serializer_class = PackageUploadInitializeSerializer
     permission_classes = [permissions.IsAuthenticated]
-    queryset = PackageUpload.objects
+    queryset = ChunkedUpload.objects
     model = PackageUpload
     pagination_class = None
 
@@ -66,29 +67,43 @@ class PackageUploadCompleteView(viewsets.GenericViewSet, ChunkedUploadCompleteVi
     def get_queryset(self, request):
         return self.model.objects.all()
 
+    def on_completion(self, uploaded_file, request):
+        data = request.data
+        if data is None:
+            return data
+
+        assert ('file' in data.keys())
+
+        uploaded_file.name = data['file']
+        package = Package.objects.get(token=data['token'])
+        if package is None: return None
+
+        return PackageVersion.objects.create(
+            description=data['description'],
+            hash=data['md5'],
+            name=data['name'],
+            package=package,
+            file=uploaded_file,
+        )
+
     def get_response_data(self, chunked_upload, request):
         data = request.data
         if data is None:
             return data
 
-        file = chunked_upload.get_uploaded_file()
-        if file is None or not file:
-            raise Exception('file does not exist')
+        try:
+            print(chunked_upload)
+            chunked_upload.delete()
+        except Exception as ex:
+            print(ex)
+            pass
 
-        if 'file' not in data.keys():
-            raise Exception('file field not found')
-
-        file.name = data['file']
-        package = Package.objects.get(token=data['token'])
-        if package is None: return None
-
-        PackageVersion.objects.create(
-            description=data['description'],
-            hash=data['md5'],
-            name=data['name'],
-            package=package,
-            file=file,
+        package = Package.objects.get(
+            token=data['token']
         )
+
+        if package is None:
+            return None
 
         return {'success': True, 'package': {
             'description': data['description'],

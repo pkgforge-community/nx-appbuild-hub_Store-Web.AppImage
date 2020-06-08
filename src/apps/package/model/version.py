@@ -10,7 +10,10 @@
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+import os
+
 from django.db import models
+from django.dispatch import receiver
 
 
 class PackageVersion(models.Model):
@@ -31,3 +34,14 @@ class PackageVersion(models.Model):
 
     def __str__(self):
         return self.name
+
+
+@receiver(models.signals.post_delete, sender=PackageVersion)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    """
+    Deletes file from filesystem
+    when corresponding `MediaFile` object is deleted.
+    """
+    if instance.file:
+        if os.path.isfile(instance.file.path):
+            os.remove(instance.file.path)

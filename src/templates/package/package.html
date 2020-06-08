@@ -43,42 +43,57 @@
     </div>
     <div class="col s4">
         <div class="row">
+            {% if entity.homepage|length %}
+            <div class="col s12">
+                <h5>Home page</h5>
+                <span nowrap>
+                    <a class="btn-small waves-effect waves-light red"
+                       href="{{ entity.homepage }}" target="_blank">
+                        {{ entity.homepage }}
+                    </a>
+                </span>
+            </div>
+            {% endif %}
+            {% if entity.version %}
             <div class="col s12">
                 <h5>Latest version</h5>
-                {% if entity.version %}
                 <p><h6>MD5 Hash:</h6> {{ entity.version.hash }}</p>
                 <a href="{% url 'package_download' slug=entity.slug %}"
-                   class="waves-effect waves-light btn">
+                   class="waves-effect waves-light btn green">
                     Download
                 </a>
                 <p><h6>Updated at:</h6> {{ entity.version.created|date:'Y M d' }}</p>
-                {% endif %}
             </div>
+            {% endif %}
         </div>
 
         <div class="row">
             {% if entity.groups.all|length %}
-                <div class="col s12">
-                    <ul class="collection">
-                        {% for group in entity.groups.all %}
-                        <li class="collection-item">
-                            <div>{{ group.name }}<a href="{% url 'package_group' group.id %}" class="secondary-content"><i
-                                    class="material-icons">send</i></a></div>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+            <div class="col s12">
+                <ul class="collection">
+                    {% for group in entity.groups.all %}
+                    <li class="collection-item">
+                        <div>
+                            {{ group.name }}
+                            <a href="{% url 'package_group' group.id %}" class="secondary-content">
+                                <i class="material-icons">send</i>
+                            </a>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
             {% endif %}
 
             {% if entity.comments.all|length %}
-                <div class="col s12">
-                    <h5>Comments:</h5>
-                    <ul type="1">
-                        {% for comments in entity.comments.all %}
-                        <li>{{ comments.text }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
+            <div class="col s12">
+                <h5>Comments:</h5>
+                <ul type="1">
+                    {% for comments in entity.comments.all %}
+                    <li>{{ comments.text }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
             {% endif %}
         </div>
     </div>

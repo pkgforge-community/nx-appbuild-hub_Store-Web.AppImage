@@ -31,13 +31,24 @@
                     {% autoescape off %}
                     {{ package.description }}
                     {% endautoescape %}
-
                 </p>
-            </div>
-            <div class="card-action">
                 <a href="{% url 'package' package.id %}">
                     show me more...
                 </a>
+            </div>
+            <div class="card-action">
+                {% if package.version %}
+                    <a class="btn-floating btn-small waves-effect waves-light green"
+                        href="{% url 'package_download' package.slug %}" title="Download">
+                        <i class="material-icons">file_download</i>
+                    </a>&nbsp;
+                {% endif %}
+                {% if package.homepage|length %}
+                    <a class="btn-floating btn-small waves-effect waves-light blue"
+                        href="{{ package.homepage }}" target="_blank" title="Home page">
+                        <i class="material-icons">home</i>
+                    </a>&nbsp;
+                {% endif %}
             </div>
         </div>
     </div>
