@@ -10,7 +10,8 @@
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-
+import inject
+from chunked_upload.models import ChunkedUpload
 from chunked_upload.views import ChunkedUploadCompleteView
 from chunked_upload.views import ChunkedUploadView
 from django.core.files.base import ContentFile
@@ -24,7 +25,6 @@ from apps.package.model.version import PackageVersion
 from .serializer.upload import PackageUploadInitializeSerializer
 from .serializer.upload import PackageUploadSerializer
 
-from chunked_upload.models import ChunkedUpload
 
 class PackageUploadView(viewsets.GenericViewSet, ChunkedUploadView):
     serializer_class = PackageUploadInitializeSerializer
@@ -67,7 +67,8 @@ class PackageUploadCompleteView(viewsets.GenericViewSet, ChunkedUploadCompleteVi
     def get_queryset(self, request):
         return self.model.objects.all()
 
-    def on_completion(self, uploaded_file, request):
+    @inject.params(config='config')
+    def on_completion(self, uploaded_file, request, config=None):
         data = request.data
         if data is None:
             return data
@@ -78,13 +79,22 @@ class PackageUploadCompleteView(viewsets.GenericViewSet, ChunkedUploadCompleteVi
         package = Package.objects.get(token=data['token'])
         if package is None: return None
 
-        return PackageVersion.objects.create(
+        PackageVersion.objects.create(
             description=data['description'],
             hash=data['md5'],
             name=data['name'],
             package=package,
             file=uploaded_file,
         )
+
+        limit = int(config.get('package.history.limit', 3))
+        print(limit)
+        if limit is None or limit <= 0:
+            return None
+
+        for index, version in enumerate(package.versions, start=1):
+            if index <= int(limit): continue
+            version.delete()
 
     def get_response_data(self, chunked_upload, request):
         data = request.data

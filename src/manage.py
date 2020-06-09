@@ -1,6 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
-# Copyright 2020 Alex Woroschilow (alex.woroschilow@gmail.com)
+# Copyright 2015 Alex Woroschilow (alex.woroschilow@gmail.com)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,22 +12,27 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 import os
+import inject
 import sys
 import optparse
 import logging
 import django
 import corsheaders
-import corsheaders.middleware
 import ckeditor
 import nested_admin
+import chunked_upload
 import tinymce
 import rest_framework
 import drf_yasg
+import adminplus
+import aodstore
+import jet
 
 abspath = sys.argv[0] \
     if len(sys.argv) else \
     os.path.abspath(__file__)
 os.chdir(os.path.dirname(abspath))
+print(os.path.dirname(abspath))
 
 
 class OptionParserAOD(optparse.OptionParser):
@@ -56,6 +61,8 @@ if __name__ == '__main__':
         sys.exit(1)
 
     try:
+
+        from aodstore import settings
 
         os.environ.setdefault('config', '{}'.format(options.config))
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'aodstore.settings')

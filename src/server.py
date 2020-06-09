@@ -52,7 +52,6 @@ if __name__ == '__main__':
         from aodstore.wsgi import get_wsgi_application
 
     except ImportError as exc:
-        print(exc)
         raise ImportError(
             "Couldn't import Django. Are you sure it's installed and "
             "available on your PYTHONPATH environment variable? Did you "

@@ -21,6 +21,17 @@ server:
 	export ARCH=x86_64 && bin/appimagetool-x86_64.AppImage  ./AppDir apprepo.AppImage
 	@echo "done: apprepo.AppImage"
 
+console:
+	rm -rf $(APPDIR_APPLICATION)
+	mkdir -p $(APPDIR_APPLICATION)
+	source venv/bin/activate && python3 -m PyInstaller --additional-hooks-dir=hooks src/manage.py --distpath $(APPDIR) --name application --noconfirm
+	cp -r ./src/apps $(APPDIR_APPLICATION)
+	cp -r ./src/aodstore $(APPDIR_APPLICATION)
+	export ARCH=x86_64 && bin/appimagetool-x86_64.AppImage  ./AppDir apprepo-console.AppImage
+	@echo "done: apprepo.AppImage"
+
+
+
 clean:
 	rm -rf ${APPDIR}/venv
 	rm -rf ${APPDIR}/opt
