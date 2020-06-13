@@ -54,4 +54,6 @@ class PackageDownloadView(TemplateView):
 
         response = FileResponse(FileWrapper(open(version_file.path, 'rb')), as_attachment=True)
         response["Content-Disposition"] = 'attachment; filename="{}"'.format(package.package)
+        response["Content-Length"] = os.path.getsize(version_file.path)
+
         return response
