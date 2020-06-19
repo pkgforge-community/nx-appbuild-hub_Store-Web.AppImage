@@ -52,7 +52,7 @@ class PackageDownloadView(TemplateView):
         if version_file is None or not version_file:
             raise Exception('package version can not be empty')
 
-        response = FileResponse(FileWrapper(open(version_file.path, 'rb')), as_attachment=True)
+        response = FileResponse(filename=FileWrapper(open(version_file.path, 'rb')), as_attachment=True)
         response["Content-Disposition"] = 'attachment; filename="{}"'.format(package.package)
         response["Content-Length"] = os.path.getsize(version_file.path)
 

@@ -13,12 +13,11 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .inline.image import PackageImageInline
-from .inline.version import PackageVersionInline
-from .inline.package import PackageGroupInline
-from .inline.comment import PackageCommentInline
-
 from .form.package import PackageForm
+from .inline.comment import PackageCommentInline
+from .inline.image import PackageImageInline
+from .inline.package import PackageGroupInline
+from .inline.version import PackageVersionInline
 
 
 class PackageAdmin(admin.ModelAdmin):

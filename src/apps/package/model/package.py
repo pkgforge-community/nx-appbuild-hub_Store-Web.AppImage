@@ -10,12 +10,21 @@
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-import string
-import random
 from django.db import models
+
+from .comment import PackageComment
 from .image import PackageImage
 from .version import PackageVersion
-from .comment import PackageComment
+
+
+class PackageModelManager(models.Manager):
+
+    def get_queryset(self):
+        return super().get_queryset(). \
+            prefetch_related('package__version_set'). \
+            prefetch_related('package__image_set'). \
+            prefetch_related('package__comment_set'). \
+            prefetch_related('groups')
 
 
 class Package(models.Model):
@@ -30,6 +39,8 @@ class Package(models.Model):
 
     icon = models.FileField(upload_to='package/icon/%Y/%m/%d/%H%M%S', null=True, blank=True)
     groups = models.ManyToManyField('PackageGroup', through='PackageGroupPackage')
+
+    objects = PackageModelManager()
 
     @property
     def image(self):
