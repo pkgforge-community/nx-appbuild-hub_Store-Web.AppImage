@@ -11,12 +11,14 @@
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-import os
-import inject
-import sys
-import optparse
 import logging
-import django
+import optparse
+import os
+import sys
+from multiprocessing import Pool
+
+import inject
+
 import corsheaders
 import ckeditor
 import nested_admin
@@ -27,12 +29,27 @@ import drf_yasg
 import adminplus
 import jet
 
-from gevent.pywsgi import WSGIServer
-
 abspath = sys.argv[0] \
     if len(sys.argv) else \
     os.path.abspath(__file__)
 os.chdir(os.path.dirname(abspath))
+
+
+def server(settings=None):
+    host, port, options = settings
+
+    os.environ.setdefault('config', '{}'.format(options.config))
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'aodstore.settings')
+
+    from gevent.pywsgi import WSGIServer
+    from aodstore.wsgi import get_wsgi_application
+
+    http_server = WSGIServer((
+        str(host), int(port)
+    ), get_wsgi_application())
+
+    http_server.serve_forever()
+
 
 if __name__ == '__main__':
 
@@ -49,7 +66,23 @@ if __name__ == '__main__':
         os.environ.setdefault('config', '{}'.format(options.config))
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'aodstore.settings')
 
-        from aodstore.wsgi import get_wsgi_application
+        import django
+
+        django.setup()
+
+        container = inject.get_injector_or_die()
+        config = container.get_instance('config')
+
+        host = config.get('server.host', '0.0.0.0')
+        ports = config.get('server.port', '8000')
+        pool = config.get('server.pool', '5')
+
+        settings = []
+        for port in ports.split(','):
+            settings.append((host, port, options))
+
+        pool = Pool(int(pool))
+        pool.map(server, settings)
 
     except ImportError as exc:
         raise ImportError(
@@ -57,13 +90,3 @@ if __name__ == '__main__':
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-
-    container = inject.get_injector_or_die()
-    config = container.get_instance('config')
-
-    http_server = WSGIServer((
-        config.get('server.host', '0.0.0.0'),
-        int(config.get('server.port', '8000'))
-    ), get_wsgi_application())
-
-    http_server.serve_forever()
