@@ -18,6 +18,7 @@ from django.shortcuts import render
 from django.views.generic.base import TemplateView
 
 from apps.package.model.package import Package
+from django.http import HttpResponse
 
 
 class PackageView(TemplateView):
@@ -51,7 +52,7 @@ class PackageDownloadView(TemplateView):
         if version_file is None or not version_file:
             raise Exception('package version can not be empty')
 
-        response = FileResponse(filename=FileWrapper(open(version_file.path, 'rb')), as_attachment=True)
+        response = FileResponse(open(version_file.path, 'rb'), as_attachment=False)
         response["Content-Disposition"] = 'attachment; filename="{}"'.format(package.package)
         response["Content-Length"] = os.path.getsize(version_file.path)
 
