@@ -6,7 +6,7 @@ GLIBC_VERSION := $(shell getconf GNU_LIBC_VERSION | sed 's/ /-/g' )
 all: init server clean
 
 init:
-	rm -rf init
+	rm -rf venv
 	python3 -m venv --copies --system-site-packages venv && source venv/bin/activate && python3 -m pip install -r ./requirements.txt
 
 server:

@@ -33,5 +33,6 @@ class DashboardView(TemplateView):
     @inject.params(package='package')
     def search(self, request, search=None, package=None):
         return render(request, "package/search.html", {
-            'collection': package.search(search)
+            'collection': package.search(search),
+            'request': search
         })

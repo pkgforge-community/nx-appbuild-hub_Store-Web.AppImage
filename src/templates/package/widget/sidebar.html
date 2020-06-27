@@ -1,8 +1,19 @@
-<ul class="section table-of-contents" style="margin-top: 100px;">
+{% load widgets %}
+
+<ul id="nav-mobile" class="sidenav sidenav-fixed" >
+    <li class="logo">
+        <a href="{% url 'package_dashboard' %}" class="brand-logo">
+            <img src="/uploads/logo.png" width="150" id="front-page-logo">
+        </a>
+    </li>
+    <li class="search">
+        {% widget 'dashboard.search' %}
+    </li>
     {% for group in collection %}
-    <li>
-        <a href="{% url 'package_group' group.id %}">
-            {{ group.name }}
+    <li class="bold">
+        <a href="{% url 'package_group' group.id %}" class="waves-effect waves-teal">
+            <span class="title">{{ group.name }}</span>
+            <span class="badge">{{ group.packages.count }}</span>
         </a>
     </li>
     {% endfor %}
