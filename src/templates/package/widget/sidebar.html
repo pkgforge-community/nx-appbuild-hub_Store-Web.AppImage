@@ -1,12 +1,12 @@
 {% load widgets %}
 
 <ul id="nav-mobile" class="sidenav sidenav-fixed" >
-    <li class="logo">
+    <li class="bold center">
+        <br/>
         <a href="{% url 'package_dashboard' %}" class="brand-logo">
             <img src="/uploads/logo.png" width="150" id="front-page-logo">
         </a>
-    </li>
-    <li class="search">
+        <br/>
         {% widget 'dashboard.search' %}
     </li>
     {% for group in collection %}
