@@ -17,7 +17,7 @@
     <div class="col s6">
         <div class="card">
             <div class="card-image">
-                <a href="{% url 'package' package.id %}">
+                <a href="{% url 'package' package.slug %}">
                     {% if package.image %}
                     <img src="{{ package.image.url }}" alt="{{ package.name }}" width="300">
                     {% else %}
@@ -35,7 +35,7 @@
                     {{ package.description }}
                     {% endautoescape %}
                 </p>
-                <a href="{% url 'package' package.id %}">
+                <a href="{% url 'package' package.slug %}">
                     show me more...
                 </a>
             </div>

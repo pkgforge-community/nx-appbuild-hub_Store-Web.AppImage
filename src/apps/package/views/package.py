@@ -11,23 +11,20 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 import os
-from wsgiref.util import FileWrapper
 
 from django.http import FileResponse
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 
 from apps.package.model.package import Package
-from django.http import HttpResponse
 
 
 class PackageView(TemplateView):
-    def get(self, request, id=None):
-        if id is None or not len(id):
-            raise Exception('id can not be empty')
+    def get(self, request, slug=None):
+        if not len(slug): raise ValueError('id can not be empty')
 
         return render(request, "package/package.html", {
-            'entity': Package.objects.get(id=id)
+            'entity': Package.objects.get(slug=slug)
         })
 
 
