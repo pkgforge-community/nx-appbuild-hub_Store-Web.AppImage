@@ -16,23 +16,20 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 import os
-from wsgiref.util import FileWrapper
 
 from django.http import FileResponse
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 
 from apps.package.model.package import Package
-from django.http import HttpResponse
 
 
 class PackageView(TemplateView):
-    def get(self, request, id=None):
-        if id is None or not len(id):
-            raise Exception('id can not be empty')
+    def get(self, request, slug=None):
+        if not len(slug): raise ValueError('id can not be empty')
 
         return render(request, "package/package.html", {
-            'entity': Package.objects.get(id=id)
+            'entity': Package.objects.get(slug=slug)
         })
 
 

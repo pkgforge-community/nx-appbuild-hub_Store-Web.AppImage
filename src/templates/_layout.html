@@ -1,11 +1,28 @@
 <!DOCTYPE html>
 <html>
+{% block html %}
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-171651818-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-171651818-1');
+    </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AOD - Application store</title>
+    {% block meta %}
+    <title>Apprepo - application repository for any linux distribution</title>
+    <meta name="keywords" content="application, repository, linux, appimage, appstore">
+    <meta name="description" content="application repository for any linux distribution">
+    {% endblock meta %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://materializecss.com/css/ghpages-materialize.css">
+
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -13,45 +30,58 @@
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <style>
         .card { height: 100%; }
+
+
+
+
+
+
     </style>
 </head>
 
 <body>
 {% block body %}
 {% load widgets %}
-<nav>
-    <div class="nav-wrapper">
-        <div class="container">
-            <a href="{% url 'package_dashboard' %}" class="brand-logo">
-                <img src="/uploads/logo.png" class="materialboxed" width="150">
-            </a>
-            {% widget 'menu.main' %}
-        </div>
-    </div>
-</nav>
 
 {% block layout %}
-<div class="container">
-    <div class="row">
-        <div class="col s3">
-            {% widget 'dashboard.sidebar' %}
+<header>
+    <nav class="top-nav">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="row">
+                    <div class="col s12 m10 offset-m1">
+                        {% block title %} {% endblock title %}
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col s9">
-            {% block title %}
-            {% endblock title %}
-            {% block content %}
-            {% endblock content %}
+    </nav>
+    <div class="container">
+        <a href="#" data-target="nav-mobile" class="top-nav sidenav-trigger full hide-on-large-only">
+            <i class="material-icons">menu</i>
+        </a>
+    </div>
+    {% widget 'dashboard.sidebar' %}
+</header>
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                {% block content %}
+                {% endblock content %}
+            </div>
         </div>
     </div>
-</div>
+</main>
 {% endblock layout %}
-
-<footer class="page-footer">
+<footer class="page-footer docs-footer">
     <div class="container">
-        © {% now "Y" %} A.O.D. {% widget 'menu.footer' %}
+        &nbsp;© {% now "Y" %} A.O.D. {% widget 'menu.footer' %}
     </div>
     <br/>
 </footer>
+
 {% endblock body %}
 </body>
+{% endblock html %}
 </html>

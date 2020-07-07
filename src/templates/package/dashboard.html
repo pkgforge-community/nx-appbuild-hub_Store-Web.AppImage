@@ -1,61 +1,131 @@
 {% extends '_layout.html' %}
 {% load widgets %}
 
-
 {% block body %}
 {% load widgets %}
-<nav>
-    <div class="nav-wrapper">
-        <div class="container">
-            <a href="{% url 'package_dashboard' %}" class="brand-logo">
-                <img src="/uploads/logo.png" class="materialboxed" width="150">
-            </a>
-            {% widget 'menu.main' %}
-        </div>
+<header>
+    <div class="container">
+        <a href="#" data-target="nav-mobile" class="top-nav sidenav-trigger full hide-on-large-only">
+            <i class="material-icons">menu</i>
+        </a>
     </div>
-</nav>
-
-<div class="container">
-    <div class="row">
-        <div class="col s3">
-            {% widget 'dashboard.sidebar' %}
-        </div>
-        <div class="col s9">
-
-            <div class="row">
-                <div class="col s12">
-                    <h4 class="title">Welcome to Apprepo</h4>
-                </div>
-                <div class="col s12">
-                    {% widget 'dashboard.search' %}
-                    <p>
-                        the home of <span class="tag is-light is-info">{{total }}</span>
-                        high-quality apps which can be easily installed on
+    {% widget 'dashboard.sidebar' %}
+</header>
+<main>
+    <div id="index-banner" class="section">
+        <div class="container">
+            <div class="row" style="margin-bottom: 0;">
+                <div class="col s12 m8 offset-m1 xl10 offset-xl1">
+                    <h1 class="header center">Apprepo</h1>
+                    <p class="caption center">
+                        The home of <b>{{total }}</b> high-quality apps which can be easily installed on
                         any Linux distribution.
+                    </p>
+                    <form method="get" action="{% url 'package_dashboard' %}">
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <input type="text" class="validate " name="search" id="search"
+                                       placeholder="Enter search string...">
+                            </div>
+                            <div class="input-field col s3">
+                                <input type="submit" class="waves-effect waves-light btn" value="YOLO!"/>
+                            </div>
+                        </div>
+                    </form>
+
+                    <p class="caption">
+
+                        Apprepo is a non-profit volunteer project. Although every effort is made to ensure that
+                        everything
+                        in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b>. Wherever
+                        possible,
+                        applications
+                        in the repository are built from source, and that source code is checked for potential
+                        security or
+                        privacy issues. This checking is <b>far from exhaustive</b> though, and there are <b>no
+                        guarantees</b>.
                     </p>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col s12">
-                    <div class="row">
-                        <div class="col s6">
-                            {% widget 'dashboard.featured' %}
-                        </div>
-                        <div class="col s6">
-                            {% widget 'dashboard.latest' %}
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12">
-                    {% widget 'dashboard.popular' %}
-                </div>
-            </div>
-
         </div>
     </div>
-</div>
-<footer class="page-footer">
+    <br/><br/>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 offset-m1 xl10 offset-xl1 center-on-small-only">
+                <h3 class="header">Motivation</h3>
+                <p class="caption">
+
+                <p>Linus addresses some core issues of Linux on the desktop in his&nbsp;
+                    <a href="https://www.youtube.com/watch?v=5PmHRSeA2c8" rel="nofollow">DebConf 14_ QA with Linus
+                        Torvalds talk</a>.
+                </p>
+
+                <p>At 05:40 Linus highlights application packaging:</p>
+
+                <i> We basically don&#39;t make binaries for Linux. Why?
+                    Because binaries for Linux desktop applications is a major f*ing pain in the ass.
+                    Right. You don&#39;t make binaries for Linux.
+                    You make binaries for Fedora 19, Fedora 20, maybe there&#39;s even like RHEL 5 from ten years ago,
+                    you make binaries for debian stable.
+                </i>
+
+                <p>So why not use the same approach as on Windows and OS X, namely, treat the base operating system as a&nbsp;<em>platform</em>&nbsp;on
+                    top of which we run the application we care about. This means that we have to bundle the application
+                    with all their dependencies that are&nbsp;<em>not</em>&nbsp;part of the base operating system [<a
+                            href="https://docs.appimage.org/introduction/index.html" target="_blank" rel="nofollow">appimage.org</a>].
+                </p>
+                <p>At the same time the package-managers are extremely useful and getting rid of them is a huge
+                    regression in terms of usability from my point of view. With this project i am trying to combine the
+                    approaches from the both of the worlds providing the AppImage repository and the command line
+                    package
+                    manager to install / uninstall and provide the system integration of the available AppImage.</p>
+
+
+            </div>
+            <div class="col s12 offset-m1 xl10 offset-xl1 center-on-small-only">
+                <h3 class="header">What is AppImage</h3>
+                <p class="caption">
+                    AppImage provides a way for upstream developers to provide “native” binaries for Linux users just
+                    the same way they could do for other operating systems. It allow packaging applications for any
+                    common Linux based operating system, e.g., Ubuntu, Debian, openSUSE, RHEL, CentOS, Fedora etc.
+                    AppImages come with all dependencies that cannot be assumed to be part of each target system in a
+                    recent enough version and will run on most Linux distributions without further modifications [<a
+                        href="https://docs.appimage.org/introduction/index.html" target="_blank" rel="nofollow">appimage.org</a>].
+                </p>
+            </div>
+            <div class="col s12 offset-m1 xl10 offset-xl1 center-on-small-only">
+                <h3 class="header">Why would I as a user want to use AppImages?</h3>
+                <p class="caption">
+                <ul class="collection">
+                    <li class="collection-item">"I as a user want to run the latest version of my favorite app on my
+                        stable distribution, which ships only with an old outdated version."
+                    </li>
+                    <li class="collection-item">"I as a user need to use multiple versions of an application in
+                        parallel."
+                    </li>
+                    <li class="collection-item">"I as a user want to take my favorite applications with me on a portable
+                        disk together with my data, allowing me to use any Linux computer to work with my files."
+                    </li>
+                    <li class="collection-item">"I am in a corporate or university environment and want to simply run
+                        some specific software, but lack permissions to ‘install’ applications."
+                    </li>
+                </ul>
+
+                All these use cases can be accomplished by using AppImages. They’re a trade-off between a simple user
+                experience and resulting file size. The unique user experience guarantees that even less tech-savvy
+                people can get started without any major issues. AppImage is primarily a user-focused way of bundling
+                software.
+
+                [<a href="https://docs.appimage.org/introduction/motivation.html#why-would-i-as-a-user-want-to-use-appimages"
+                    target="_blank" rel="nofollow">appimage.org</a>].
+                </p>
+            </div>
+        </div>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    </div>
+</main>
+<footer class="page-footer docs-footer">
     <div class="container">
         © {% now "Y" %} A.O.D. {% widget 'menu.footer' %}
     </div>

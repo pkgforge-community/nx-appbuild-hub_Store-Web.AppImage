@@ -2,55 +2,78 @@
 {% load math %}
 {% load widgets %}
 
+{% block meta %}
+    <title>Apprepo - {{ request }}</title>
+    <meta name="keywords" content="application, repository, linux, appimage, appstore">
+    <meta name="description" content="{{ request }}">
+{% endblock meta %}
+
+
+{% block title %}
+{% autoescape off %}
+<h1 class="header">Searching: {{ request }}</h1>
+{% endautoescape %}
+{% endblock %}
+
+
 {% block content %}
 <div class="row">
-    <div class="col s12">
-        <h4 class="title">Welcome to Apprepo</h4>
-    </div>
-    <div class="col s12">
-        {% widget 'dashboard.search' %}
-        <p>
-            the home of <span class="tag is-light is-info">{{total }}</span>
-            high-quality apps which can be easily installed on
-            any Linux distribution.
-        </p>
-    </div>
+    <p class="caption">
+        Apprepo is a non-profit volunteer project. Although every effort is made to ensure that
+        everything
+        in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b>. Wherever
+        possible,
+        applications
+        in the repository are built from source, and that source code is checked for potential
+        security or
+        privacy issues. This checking is <b>far from exhaustive</b> though, and there are <b>no
+        guarantees</b>.
+    <p>
+        {% for package in collection %}
+        <div class="col s6">
+            <div class="card">
+                <div class="card-image">
+                    <a href="{% url 'package' package.slug %}">
+                        {% if package.image %}
+                        <img src="{{ package.image.url }}" alt="{{ package.name }}" width="300">
+                        {% else %}
+                        <img src="https://bulma.io/images/placeholders/1280x960.png" alt="{{ package.name }}">
+                        {% endif %}
+
+                        <span class="card-title">
+                            {{ package.name }}
+                        </span>
+                    </a>
+                </div>
+                <div class="card-content">
+    <p>
+        {% autoescape off %}
+        {{ package.description }}
+        {% endautoescape %}
+        <a href="{% url 'package' package.slug %}">
+            show me more...
+        </a>
+    </p>
+</div>
+<div class="card-action">
+    {% if package.version %}
+    <a class="btn-floating btn-small waves-effect waves-light green"
+       href="{% url 'package_download' package.slug %}" title="Download">
+        <i class="material-icons">file_download</i>
+    </a>&nbsp;
+    {% endif %}
+    {% if package.homepage|length %}
+    <a class="btn-floating btn-small waves-effect waves-light blue"
+       href="{{ package.homepage }}" target="_blank" title="Home page">
+        <i class="material-icons">home</i>
+    </a>&nbsp;
+    {% endif %}
 </div>
 
-<div class="row">
-    {% for package in collection %}
-    <div class="col s6">
-        <div class="card">
-            <div class="card-image">
-                <a href="{% url 'package' package.id %}">
-                    {% if package.image %}
-                    <img src="{{ package.image.url }}" alt="{{ package.name }}" width="300">
-                    {% else %}
-                    <img src="https://bulma.io/images/placeholders/1280x960.png" alt="{{ package.name }}">
-                    {% endif %}
+</div>
+</div>
 
-                    <span class="card-title">
-                        {{ package.name }}
-                    </span>
-                </a>
-            </div>
-            <div class="card-content">
-                <p>
-                    {% autoescape off %}
-                    {{ package.description }}
-                    {% endautoescape %}
-
-                </p>
-            </div>
-            <div class="card-action">
-                <a href="{% url 'package' package.id %}">
-                    show me more...
-                </a>
-            </div>
-        </div>
-    </div>
-
-    {% if forloop.counter|modulo:'2' == 0 %}
+{% if forloop.counter|modulo:'2' == 0 %}
 </div>
 <div class="row">
     {% endif %}

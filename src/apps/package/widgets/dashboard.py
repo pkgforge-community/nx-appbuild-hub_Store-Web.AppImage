@@ -16,8 +16,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 import inject
-from apps.widgets import widget
 from django.template.loader import render_to_string
+
+from apps.widgets import widget
 
 
 @widget(name='dashboard.search')
@@ -56,5 +57,7 @@ def popular(request=None, package=None):
 def sidebar(request=None, package=None):
     from apps.package.model.group import PackageGroup
     return render_to_string("package/widget/sidebar.html", {
-        'collection': PackageGroup.objects.all()
+        'collection': PackageGroup.objects.
+                            order_by('name').
+                            all()
     })

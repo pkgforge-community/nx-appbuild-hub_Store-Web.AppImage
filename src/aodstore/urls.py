@@ -42,8 +42,8 @@ urlpatterns.append(path('admin/', aod_store_admin.urls))
 urlpatterns.append(path(r'^_nested_admin/', include('nested_admin.urls')))
 urlpatterns.append(path('', DashboardView.as_view(), name='package_dashboard'))
 urlpatterns.append(path(r'group/<id>', GroupView.as_view(), name='package_group'))
-urlpatterns.append(path(r'package/download/<slug>', PackageDownloadView.as_view(), name='package_download'))
-urlpatterns.append(path(r'package/<id>', PackageView.as_view(), name='package'))
+urlpatterns.append(path(r'appimage/download/<slug>', PackageDownloadView.as_view(), name='package_download'))
+urlpatterns.append(path(r'appimage/<slug>', PackageView.as_view(), name='package'))
 urlpatterns.append(path(r'page/<path>', PageView.as_view(), name='page'))
 
 urlpatterns.append(url(r'{}(?P<path>.*)$'.format(settings.STATIC_URL.lstrip('/')), serve, {

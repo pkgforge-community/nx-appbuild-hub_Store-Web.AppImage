@@ -19,11 +19,11 @@
 import logging
 import optparse
 import os
-import sys
-from multiprocessing import Pool
-
 import inject
-
+import sys
+import optparse
+import logging
+import django
 import corsheaders
 import ckeditor
 import nested_admin
@@ -33,6 +33,7 @@ import rest_framework
 import drf_yasg
 import adminplus
 import jet
+from multiprocessing import Pool
 
 abspath = sys.argv[0] \
     if len(sys.argv) else \
@@ -80,13 +81,12 @@ if __name__ == '__main__':
 
         host = config.get('server.host', '0.0.0.0')
         ports = config.get('server.port', '8000')
-        pool = config.get('server.pool', '5')
 
         settings = []
         for port in ports.split(','):
             settings.append((host, port, options))
 
-        pool = Pool(int(pool))
+        pool = Pool(len(settings))
         pool.map(server, settings)
 
     except ImportError as exc:
