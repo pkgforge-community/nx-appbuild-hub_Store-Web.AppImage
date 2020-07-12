@@ -16,7 +16,7 @@ cryptography==2.8
 cssselect==1.1.0
 d==0.2.2
 daphne==1.4.1
-django>=2.2.13
+django~=2.2
 django-adminplus==0.5
 django-channels-presence==0.0.9
 django-chunked-upload==2.0.0
@@ -77,5 +77,5 @@ zope.interface==4.7.1
 PyInstaller==3.6
 urllib3
 inject
-asgiref
+asgiref~=1.1
 six
