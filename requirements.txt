@@ -67,7 +67,6 @@ requests==2.22.0
 ruamel.yaml==0.16.5
 ruamel.yaml.clib==0.2.0
 service-identity==18.1.0
-six==1.13.0
 sqlparse==0.3.0
 Twisted==20.3.0
 txaio==18.8.1
@@ -79,3 +78,4 @@ zope.interface==4.7.1
 PyInstaller==3.6
 inject
 asgiref
+six
