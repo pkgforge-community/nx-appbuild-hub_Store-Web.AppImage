@@ -1,6 +1,5 @@
 amqp==2.5.2
 asgi-redis==1.4.3
-asgiref==1.1.2
 attrs==19.3.0
 autobahn==19.11.1
 Automat==0.8.0
@@ -79,3 +78,4 @@ zipp==0.6.0
 zope.interface==4.7.1
 PyInstaller==3.6
 inject
+asgiref
