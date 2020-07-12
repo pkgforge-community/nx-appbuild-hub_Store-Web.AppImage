@@ -18,6 +18,7 @@ APPDIR := ./AppDir
 APPDIR_APPLICATION := ${APPDIR}/application
 BUILDROOT = $(shell pwd)/build
 GLIBC_VERSION := $(shell getconf GNU_LIBC_VERSION | sed 's/ /-/g' )
+SHELL:=$(shell which bash)
 
 all: init server clean
 
