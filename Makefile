@@ -1,4 +1,4 @@
-# This software is a part of the A.O.D apprepo project
+# This software is a part of the A.O.D (https://apprepo.de) project
 # Copyright 2020 Alex Woroschilow (alex.woroschilow@gmail.com)
 #
 # This program is free software; you can redistribute it and/or
@@ -19,6 +19,7 @@ APPDIR := ./AppDir
 APPDIR_APPLICATION := ${APPDIR}/application
 BUILDROOT = $(shell pwd)/build
 GLIBC_VERSION := $(shell getconf GNU_LIBC_VERSION | sed 's/ /-/g' )
+SHELL:=$(shell which bash)
 
 all: init server clean
 

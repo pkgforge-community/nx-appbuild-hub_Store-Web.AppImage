@@ -18,7 +18,7 @@ cryptography==2.8
 cssselect==1.1.0
 d==0.2.2
 daphne==1.4.1
-django==2.2
+django~=2.2
 django-adminplus==0.5
 django-channels-presence==0.0.9
 django-chunked-upload==2.0.0
@@ -74,9 +74,9 @@ sqlparse==0.3.0
 Twisted==20.3.0
 txaio==18.8.1
 uritemplate==3.0.1
-urllib3==1.25.7
 vine==1.3.0
 zipp==0.6.0
 zope.interface==4.7.1
 PyInstaller==3.6
+urllib3
 inject
