@@ -93,7 +93,6 @@ class PackageUploadCompleteView(viewsets.GenericViewSet, ChunkedUploadCompleteVi
         )
 
         limit = int(config.get('package.history.limit', 3))
-        print(limit)
         if limit is None or limit <= 0:
             return None
 

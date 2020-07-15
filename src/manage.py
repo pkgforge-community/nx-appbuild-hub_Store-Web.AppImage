@@ -66,10 +66,10 @@ if __name__ == '__main__':
 
     try:
 
-        from aodstore import settings
-
         os.environ.setdefault('config', '{}'.format(options.config))
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'aodstore.settings')
+
+        from aodstore import settings
 
         from django.core.management import execute_from_command_line
 

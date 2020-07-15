@@ -50,7 +50,7 @@ class ConfigFile(object):
 
     def get(self, name, default=None):
         if self.file is None:
-            return None
+            return default
 
         if not self.has(name):
             return self.set(name, default)
@@ -65,7 +65,7 @@ class ConfigFile(object):
 
     def set(self, name, value=None):
         if self.file is None:
-            return None
+            return value
 
         section, option = name.split('.', 1)
 
@@ -80,7 +80,7 @@ class ConfigFile(object):
 
     def has(self, name):
         if self.file is None:
-            return None
+            return False
 
         section, option = name.split('.', 1)
 
