@@ -32,10 +32,10 @@ server:
 	mkdir -p $(APPDIR_APPLICATION)
 	source venv/bin/activate && python3 ./src/manage.py collectstatic --clear --noinput
 	source venv/bin/activate && python3 -m PyInstaller --additional-hooks-dir=hooks src/server.py --distpath $(APPDIR) --name application --noconfirm
-	cp -r ./src/apps $(APPDIR_APPLICATION)
-	cp -r ./src/aodstore $(APPDIR_APPLICATION)
-	cp -r ./src/templates $(APPDIR_APPLICATION)
-	cp -r ./src/static $(APPDIR_APPLICATION)
+	cp -r ./src/apps $(APPDIR_APPLICATION)/
+	cp -r ./src/aodstore $(APPDIR_APPLICATION)/
+	cp -r ./src/templates $(APPDIR_APPLICATION)/
+	cp -r ./src/static $(APPDIR_APPLICATION)/
 	export ARCH=x86_64 && bin/appimagetool-x86_64.AppImage  ./AppDir apprepo.AppImage
 	@echo "done: apprepo.AppImage"
 

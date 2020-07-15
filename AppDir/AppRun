@@ -19,4 +19,4 @@ set -ex
 
 cd ${OWD}
 
-${APPDIR}/application/application "$@"
+${APPDIR}/application/application $@
