@@ -37,7 +37,6 @@ abspath = sys.argv[0] \
     if len(sys.argv) else \
     os.path.abspath(__file__)
 os.chdir(os.path.dirname(abspath))
-print(os.path.dirname(abspath))
 
 
 class OptionParserAOD(optparse.OptionParser):

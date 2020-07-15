@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 {% block html %}
@@ -19,9 +20,13 @@
     <meta name="description" content="application repository for any linux distribution">
     {% endblock meta %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://materializecss.com/css/ghpages-materialize.css">
+
+    <link rel="icon" href="{% static 'icons/apprepo.svg' %}" type="image/x-icon"/>
+    <link rel="icon shortcut" href="{% static 'icons/apprepo.svg' %}" type="image/x-icon"/>
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -30,12 +35,6 @@
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <style>
         .card { height: 100%; }
-
-
-
-
-
-
     </style>
 </head>
 

@@ -118,7 +118,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {'read_default_file': os.environ.get('config', 'default.conf'), },
         'TEST': {
-            'NAME': 'AodStoreDjango-test',
+            'NAME': 'test-apprepo',
         },
     },
 }
