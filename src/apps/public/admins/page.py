@@ -15,16 +15,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-from ..models import PublicPage
-from django.contrib import admin
-
-from ckeditor.widgets import CKEditorWidget
 from django import forms
+from django.contrib import admin
+from tinymce.widgets import TinyMCE
+
+from ..models import PublicPage
 
 
-# https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css
 class PublicPageForm(forms.ModelForm):
-    content = forms.CharField(widget=CKEditorWidget())
+    content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 20}))
 
     class Meta:
         model = PublicPage
