@@ -11,3 +11,5 @@ src/default.conf
 src/static/
 src/secure_medias/
 build
+src/default.conf
+default.conf
