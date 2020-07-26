@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['src/server.py'],
-             pathex=['/home/sensey/Projects/apprepo-server.AppImage'],
+             pathex=['./apprepo-server.AppImage'],
              binaries=[],
              datas=[],
              hiddenimports=[],
