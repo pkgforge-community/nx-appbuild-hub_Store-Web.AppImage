@@ -15,32 +15,41 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-import os
-
 from apps.config.services import ConfigFile
+from .plugins.cors import *
+from .plugins.database import *
+from .plugins.rest import *
+from .plugins.swagger import *
+from .plugins.template import *
+from .plugins.tinymce import *
+from .plugins.translation import *
+
+assert (REST_FRAMEWORK is not None)
+assert (TINYMCE_DEFAULT_CONFIG is not None)
+assert (SWAGGER_SETTINGS is not None)
+assert (TEMPLATE_CONTEXT_PROCESSORS is not None)
+assert (CORS_ALLOW_HEADERS is not None)
+assert (DATABASES is not None)
+assert (LANGUAGE_CODE is not None)
+assert (USE_I18N is not None)
+assert (USE_L10N is not None)
+assert (DATABASES is not None)
+assert (DATABASES is not None)
+assert (DATABASES is not None)
 
 config = ConfigFile(os.environ.get('config'))
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$v81(vxr-ybm$*rz4la__(h2j$56wj8-9mp^*7m91q04ynh((e'
+APP_NAME = config.get('default.app_name', 'apprepo')
+SECRET_KEY = config.get('default.secret', '$v81(vxr-ybm$*rz4la__(h2j$56wj8-9mp^*7m91q04ynh((e')
+assert (SECRET_KEY is not None)
+assert (APP_NAME is not None)
 
 ROOT_URLCONF = 'aodstore.urls'
 WSGI_APPLICATION = 'aodstore.wsgi.application'
 
-TEMPLATE_CONTEXT_PROCESSORS = []
-
-# Internationalization
-# https://docs.djangoproject.com/en/2.1/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
 TIME_ZONE = str(config.get('default.timezone', 'UTC') or 'UTC')
-assert (len(TIME_ZONE) and len(TIME_ZONE))
-USE_I18N = True
-USE_L10N = True
 USE_TZ = True
 
 JET_SIDE_MENU_COMPACT = True
@@ -48,6 +57,7 @@ JET_CHANGE_FORM_SIBLING_LINKS = False
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(config.get('default.debug', 1) or 1)
+CORS_ORIGIN_ALLOW_ALL = bool(config.get('default.cors', 1) or 1)
 
 ALLOWED_HOSTS = ['*']
 
@@ -78,13 +88,6 @@ INSTALLED_APPS.append('apps.customer.Config')
 INSTALLED_APPS.append('apps.company.Config')
 INSTALLED_APPS.append('apps.template.Config')
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ('apps.customer.middleware.authentication.CustomerTokenAuthentication',),
-    "DEFAULT_PERMISSION_CLASSES": ("apps.customer.middleware.permissions.IsAuthenticated"),
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
-}
-
 MIDDLEWARE = []
 MIDDLEWARE.append('django.middleware.security.SecurityMiddleware'),
 MIDDLEWARE.append('django.contrib.sessions.middleware.SessionMiddleware'),
@@ -95,90 +98,27 @@ MIDDLEWARE.append('django.contrib.auth.middleware.AuthenticationMiddleware'),
 MIDDLEWARE.append('django.contrib.messages.middleware.MessageMiddleware'),
 MIDDLEWARE.append('django.middleware.clickjacking.XFrameOptionsMiddleware'),
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-
-# Database
-# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {'read_default_file': os.environ.get('config', 'default.conf'), },
-        'TEST': {
-            'NAME': 'test-apprepo',
-        },
-    },
-}
-
-# Password validation
-# https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = []
 AUTH_PASSWORD_VALIDATORS.append({'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'})
 AUTH_PASSWORD_VALIDATORS.append({'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'})
 AUTH_PASSWORD_VALIDATORS.append({'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'})
 AUTH_PASSWORD_VALIDATORS.append({'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'})
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_ROOT = str(config.get('static.location', './static/') or './static/')
 STATIC_URL = str(config.get('static.prefix', '/static/') or '/static/')
-assert (len(STATIC_ROOT) and len(STATIC_URL))
+assert (STATIC_URL is not None)
 
 MEDIA_ROOT = str(config.get('media.location', './medias/') or './medias/')
 MEDIA_URL = str(config.get('media.prefix', '/media/') or '/media/')
-assert (len(MEDIA_ROOT) and len(MEDIA_URL))
+assert (MEDIA_ROOT is not None)
 
 FIXTURE_DIRS = [os.path.join(BASE_DIR, 'fixtures')]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST_USER = config.get('email.user', 'store@aod.name')
+EMAIL_HOST_USER = config.get('email.user', 'noreply@apprepo.de')
 EMAIL_HOST_PASSWORD = config.get('email.password', 'password')
 EMAIL_HOST = config.get('email.host', 'mailout.aod.name')
 EMAIL_PORT = int(config.get('email.port', 587) or 587)
 EMAIL_USE_TLS = bool(config.get('email.tls', 1) or 1)
-
-APP_NAME = config.get('default.app_name', 'AOD-Store')
-DEFAULT_FROM_EMAIL = config.get('default.email_from', 'noreply@aod.name')
-
-# Cors origin whitelist
-CORS_ORIGIN_ALLOW_ALL = bool(config.get('default.cors', 1) or 1)
-
-CORS_ALLOW_HEADERS = []
-CORS_ALLOW_HEADERS.append('x-requested-with')
-CORS_ALLOW_HEADERS.append('content-type')
-CORS_ALLOW_HEADERS.append('content-range')
-CORS_ALLOW_HEADERS.append('accept')
-CORS_ALLOW_HEADERS.append('origin')
-CORS_ALLOW_HEADERS.append('authorization')
-CORS_ALLOW_HEADERS.append('x-csrftoken')
-CORS_ALLOW_HEADERS.append('access-control-allow-origin')
-
-SWAGGER_SETTINGS = {
-    'SECURITY_DEFINITIONS': {
-        'token': {
-            'type': 'apiKey',
-            'in': 'header',
-            'name': 'Authorization'
-        }
-    },
-}
-
-CKEDITOR_CONFIGS = {
-    'default': {
-        'contentsCss': 'https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css',
-    }
-}
+DEFAULT_FROM_EMAIL = config.get('default.email_from', 'noreply@apprepo.de')
+assert (DEFAULT_FROM_EMAIL is not None)
