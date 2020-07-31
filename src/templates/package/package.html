@@ -1,14 +1,14 @@
 {% extends '_layout.html' %}
 
 {% block meta %}
-    <title>Apprepo - {{ entity.name }}</title>
+    <title>Apprepo - AppImage: {{ entity.name }}</title>
     <meta name="keywords" content="application, repository, linux, appimage, appstore">
     <meta name="description" content="{{ entity.description|striptags }}">
 {% endblock meta %}
 
 {% block title %}
 {% autoescape off %}
-<h1 class="header">{{ entity.name }}</h1>
+<h1 class="header">AppImage: {{ entity.name }}</h1>
 {% endautoescape %}
 {% endblock %}
 
