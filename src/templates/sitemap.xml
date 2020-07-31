@@ -4,7 +4,7 @@
     {% for group in groups %}
         <url>
             <loc>{% abs_url 'package_group' group.id %}</loc>
-            <lastmod>{{ group.updated|date:'Y M d' }}</lastmod>
+            <lastmod>{{ group.updated|date:'Y-m-d' }}</lastmod>
             <changefreq>daily</changefreq>
             <priority>0.8</priority>
         </url>
@@ -13,7 +13,7 @@
         {% if package.slug|length %}
         <url>
             <loc>{% abs_url 'package' package.slug %}</loc>
-            <lastmod>{{ package.updated|date:'Y M d' }}</lastmod>
+            <lastmod>{{ package.updated|date:'Y-m-d' }}</lastmod>
             <changefreq>daily</changefreq>
             <priority>0.8</priority>
         </url>
