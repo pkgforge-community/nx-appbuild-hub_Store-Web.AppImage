@@ -32,6 +32,7 @@ from apps.package.views.package import PackageView
 from apps.package.views.package import PackageDownloadView
 from apps.package.views.group import GroupView
 from apps.public.views.page import PageView
+from apps.package.views.sitemap import SitemapView
 
 urlpatterns = []
 urlpatterns.append(path(r'rest/', include(aod_store_restapi.urls)))
@@ -41,6 +42,7 @@ urlpatterns.append(path(r'^tinymce/', include('tinymce.urls')))
 urlpatterns.append(path('admin/', aod_store_admin.urls))
 urlpatterns.append(path(r'^_nested_admin/', include('nested_admin.urls')))
 urlpatterns.append(path('', DashboardView.as_view(), name='package_dashboard'))
+urlpatterns.append(path(r'sitemap.xml', SitemapView.as_view(), name='sitemap'))
 urlpatterns.append(path(r'group/<id>', GroupView.as_view(), name='package_group'))
 urlpatterns.append(path(r'appimage/download/<slug>', PackageDownloadView.as_view(), name='package_download'))
 urlpatterns.append(path(r'appimage/<slug>', PackageView.as_view(), name='package'))

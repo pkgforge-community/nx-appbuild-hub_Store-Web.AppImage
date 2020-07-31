@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    {% load url %}
+    {% for group in groups %}
+        <url>
+            <loc>{% abs_url 'package_group' group.id %}</loc>
+            <lastmod>{{ group.updated|date:'Y M d' }}</lastmod>
+            <changefreq>daily</changefreq>
+            <priority>0.8</priority>
+        </url>
+    {% endfor %}
+    {% for package in packages %}
+        {% if package.slug|length %}
+        <url>
+            <loc>{% abs_url 'package' package.slug %}</loc>
+            <lastmod>{{ package.updated|date:'Y M d' }}</lastmod>
+            <changefreq>daily</changefreq>
+            <priority>0.8</priority>
+        </url>
+        {% endif %}
+    {% endfor %}
+</urlset>
