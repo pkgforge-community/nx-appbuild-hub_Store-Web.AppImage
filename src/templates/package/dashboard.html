@@ -28,7 +28,8 @@
                                    placeholder="Enter search string...">
                         </div>
                         <div class="input-field col s3">
-                            <input type="submit" class="waves-effect waves-light btn  red lighten-2" value="YOLO!"/>
+                            <input type="submit" class="waves-effect waves-light btn red lighten-2 pulse"
+                                   value="YOLO!"/>
                         </div>
                     </div>
                 </form>
@@ -39,6 +40,46 @@
                 </p>
             </div>
         </div>
+        <br/><br/>
+        <div class="row">
+            <div class="col s8 offset-s2">
+                <h3 class="header center">
+                    <i class="small material-icons">lightbulb_outline</i>
+                    Here are 5 reasons to use Apprepo:
+                </h3>
+
+                <ul class="collection" style="border:none;">
+                    <li class="collection-item left-align">
+                        <div><i class="tiny material-icons">laptop</i>&nbsp; Keep your system clean, there are no
+                            dependency management necessary...
+                            <a href="{% url 'page' 'dependency-management' %}">read more</a>
+                        </div>
+                    </li>
+                    <li class="collection-item left-align">
+                        <div><i class="tiny material-icons">security</i>&nbsp; Keep your system save, there are no admin
+                            permissions necessary...
+                            <a href="{% url 'page' 'no-root-necessary' %}">read more</a></div>
+                    </li>
+                    <li class="collection-item left-align">
+                        <div><i class="tiny material-icons">backup</i>&nbsp; Keep your working environment save, you can
+                            easily backup all insalled applications...
+                            <a href="{% url 'page' 'easy-to-backup' %}">read more</a></div>
+                    </li>
+                    <li class="collection-item left-align">
+                        <div><i class="tiny material-icons">share</i>&nbsp; Share your working environment between the
+                            systems / distros using any cloud storage...
+                            <a href="{% url 'page' 'easy-to-share' %}">read more</a></div>
+                    </li>
+                    <li class="collection-item left-align">
+                        <div><i class="tiny material-icons">autorenew</i>&nbsp; Keep your apps after reinstall or switch
+                            to the new distro ...
+                            <a href="{% url 'page' 'easy-to-reinstall' %}">read more</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col s12 m4">
                 <div class="center promo">
@@ -46,7 +87,8 @@
                     <p class="promo-caption">Simple</p>
                     <p class="light center">No dependency management systems necesary.<br/>
                         The apprepo provides applications using the AppImage format. This approach allows to
-                        create a single package compatible with a wide range of GNU/Linux distributions.</p>
+                        create a single package compatible with a wide range of GNU/Linux distributions.
+                        <a href="{% url 'page' 'dependency-management' %}">Read more</a></p>
                 </div>
             </div>
             <div class="col s12 m4">
@@ -54,7 +96,8 @@
                     <i class="material-icons">touch_app</i>
                     <p class="promo-caption">Easy to work with</p>
                     <p class="light center">Each application provided by a single file. Download the AppImage, give
-                        execute permission and run. To remove the application from the system just remove the file.</p>
+                        execute permission and run. To remove the application from the system just remove the file.
+                        <a href="{% url 'page' 'single-file-application' %}">Read more</a></p>
                 </div>
             </div>
             <div class="col s12 m4">
@@ -62,17 +105,12 @@
                     <i class="material-icons">sentiment_very_satisfied</i>
                     <p class="promo-caption">User Experience Focused</p>
                     <p class="light center">Our focus is the user experience no matter what. Thus, we may ship the JRE
-                        / Mono / Qt / Python or anything else with the package. The aim is to be able to download the package and
-                        run.</p>
+                        / Mono / Qt / Python or anything else with the package. The aim is to be able to download the
+                        package and run.
+                        <a href="{% url 'page' 'user-experience-focused' %}">Read more</a></p>
                 </div>
             </div>
-
         </div>
-    </div>
-
-    <br/><br/><br/><br/>
-    <br/><br/><br/><br/>
-
 </main>
 <footer class="page-footer docs-footer">
     <div class="container">
