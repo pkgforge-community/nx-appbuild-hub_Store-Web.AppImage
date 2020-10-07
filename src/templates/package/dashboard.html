@@ -17,8 +17,10 @@
     <div class="container" style="margin-top: 7%;">
         <div class="row">
             <div class="col s12 m8 offset-m1 xl10 offset-xl1">
-                <h1 class="header center">Apprepo</h1>
-                <p class="caption center">
+                <h1 class="header center teal-text text-darken-5">
+                    <img src="{% static 'default/logo.png' %}" class="responsive-img" style="height: 80px">
+                </h1>
+                <p class="caption center grey-text text-darken-2">
                     The home of <b>{{total }}</b> high-quality apps which can be easily installed on
                     any Linux distribution.
                 </p>
@@ -29,27 +31,27 @@
                                    placeholder="Enter search string...">
                         </div>
                         <div class="input-field col s3">
-                            <input type="submit" class="waves-effect waves-light btn red lighten-2 pulse"
+                            <input type="submit" class="waves-effect waves-light btn orange pulse"
                                    value="YOLO!"/>
                         </div>
                     </div>
                 </form>
 
-                <p class="caption">
+                <p class="caption center grey-text text-darken-2">
                     Apprepo is a non-profit volunteer project. Although every effort is made to ensure that
-                    everything in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b>.
+                    everything in the repository is safe to install, you use it <br/><b>AT YOUR OWN RISK</b>.
                 </p>
             </div>
             <div class="row" style="margin-top: 2%; ">
                 <div class="col s12 m8 offset-m1 xl10 offset-xl1">
-                    <img src="{% static 'default/collage.jpg' %}">
+                    <img src="{% static 'default/collage.jpg' %}" class="responsive-img">
                 </div>
             </div>
         </div>
     </div>
 
 </main>
-<footer class="page-footer docs-footer">
+<footer class="page-footer docs-footer  grey lighten-5">
     <div class="container">
         © {% now "Y" %} A.O.D. {% widget 'menu.footer' %}
     </div>
