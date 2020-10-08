@@ -26,13 +26,13 @@ class DashboardView(TemplateView):
         search = request.GET.get('search')
         if search is not None and len(search):
             return self.search(request, search)
-
         return self.dashboard(request)
 
     @inject.params(package='package')
     def dashboard(self, request, package=None):
         return render(request, "package/dashboard.html", {
-            'total': package.count()
+            'collection': package.groups(),
+            'total': package.count(),
         })
 
     @inject.params(package='package')

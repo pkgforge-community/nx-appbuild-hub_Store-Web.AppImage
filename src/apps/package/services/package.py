@@ -33,6 +33,10 @@ class ServicePackage(object):
         return self.queryset. \
             count()
 
+    def groups(self):
+        from ..model.group import PackageGroup
+        return PackageGroup.objects.all()
+
     def random(self, limit=None):
         if limit is None or limit == 1:
             return self.queryset. \
