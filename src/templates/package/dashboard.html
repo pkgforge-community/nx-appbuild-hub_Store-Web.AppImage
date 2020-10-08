@@ -4,18 +4,11 @@
 
 {% block body %}
 {% load widgets %}
-<header>
-    <div class="container">
-        <a href="#" data-target="nav-mobile" class="top-nav sidenav-trigger full hide-on-large-only">
-            <i class="material-icons">menu</i>
-        </a>
-    </div>
-</header>
 
 <div>
     <div class="row">
         <div class="col s2">
-            <div class="scroll-container">
+            <div class="scroll-container hide-on-small-only">
                 <div class="fadeout-top"></div>
                 <div class="scroll">
                     {% for group in collection %}
