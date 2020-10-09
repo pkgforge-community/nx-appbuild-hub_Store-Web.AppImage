@@ -18,6 +18,9 @@
     <p>{{ entity.description }}</p>
 {% endautoescape %}
 
+{% load widgets %}
+
+{% widget 'dashboard.sidebar' %}
 <div class="row">
     {% for package in entity.packages.all %}
     <div class="col s6">
