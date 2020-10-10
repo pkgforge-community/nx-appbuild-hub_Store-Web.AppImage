@@ -1,4 +1,5 @@
 {% extends '_layout.html' %}
+{% load widgets %}
 {% load math %}
 
 {% block meta %}
@@ -8,67 +9,77 @@
 {% endblock meta %}
 
 {% block title %}
-{% autoescape off %}
-<h1 class="header">{{ entity.name }}</h1>
-{% endautoescape %}
+    <div class="row">
+        <div class="col s2" style="margin-top:50px;">
+            <a class="waves-effect waves-light btn-large grey lighten-3 grey-text text-darken-2"
+                onclick="window.history.back();" href="javascript: return false;">
+                <i class="material-icons left">chevron_left</i>back
+            </a>
+        </div>
+        <div class="col s5 offset-s2">
+            <h1 class="header grey-text text-darken-1">{{ entity.name }}</h1>
+        </div>
+        {% if entity.description|length %}
+            <div class="col s8 offset-s1 center">
+                {{ entity.description|safe }}
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
 
 {% block content %}
-{% autoescape off %}
-    <p>{{ entity.description }}</p>
-{% endautoescape %}
-
-{% load widgets %}
-
-{% widget 'dashboard.sidebar' %}
-<div class="row">
-    {% for package in entity.packages.all %}
-    <div class="col s6">
-        <div class="card">
-            <div class="card-image">
-                <a href="{% url 'package' package.slug %}">
-                    {% if package.image %}
-                    <img src="{{ package.image.url }}" alt="{{ package.name }}" width="300">
-                    {% else %}
-                    <img src="https://bulma.io/images/placeholders/1280x960.png" alt="{{ package.name }}">
-                    {% endif %}
-
-                    <span class="card-title">
-                        {{ package.name }}
-                    </span>
-                </a>
+    <div class="row">
+        <div class="col l2 hide-on-med-and-down">
+            {% widget 'dashboard.sidebar' %}
+        </div>
+        <div class="col s8 offset-m1">
+            <div class="row">
+                {% for package in entity.packages.all %}
+                    <div class="col l4 s12">
+                        <div class="card hoverable">
+                            <div class="card-image grey lighten-4" style="height: 250px;">
+                                <a href="{% url 'package' package.slug %}">
+                                    {% if package.image %}
+                                        <img src="{{ package.image.url }}" alt="{{ package.name }}" 
+                                            class="responsive-img">
+                                    {% else %}
+                                        <img src="https://bulma.io/images/placeholders/1280x960.png" alt="{{ package.name }}"
+                                            class="responsive-img">
+                                    {% endif %}
+                                </a>
+                                <span class="card-title truncate grey-text white">
+                                    {{ package.name }}
+                                </span>                    
+                            </div>
+                            <div class="card-content hide-on-med-and-down" style="height: 250px;">
+                                <p class="hide-on-med-and-down">
+                                    {% autoescape off %}
+                                        {{ package.description }}
+                                    {% endautoescape %}
+                                </p>
+                                <a href="{% url 'package' package.slug %}">
+                                    show me more...
+                                </a>
+                            </div>
+                            <div class="card-action">
+                                {% if package.version %}
+                                    <a class="btn-floating btn-small waves-effect waves-light green"
+                                        href="{% url 'package_download' package.slug %}" title="Download">
+                                        <i class="material-icons">file_download</i>
+                                    </a>&nbsp;
+                                {% endif %}
+                                {% if package.homepage|length %}
+                                    <a class="btn-floating btn-small waves-effect waves-light blue"
+                                        href="{{ package.homepage }}" target="_blank" title="Home page">
+                                        <i class="material-icons">home</i>
+                                    </a>&nbsp;
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-            <div class="card-content">
-                <p>
-                    {% autoescape off %}
-                    {{ package.description }}
-                    {% endautoescape %}
-                </p>
-                <a href="{% url 'package' package.slug %}">
-                    show me more...
-                </a>
-            </div>
-            <div class="card-action">
-                {% if package.version %}
-                <a class="btn-floating btn-small waves-effect waves-light green"
-                   href="{% url 'package_download' package.slug %}" title="Download">
-                    <i class="material-icons">file_download</i>
-                </a>&nbsp;
-                {% endif %}
-                {% if package.homepage|length %}
-                <a class="btn-floating btn-small waves-effect waves-light blue"
-                   href="{{ package.homepage }}" target="_blank" title="Home page">
-                    <i class="material-icons">home</i>
-                </a>&nbsp;
-                {% endif %}
-            </div>
+
         </div>
     </div>
-
-    {% if forloop.counter|modulo:'2' == 0 %}
-</div>
-<div class="row">
-    {% endif %}
-    {% endfor %}
-</div>
 {% endblock %}
