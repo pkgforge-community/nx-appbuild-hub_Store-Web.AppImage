@@ -38,7 +38,9 @@
             <div class="row" style="margin-top: 7%;margin-bottom: 10%;">
                 <div class="col s12 m8 offset-m1 xl10 offset-xl1">
                     <h1 class="header center teal-text text-darken-5">
-                        <img src="{% static 'default/logo.png' %}" class="responsive-img" style="height: 80px">
+                        <a href="{% url 'package_dashboard' %}" class="brand-logo">
+                            <img src="{% static 'default/logo.png' %}" class="responsive-img" style="height: 80px">
+                        </a>
                     </h1>
                     <p class="caption center grey-text text-darken-2">
                         The home of <b>{{total }}</b> high-quality apps which can be easily installed on
