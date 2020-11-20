@@ -65,7 +65,6 @@ python-magic==0.4.15
 python-monkey-business==1.0.0
 pytz==2019.3
 redis==2.10.6
-requests==2.22.0
 ruamel.yaml==0.16.5
 ruamel.yaml.clib==0.2.0
 service-identity==18.1.0
@@ -79,4 +78,5 @@ zipp==0.6.0
 PyInstaller==3.6
 urllib3
 inject
+requests
 django-fullurl
