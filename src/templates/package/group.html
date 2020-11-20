@@ -12,32 +12,32 @@
 
 {% block title %}
     <div class="row">
-        <div class="col s2" style="margin-top:50px;">
+        <div class="col s12 l2 m3" style="margin-top:50px;">
             <a class="waves-effect waves-light btn-large grey lighten-3 grey-text text-darken-2"
                 href="javascript: window.history.back();">
                 <i class="material-icons left">chevron_left</i>back
             </a>
         </div>
-        <div class="col s5 offset-s2">
+        <div class="col s12 l10 m9 offset-s1">
             <h1 class="header grey-text text-darken-1">{{ entity.name }}</h1>
         </div>
-        <div class="col s10 offset-s1 center">
-                <p class="content">Apprepo is a non-profit volunteer project. Although every effort is made to ensure that
-                    everything in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b>.
-                    </p>
-        </div>
-
-        {% if entity.description|length %}
-
-            <div class="col s8 offset-s1 center">
-                {{ entity.description|safe }}
-            </div>
-        {% endif %}
     </div>
 {% endblock %}
 
 {% block content %}
     <div class="row">
+        <div class="col s12 center">
+            <p>Apprepo is a non-profit volunteer project. Although every effort is made to ensure that
+                everything in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b>.
+            </p>
+        </div>
+
+        {% if entity.description|length %}
+            <div class="col s12 center">
+                <p>{{ entity.description|safe }}</p>
+            </div>
+        {% endif %}
+
         <div class="col s12 m10 l10 offset-m1 offset-l1">
             <div class="row">
                 {% for package in entity.packages.all %}
