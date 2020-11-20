@@ -162,6 +162,9 @@
                 <p>For the desktop integration you need to <a href="https://github.com/probonopd/go-appimage/blob/master/src/appimaged/README.md#installation-and-usage" target="_blank">install</a> some additional packages.</p>                
                 <div class="grey lighten-4" style="padding: 10px">
                     <p>wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}</p>
+                    <p>chmod +x ./{{ entity.package }}</p>
+                    <p>./{{ entity.package }}</p>
+
                 </div>            
             </div>                
             <div class="col s11">

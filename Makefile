@@ -21,13 +21,11 @@ GLIBC_VERSION := $(shell getconf GNU_LIBC_VERSION | sed 's/ /-/g' )
 SHELL:=$(shell which bash)
 PWD:=$(shell pwd)
 
-all: init server clean
-
 init:
 	rm -rf venv
 	python3 -m venv --copies --system-site-packages venv && source venv/bin/activate && python3 -m pip install -r ./requirements.txt
 
-server:
+all: clean init
 
 	rm -rf $(PWD)/build
 	mkdir -p $(PWD)/build
@@ -79,29 +77,6 @@ server:
 
 	export ARCH=x86_64 && $(PWD)/bin/appimagetool-x86_64.AppImage  $(PWD)/build/AppDir $(PWD)/apprepo.AppImage
 	chmod +x $(PWD)/apprepo.AppImage
-
-
-
-	# rm -rf $(APPDIR_APPLICATION)
-	# mkdir -p $(APPDIR_APPLICATION)
-	# source venv/bin/activate && python3 ./src/manage.py collectstatic --clear --noinput
-	# source venv/bin/activate && python3 -m PyInstaller --additional-hooks-dir=hooks src/server.py --distpath $(APPDIR) --name application --noconfirm
-	# cp -r ./src/apps $(APPDIR_APPLICATION)/
-	# cp -r ./src/aodstore $(APPDIR_APPLICATION)/
-	# cp -r ./src/templates $(APPDIR_APPLICATION)/
-	# cp -r ./src/static $(APPDIR_APPLICATION)/
-	# export ARCH=x86_64 && bin/appimagetool-x86_64.AppImage  ./AppDir apprepo.AppImage
-	# @echo "done: apprepo.AppImage"
-
-console:
-	rm -rf $(APPDIR_APPLICATION)
-	mkdir -p $(APPDIR_APPLICATION)
-	source venv/bin/activate && python3 -m PyInstaller --additional-hooks-dir=hooks src/manage.py --distpath $(APPDIR) --name application --noconfirm
-	cp -r ./src/apps $(APPDIR_APPLICATION)
-	cp -r ./src/aodstore $(APPDIR_APPLICATION)
-	export ARCH=x86_64 && bin/appimagetool-x86_64.AppImage  ./AppDir apprepo-console.AppImage
-	@echo "done: apprepo.AppImage"
-
 
 
 clean:
