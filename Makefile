@@ -21,10 +21,6 @@ GLIBC_VERSION := $(shell getconf GNU_LIBC_VERSION | sed 's/ /-/g' )
 SHELL:=$(shell which bash)
 PWD:=$(shell pwd)
 
-init:
-	rm -rf venv
-	python3 -m venv --copies --system-site-packages venv && source venv/bin/activate && python3 -m pip install -r ./requirements.txt
-
 all: clean init
 
 	rm -rf $(PWD)/build
@@ -69,7 +65,7 @@ all: clean init
 	chmod +x $(PWD)/build/AppDir/AppRun
 
 	$(PWD)/build/AppDir/AppRun --python -m pip install  -r $(PWD)/requirements.txt --target=$(PWD)/build/AppDir/vendor --upgrade
-	$(PWD)/build/AppDir/AppRun --python -m pip uninstall typing -y
+	$(PWD)/build/AppDir/AppRun --python -m pip uninstall typing -y || true
 
 	cp --force $(PWD)/AppDir/*.desktop $(PWD)/build/AppDir/
 	cp --force $(PWD)/AppDir/*.png $(PWD)/build/AppDir/ || true
@@ -79,6 +75,12 @@ all: clean init
 	chmod +x $(PWD)/apprepo.AppImage
 
 
+init:
+	rm -rf venv
+	python3 -m venv --copies --system-site-packages venv && source venv/bin/activate && python3 -m pip install -r ./requirements.txt
+
+
+
 clean:
 	rm -rf ${APPDIR}/venv
-	rm -rf ${APPDIR}/opt
+	rm -rf ${APPDIR}/build
