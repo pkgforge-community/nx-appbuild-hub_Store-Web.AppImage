@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+import inject
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 
@@ -22,7 +23,9 @@ from apps.package.model.group import PackageGroup
 
 
 class GroupView(TemplateView):
-    def get(self, request, id=None):
+    @inject.params(package='package')
+    def get(self, request, id=None, package=None):
         return render(request, "package/group.html", {
-            'entity': PackageGroup.objects.get(id=id)
+            'entity': PackageGroup.objects.get(id=id),
+            'collection': package.groups(),
         })

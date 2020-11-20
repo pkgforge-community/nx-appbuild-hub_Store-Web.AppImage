@@ -16,6 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 import os
+import inject
 
 from django.http import FileResponse
 from django.shortcuts import render
@@ -25,11 +26,13 @@ from apps.package.model.package import Package
 
 
 class PackageView(TemplateView):
-    def get(self, request, slug=None):
+    @inject.params(package='package')
+    def get(self, request, slug=None, package=None):
         if not len(slug): raise ValueError('id can not be empty')
 
         return render(request, "package/package.html", {
-            'entity': Package.objects.get(slug=slug)
+            'entity': Package.objects.get(slug=slug),
+            'collection': package.groups(),
         })
 
 

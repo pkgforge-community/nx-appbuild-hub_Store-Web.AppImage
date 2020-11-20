@@ -7,35 +7,8 @@
 
 <div>
     <div class="row">
-        <div class="col s2">
-            <div class="scroll-container hide-on-med-and-down">
-                <div class="fadeout-top"></div>
-                <div class="scroll">
-                    {% for group in collection %}
-                        <div class="row valign-wrapper">
-                            <div class="col s2">
-                                <a href="{% url 'package_group' group.id %}" class="title grey-text text-darken-1">
-                                    <img src="{% static 'icons/package.svg' %}" alt="{{ group.name }}"
-                                        class="circle responsive-img">
-                                </a>
-                            </div>
-                            <div class="col s10">
-                                <span class="black-text">
-                                        <a href="{% url 'package_group' group.id %}" class="title grey-text text-darken-1">
-                                            <h5>{{ group.name }}</h5>
-                                            <div>{{ group.description }}</div>
-                                            <div>Packages: {{ group.packages.count }}</div>
-                                        </a>
-                                </span>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="fadeout-bottom"></div>
-            </div>
-        </div>
-        <div class="col s8 offset-m1">
-            <div class="row" style="margin-top: 7%;margin-bottom: 10%;">
+        <div class="col s12">
+            <div class="row" style="margin-top: 5%;margin-bottom: 5%;">
                 <div class="col s12 m8 offset-m1 xl10 offset-xl1">
                     <h1 class="header center teal-text text-darken-5">
                         <a href="{% url 'package_dashboard' %}" class="brand-logo">
@@ -69,7 +42,25 @@
                 </div>
             </div>
         </div>
-
+        <div class="col s12 m10 l10 offset-m1 offset-l1">
+            <div class="row">
+                {% for group in collection %}
+                    <div class="col s10 m4 l3 offset-s1">
+                        <span class="black-text">
+                                <a href="{% url 'package_group' group.id %}" class="title grey-text text-darken-1">
+                                    <h5>
+                                        <img src="{% static 'icons/package.svg' %}" alt="{{ group.name }}"
+                                            class="circle responsive-img" style="width: 20px;">
+                                        {{ group.name }}
+                                    </h5>
+                                    <div>{{ group.description }}</div>
+                                    <div>Packages: {{ group.packages.count }}</div>
+                                </a>
+                        </span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </div>
 
