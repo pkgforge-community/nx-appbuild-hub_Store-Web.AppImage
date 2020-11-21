@@ -6,23 +6,23 @@
 {% load math %}
 
 {% block meta %}
-    <title>Apprepo - AppImage: {{ entity.name }}</title>
-    <meta name="keywords" content="application, repository, linux, appimage, appstore">
-    <meta name="description" content="{{ entity.description|striptags }}">
+<title>Apprepo - AppImage: {{ entity.name }}</title>
+<meta name="keywords" content="application, repository, linux, appimage, appstore">
+<meta name="description" content="{{ entity.description|striptags }}">
 {% endblock meta %}
 
 {% block title %}
-    <div class="row">
-        <div class="col s12 l2 m3" style="margin-top:50px;">
-            <a class="waves-effect waves-light btn-large grey lighten-3 grey-text text-darken-2"
-                href="javascript: window.history.back();">
-                <i class="material-icons left">chevron_left</i>back
-            </a>
-        </div>
-        <div class="col s12 l10 m9 offset-s1">
-            <h1 class="header grey-text text-darken-1">AppImage: {{ entity.name }}</h1>
-        </div>
+<div class="row">
+    <div class="col s12 l2 m3" style="margin-top:50px;">
+        <a class="waves-effect waves-light btn-large grey lighten-3 grey-text text-darken-2"
+           href="javascript: window.history.back();">
+            <i class="material-icons left">chevron_left</i>back
+        </a>
     </div>
+    <div class="col s12 l10 m9 offset-s1">
+        <h1 class="header grey-text text-darken-1">AppImage: {{ entity.name }}</h1>
+    </div>
+</div>
 {% endblock %}
 
 {% block content %}
@@ -31,156 +31,160 @@
     <div class="col s12 center">
         <p>{{ entity.description|safe }}</p>
     </div>
-{% endif %}
+    {% endif %}
 
     <div class="row col s10 offset-m1">
         <div class="col s7">
             {% for image in entity.images %}
-                {% if forloop.counter == 1 %}
-                <div class="card hoverable">
-                    <div class="card-image z-depth-3">
-                        <img src="{{ image.url }}" alt="Placeholder image" 
-                        style="responsive-img materialboxed ">
-                    </div>
+            {% if forloop.counter == 1 %}
+            <div class="card hoverable">
+                <div class="card-image z-depth-3">
+                    <img src="{{ image.url }}" alt="Placeholder image"
+                         style="responsive-img materialboxed ">
                 </div>
-                {% endif %}
+            </div>
+            {% endif %}
             {% endfor %}
             <div class="row">
                 {% for image in entity.images %}
-                    <div class="col s4">
-                        <div class="card hoverable">
-                            <div class="card-image grey lighten-4 z-depth-3 valign-wrapper" style="height: 200px;">
-                                <img src="{{ image.url }}" alt="Placeholder image" 
-                                    style="responsive-img">
-                            </div>
+                <div class="col s4">
+                    <div class="card hoverable">
+                        <div class="card-image grey lighten-4 z-depth-3 valign-wrapper" style="height: 200px;">
+                            <img src="{{ image.url }}" alt="Placeholder image"
+                                 style="responsive-img">
                         </div>
                     </div>
+                </div>
                 {% endfor %}
             </div>
         </div>
         <div class="col s4 offset-s1">
             <div class="row">
                 {% if entity.homepage|length %}
-                    <div class="col s12">
-                        <h5>Home page</h5>
-                        <span nowrap>
+                <div class="col s12">
+                    <h5>Home page</h5>
+                    <span nowrap>
                             <a class="waves-effect waves-light btn red"
-                                href="{{ entity.homepage }}" target="_blank">
+                               href="{{ entity.homepage }}" target="_blank">
                                 <i class="material-icons right">arrow_forward</i>
                                 {{ entity.homepage }}
                             </a>                    
                         </span>
-                        <br/><br/>
-                    </div>
+                    <br/><br/>
+                </div>
                 {% endif %}
 
                 {% if entity.version %}
-                    <div class="col s12">
-                        <h5>Latest version</h5>
-                        <p>
-                        <h6>MD5 Hash:</h6> {{ entity.version.hash }}</p>
-                        <a class="waves-effect waves-light btn-large green"
-                            href="{% url 'package_download' slug=entity.slug %}">
-                            <i class="material-icons right">file_download</i>
-                            Download
-                        </a>
-                        <p>
-                        <h6>Updated at:</h6> {{ entity.version.created|date:'Y M d' }}</p>
-                    </div>
+                <div class="col s12">
+                    <h5>Latest version</h5>
+                    <p>
+                    <h6>MD5 Hash:</h6> {{ entity.version.hash }}</p>
+                    <a class="waves-effect waves-light btn-large green"
+                       href="{% url 'package_download' slug=entity.slug %}">
+                        <i class="material-icons right">file_download</i>
+                        Download
+                    </a>
+                    <p>
+                    <h6>Updated at:</h6> {{ entity.version.created|date:'Y M d' }}</p>
+                </div>
                 {% endif %}
             </div>
 
             <div class="row">
                 {% if entity.groups.all|length %}
-                    <div class="col s12">
-                        <h5>Categories:</h5>
-                        {% for group in entity.groups.all %}
-                            <div class="row valign-wrapper grey-text text-darken-1">
-                                <div class="col s2">
-                                    <a href="{% url 'package_group' group.id %}" class="title">
-                                        <img src="{% static 'icons/package.svg' %}" alt="{{ group.name }}"
-                                            class="circle responsive-img">
-                                    </a>
-                                </div>
-                                <div class="col s10 ">
-                                    <a href="{% url 'package_group' group.id %}" class="title grey-text text-darken-1">
-                                        <h5>{{ group.name }}</h5>
-                                        <div>{{ group.description }}</div>
-                                    </a>
-                                </div>
-                            </div>
-                        {% endfor %}
-                        <br/>
+                <div class="col s12">
+                    <h5>Categories:</h5>
+                    {% for group in entity.groups.all %}
+                    <div class="row valign-wrapper grey-text text-darken-1">
+                        <div class="col s2">
+                            <a href="{% url 'package_group' group.id %}" class="title">
+                                <img src="{% static 'icons/package.svg' %}" alt="{{ group.name }}"
+                                     class="circle responsive-img">
+                            </a>
+                        </div>
+                        <div class="col s10 ">
+                            <a href="{% url 'package_group' group.id %}" class="title grey-text text-darken-1">
+                                <h5>{{ group.name }}</h5>
+                                <div>{{ group.description }}</div>
+                            </a>
+                        </div>
                     </div>
+                    {% endfor %}
+                    <br/>
+                </div>
                 {% endif %}
 
                 {% if entity.comments.all|length %}
-                    <div class="col s12">
-                        <h5>Comments:</h5>
-                        <ul type="1">
-                            {% for comments in entity.comments.all %}
-                            <li>{{ comments.text }}</li>
-                            {% endfor %}
-                        </ul>
-                        <br/>
-                    </div>
+                <div class="col s12">
+                    <h5>Comments:</h5>
+                    <ul type="1">
+                        {% for comments in entity.comments.all %}
+                        <li>{{ comments.text }}</li>
+                        {% endfor %}
+                    </ul>
+                    <br/>
+                </div>
                 {% endif %}
                 {% if entity.versions.all|length %}
-                    <div class="col s12">
-                        <h5>Build history:</h5>
-                        <ul type="1" class='grey-text text-darken-2'>
-                            {% for version in entity.versions.all %}
-                                <li>{{ version.name }}, {{ version.description }}</li>
-                            {% endfor %}
-                        </ul>            
-                    </div>            
+                <div class="col s12">
+                    <h5>Build history:</h5>
+                    <ul type="1" class='grey-text text-darken-2'>
+                        {% for version in entity.versions.all %}
+                        <li>{{ version.name }}, {{ version.description }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
                 {% endif %}
             </div>
         </div>
         {% if entity.version %}
-            <div class="col s12">
-                <h3 class="header grey-text text-darken-1">Install "{{ entity.name }}", the official way:</h3>
-                <p>For the desktop integration you need to <a href="https://docs.appimage.org/user-guide/run-appimages.html#integrating-appimages-into-the-desktop" target="_blank">install</a> some additional packages.</p>                
-                <div class="grey lighten-4" style="padding: 10px">
-                    <p>wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}</p>
-                    <p>chmod +x ./{{ entity.package }}</p>
-                    <p>./{{ entity.package }}</p>
-                </div>
-            </div>        
-            <div class="col s12">
-                <h3 class="header grey-text text-darken-1">Install "{{ entity.name }}" in command line:</h3>
-                <div class="grey lighten-4" style="padding: 10px">
-                    <p>wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}</p>
-                    <p>chmod +x ./{{ entity.package }}</p>
-                    <p>./{{ entity.package }}</p>
-                </div>
+        <div class="col s12">
+            <h3 class="header grey-text text-darken-1">Install "{{ entity.name }}", the official way:</h3>
+            <p>For the desktop integration you need to <a
+                    href="https://docs.appimage.org/user-guide/run-appimages.html#integrating-appimages-into-the-desktop"
+                    target="_blank">install</a> some additional packages.</p>
+            <div class="grey lighten-4" style="padding: 10px">
+                <p>wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}</p>
+                <p>chmod +x ./{{ entity.package }}</p>
+                <p>./{{ entity.package }}</p>
             </div>
-            <div class="col s12">
-                <h3 class="header grey-text text-darken-1">
-                    Install "{{ entity.name }}" using <a href="https://github.com/probonopd/go-appimage" target="_blank">go-appimage</a>:
-                </h3>
-                <p>For the desktop integration you need to <a href="https://github.com/probonopd/go-appimage/blob/master/src/appimaged/README.md#installation-and-usage" target="_blank">install</a> some additional packages.</p>                
-                <div class="grey lighten-4" style="padding: 10px">
-                    <p>wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}</p>
-                    <p>chmod +x ./{{ entity.package }}</p>
-                    <p>./{{ entity.package }}</p>
+        </div>
+        <div class="col s12">
+            <h3 class="header grey-text text-darken-1">Install "{{ entity.name }}" in command line:</h3>
+            <div class="grey lighten-4" style="padding: 10px">
+                <p>wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}</p>
+                <p>chmod +x ./{{ entity.package }}</p>
+                <p>./{{ entity.package }}</p>
+            </div>
+        </div>
+        <div class="col s12">
+            <h3 class="header grey-text text-darken-1">
+                Install "{{ entity.name }}" using <a href="https://github.com/probonopd/go-appimage" target="_blank">go-appimage</a>:
+            </h3>
+            <p>For the desktop integration you need to <a
+                    href="https://github.com/probonopd/go-appimage/blob/master/src/appimaged/README.md#installation-and-usage"
+                    target="_blank">install</a> some additional packages.</p>
+            <div class="grey lighten-4" style="padding: 10px">
+                <p>wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}</p>
+                <p>chmod +x ./{{ entity.package }}</p>
+                <p>./{{ entity.package }}</p>
 
-                </div>            
-            </div>                
-            <div class="col s12">
-                <h3 class="header grey-text text-darken-1">
-                    Install "{{ entity.name }}" using <a href="{% url 'package' 'apprepo' %}">AppRepo</a> tool:
-                </h3>
-                <div class="grey lighten-4" style="padding: 10px">
-                    <p>wget {% fullurl 'package_download' slug='apprepo' %} --output-document=Apprepo.AppImage</p>
-                    <p>chmod +x ./Apprepo.AppImage</p>
-                    <p>./Apprepo.AppImage install {{ entity.slug }}</p>
-                    <p>./{{ entity.slug }}</p>
-                </div>
-            </div>        
+            </div>
+        </div>
+        <div class="col s12">
+            <h3 class="header grey-text text-darken-1">
+                Install "{{ entity.name }}" using <a href="{% url 'package' 'apprepo' %}">AppRepo</a> tool:
+            </h3>
+            <div class="grey lighten-4" style="padding: 10px">
+                <p>wget {% fullurl 'package_download' slug='apprepo' %} --output-document=Apprepo.AppImage</p>
+                <p>chmod +x ./Apprepo.AppImage</p>
+                <p>./Apprepo.AppImage install {{ entity.slug }}</p>
+                <p>~/Applications/{{ entity.slug }}</p>
+            </div>
+        </div>
         {% endif %}
-    </div>                
-</div>    
+    </div>
+</div>
 <div class='row'>
     <div class="col s12 offset-m1 m10">
         <div class="row">
@@ -191,26 +195,27 @@
             </div>
 
             <div class="col s12 offset-l1 grey-text text-darken-2">
-                <p class="content">Apprepo is a non-profit volunteer project. Although every effort is made to ensure that
+                <p class="content">Apprepo is a non-profit volunteer project. Although every effort is made to ensure
+                    that
                     everything in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b>.
-                    </p>
+                </p>
             </div>
 
 
             {% for group in collection %}
-                <div class="col s6 m4 l3">
+            <div class="col s6 m4 l3">
                     <span class="black-text">
                             <a href="{% url 'package_group' group.id %}" class="title grey-text text-darken-1">
                                 <h5>
                                     <img src="{% static 'icons/package.svg' %}" alt="{{ group.name }}"
-                                        class="circle responsive-img" style="width: 20px;">
+                                         class="circle responsive-img" style="width: 20px;">
                                     {{ group.name }}
                                 </h5>
                                 <div>{{ group.description }}</div>
                                 <div>Packages: {{ group.packages.count }}</div>
                             </a>
                     </span>
-                </div>
+            </div>
             {% endfor %}
         </div>
     </div>
