@@ -23,13 +23,11 @@ PWD:=$(shell pwd)
 
 all: clean init
 
-	rm -rf $(PWD)/build
 	mkdir -p $(PWD)/build
 	mkdir -p $(PWD)/build/AppDir
 	mkdir -p $(PWD)/build/AppDir/python
 	mkdir -p $(PWD)/build/AppDir/server
 	mkdir -p $(PWD)/build/AppDir/vendor
-
 
 	wget --output-document=$(PWD)/build/build.rpm  http://mirror.centos.org/centos/8/AppStream/x86_64/os/Packages/python38-3.8.0-6.module_el8.2.0+317+61fa6e7d.x86_64.rpm
 	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
