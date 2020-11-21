@@ -179,7 +179,7 @@
                 <p>wget {% fullurl 'package_download' slug='apprepo' %} --output-document=Apprepo.AppImage</p>
                 <p>chmod +x ./Apprepo.AppImage</p>
                 <p>./Apprepo.AppImage install {{ entity.slug }}</p>
-                <p>~/Applications/{{ entity.slug }}</p>
+                <p>~/Applications/{{ entity.package }}</p>
             </div>
         </div>
         {% endif %}
