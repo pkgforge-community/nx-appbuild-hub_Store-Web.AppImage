@@ -86,7 +86,7 @@ class PackageUploadCompleteView(viewsets.GenericViewSet, ChunkedUploadCompleteVi
 
         PackageVersion.objects.create(
             description=data['description'],
-            hash=data['hash'],
+            hash=data['sha1'],
             name=data['name'],
             package=package,
             file=uploaded_file,
