@@ -16,8 +16,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 from django.contrib import admin
+import nested_admin
 
 
-class PackageUploadAdmin(admin.ModelAdmin):
+class PackageUploadAdmin(nested_admin.NestedModelAdmin):
     list_display = ['filename', 'status', 'file', 'created_on', 'completed_on']
     search_fields = ('name', 'package')

@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+import nested_admin
+
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
@@ -25,7 +27,7 @@ from .inline.package import PackageGroupInline
 from .inline.version import PackageVersionInline
 
 
-class PackageAdmin(admin.ModelAdmin):
+class PackageAdmin(nested_admin.NestedModelAdmin):
     form = PackageForm
     list_display = ['name', 'token', 'slug', 'package', 'created']
     search_fields = ('icon', 'name', 'description')

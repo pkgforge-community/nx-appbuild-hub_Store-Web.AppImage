@@ -15,11 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+import nested_admin
+
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
 
-class PackageImageAdmin(admin.ModelAdmin):
+class PackageImageAdmin(nested_admin.NestedModelAdmin):
     list_display = ['image', 'created']
     search_fields = ('image')
     readonly_fields = ["preview"]
