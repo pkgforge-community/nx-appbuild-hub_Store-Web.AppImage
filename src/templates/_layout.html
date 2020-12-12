@@ -39,9 +39,18 @@
 
         <body>
             {% block body %}
+                <nav>
+                    <div class="nav-wrapper grey lighten-4">
+                        <a href="{% url 'package_dashboard' %}" class="brand-logo">
+                            <img src="{% static 'default/logo.png' %}"
+                                 style="height: 1.8em; margin-left: 20px;">
+                        </a>
+                    </div>
+                </nav>
+
                 {% block layout %}
                     <header>
-                        {% block title %} 
+                        {% block title %}
                         {% endblock title %}
                     </header>
                     {% block content %}
