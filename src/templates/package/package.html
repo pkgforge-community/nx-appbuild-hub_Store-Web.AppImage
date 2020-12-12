@@ -1,7 +1,6 @@
 {% extends '_layout.html' %}
 {% load widgets %}
 {% load static %}
-{% load widgets %}
 {% load fullurl %}
 {% load math %}
 
@@ -68,7 +67,7 @@
                                href="{{ entity.homepage }}" target="_blank">
                                 <i class="material-icons right">arrow_forward</i>
                                 {{ entity.homepage }}
-                            </a>                    
+                            </a>
                         </span>
                     <br/><br/>
                 </div>
@@ -137,87 +136,92 @@
                 {% endif %}
             </div>
         </div>
-        {% if entity.version %}
-        <div class="col s12">
-            <h3 class="header grey-text text-darken-1">Install "{{ entity.name }}", the official way:</h3>
-            <p>For the desktop integration you need to <a
-                    href="https://docs.appimage.org/user-guide/run-appimages.html#integrating-appimages-into-the-desktop"
-                    target="_blank">install</a> some additional packages.</p>
-            <div class="grey lighten-4" style="padding: 10px">
-                <p>wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}</p>
-                <p>chmod +x ./{{ entity.package }}</p>
-                <p>./{{ entity.package }}</p>
-            </div>
-        </div>
-        <div class="col s12">
-            <h3 class="header grey-text text-darken-1">Install "{{ entity.name }}" in command line:</h3>
-            <div class="grey lighten-4" style="padding: 10px">
-                <p>wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}</p>
-                <p>chmod +x ./{{ entity.package }}</p>
-                <p>./{{ entity.package }}</p>
-            </div>
-        </div>
-        <div class="col s12">
-            <h3 class="header grey-text text-darken-1">
-                Install "{{ entity.name }}" using <a href="https://github.com/probonopd/go-appimage" target="_blank">go-appimage</a>:
-            </h3>
-            <p>For the desktop integration you need to <a
-                    href="https://github.com/probonopd/go-appimage/blob/master/src/appimaged/README.md#installation-and-usage"
-                    target="_blank">install</a> some additional packages.</p>
-            <div class="grey lighten-4" style="padding: 10px">
-                <p>wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}</p>
-                <p>chmod +x ./{{ entity.package }}</p>
-                <p>./{{ entity.package }}</p>
-
-            </div>
-        </div>
-        <div class="col s12">
-            <h3 class="header grey-text text-darken-1">
-                Install "{{ entity.name }}" using <a href="{% url 'package' 'apprepo' %}">AppRepo</a> tool:
-            </h3>
-            <div class="grey lighten-4" style="padding: 10px">
-                <p>wget {% fullurl 'package_download' slug='apprepo' %} --output-document=Apprepo.AppImage</p>
-                <p>chmod +x ./Apprepo.AppImage</p>
-                <p>./Apprepo.AppImage install {{ entity.slug }}</p>
-                <p>~/Applications/{{ entity.package }}</p>
-            </div>
-        </div>
-        {% endif %}
     </div>
 </div>
-<div class='row'>
-    <div class="col s12 offset-m1 m10">
-        <div class="row">
-            <div class="col s12 offset-s4">
-                <h1 class="header grey-text text-darken-1">
-                    Categories
-                </h1>
+{% if entity.version %}
+<div class='row grey lighten-5' style="width: 100%; margin-bottom:0px;">
+    <div class="col s12 center">
+        <h3 class="light">How to install "{{ entity.name }}":</h3>
+        <br/><br/>
+    </div>
+    <div class="col s12">
+        <div class='row' style="margin-bottom:0px;">
+            <div class="col s6 card brown darken-3 green-text text-darken-3">
+                <div class="card-content white-text">
+                    wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}<br/>
+                    chmod +x ./{{ entity.package }}<br/>
+                    ./{{ entity.package }}<br/>
+                </div>
             </div>
-
-            <div class="col s12 offset-l1 grey-text text-darken-2">
-                <p class="content">Apprepo is a non-profit volunteer project. Although every effort is made to ensure
-                    that
-                    everything in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b>.
-                </p>
+            <div class="col s6 center">
+                <h3 class="light">
+                    <i class="small material-icons">arrow_back</i>
+                    Official way
+                </h3>
+                <p>For the desktop integration you need to <a
+                        href="https://docs.appimage.org/user-guide/run-appimages.html#integrating-appimages-into-the-desktop"
+                        target="_blank">install</a> some additional packages.</p>
             </div>
-
-
-            {% for group in collection %}
-            <div class="col s6 m4 l3">
-                    <span class="black-text">
-                            <a href="{% url 'package_group' group.id %}" class="title grey-text text-darken-1">
-                                <h5>
-                                    <img src="{% static 'icons/package.svg' %}" alt="{{ group.name }}"
-                                         class="circle responsive-img" style="width: 20px;">
-                                    {{ group.name }}
-                                </h5>
-                                <div>Packages: {{ group.packages.count }}</div>
-                            </a>
-                    </span>
-            </div>
-            {% endfor %}
         </div>
+
+        <div class='row' style="margin-bottom:0px;">
+            <div class="col s6 center">
+                <h3 class="light">
+                    Command line
+                    <i class="small material-icons">arrow_forward</i>
+                </h3>
+            </div>
+            <div class="col s6 card brown darken-3 green-text text-darken-3">
+                <div class="card-content white-text">
+                    wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}<br/>
+                    chmod +x ./{{ entity.package }}<br/>
+                    ./{{ entity.package }}<br/>
+                </div>
+            </div>
+        </div>
+        <div class='row' style="margin-bottom:0px;">
+            <div class="col s6 card brown darken-3 green-text text-darken-3">
+                <div class="card-content white-text">
+                    wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}<br/>
+                    chmod +x ./{{ entity.package }}<br/>
+                    ./{{ entity.package }}<br/>
+                </div>
+            </div>
+            <div class="col s6 center">
+                <h3 class="light">
+                    <i class="small material-icons">arrow_back</i>
+                    <a href="https://github.com/probonopd/go-appimage" target="_blank">
+                        Go-appimage
+                    </a>
+                </h3>
+                <p>For the desktop integration you need to <a
+                        href="https://github.com/probonopd/go-appimage/blob/master/src/appimaged/README.md#installation-and-usage"
+                        target="_blank">install</a> some additional packages.</p>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class="col s6 center">
+                <h3 class="light">
+                    <a href="{% url 'package' 'apprepo' %}">AppRepo</a>
+                    <i class="small material-icons">arrow_forward</i>
+                </h3>
+                <p>The desktop integration will be provided by this package.</p>
+            </div>
+            <div class="col s6 card brown darken-3 green-text text-darken-3">
+                <div class="card-content white-text">
+                    wget {% fullurl 'package_download' slug='apprepo' %} --output-document=Apprepo.AppImage<br/>
+                    chmod +x ./Apprepo.AppImage<br/>
+                    ./Apprepo.AppImage install {{ entity.slug }}<br/>
+                    ~/Applications/{{ entity.package }}
+                </div>
+            </div>
+        </div>
+        <br/><br/>
     </div>
 </div>
+
+{% endif %}
+{% widget 'dashboard.groups' %}
 
 {% endblock %}

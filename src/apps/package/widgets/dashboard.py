@@ -54,9 +54,20 @@ def popular(request=None, package=None):
 
 @widget(name='dashboard.sidebar')
 @inject.params(package='package')
-def sidebar(request=None, package=None):
+def dashboard_sidebar_widget(request=None, package=None):
     from apps.package.model.group import PackageGroup
     return render_to_string("package/widget/sidebar.html", {
+        'collection': PackageGroup.objects.
+                            order_by('name').
+                            all()
+    })
+
+
+@widget(name='dashboard.groups')
+@inject.params(package='package')
+def dashboard_groups_widget(request=None, package=None):
+    from apps.package.model.group import PackageGroup
+    return render_to_string("package/widget/groups.html", {
         'collection': PackageGroup.objects.
                             order_by('name').
                             all()

@@ -2,9 +2,18 @@
 {% load static %}
 
 <div class="row brown darken-3">
-    <div class="col s12 m3 l5 brown-text text-lighten-5 hide-on-small-only valign-wrapper">
+    <div class="col s12 m3 l5 hide-on-small-only valign-wrapper">
+
         <img src="{% static 'default/categories.png' %}"
              class="materialboxed" style="margin-top: 25%;">
+
+        <div class="caption center-align grey lighten-3 grey-text text-darken-3" style="position:absolute; width: 41%;">
+            <h3>Apprepo is a non-profit volunteer project.</h3>
+            <h5 class="light">
+                Although every effort is made to ensure that everything
+                in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b>
+            </h5>
+        </div>
     </div>
     <div class="col s12 m9 l7">
         <div class="row">
@@ -22,7 +31,7 @@
                             </a>
                         </div>
                         <div class="card-action left-align">
-                            <a href="{% url 'package_group' group.id %}">
+                            <a href="{% url 'package_group' group.id %}" class="truncate">
                                 >> {{ group.packages.count }} packages
                             </a>
                         </div>
