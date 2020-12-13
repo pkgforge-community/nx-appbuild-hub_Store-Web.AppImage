@@ -1,6 +1,7 @@
 {% extends '_layout.html' %}
 {% load math %}
 {% load widgets %}
+{% load static %}
 
 {% block meta %}
 <title>Apprepo - {{ request }}</title>
@@ -10,81 +11,64 @@
 
 
 {% block title %}
-<div class="row">
-    <div class="col s2" style="margin-top:50px;">
-        <a class="waves-effect waves-light btn-large grey lighten-3 grey-text text-darken-2"
-           href="javascript: window.history.back();">
-            <i class="material-icons left">chevron_left</i>back
-        </a>
+<div class="row" style="margin-bottom: 0px;">
+    <div class="col s12 m6 l8 center">
+        <div class="row">
+            <div class="col s12">
+                <h1 class="light brown-text text-darken-3">
+                    Looking for: {{ request }}
+                </h1>
+            </div>
+            <div class="col s12">
+                <p class="light">
+                    Apprepo is a non-profit volunteer project. Although every effort is made to ensure that
+                    everything in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b>
+                </p>
+            </div>
+        </div>
     </div>
-    <div class="col s5 offset-s1">
-        <h1 class="header grey-text text-darken-1">
-            Searching: {{ request }}
-        </h1>
-    </div>
-    <div class="col s8 offset-s1 center">
-        <p class="caption">
-            Apprepo is a non-profit volunteer project. Although every effort is made to ensure that
-            everything
-            in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b>. Wherever
-            possible,
-            applications
-            in the repository are built from source, and that source code is checked for potential
-            security or
-            privacy issues. This checking is <b>far from exhaustive</b> though, and there are <b>no
-            guarantees</b>.
-        <p>
+    <div class="col s12 m6 l4 hide-on-small-only valign-wrapper"
+         style="max-height: 20em;">
+        <img src="{% static 'default/wires.png' %}"
+             class="materialboxed left-align" style="z-index: -1;">
     </div>
 </div>
 {% endblock %}
 
 
 {% block content %}
-<div class="row">
-    <div class="col s10 m10 offset-s1 offset-m1">
-        <div class="row">
-            {% for package in collection %}
-            <div class="col l4 m6 s12">
-                <div class="card hoverable">
-                    <div class="card-image grey lighten-4" style="height: 250px;">
-                        <a href="{% url 'package' package.slug %}">
-                            {% if package.image %}
-                            <img src="{{ package.image.url }}" alt="{{ package.name }}"
-                                class="responsive-img">
-                            {% else %}
-                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="{{ package.name }}"
-                                class="responsive-img">
-                            {% endif %}
-                        </a>
-                        <span class="card-title truncate grey-text white">
-                            {{ package.name }}
-                        </span>
-                    </div>
-                    <div class="card-content hide-on-med-and-down" style="height: 250px;">
-                        <p class="hide-on-med-and-down">
-                            {% autoescape off %}
-                            {{ package.description }}
-                            {% endautoescape %}
-                        </p>
-                    </div>
-                    <div class="card-action">
-                        {% if package.version %}
-                        <a class="btn-floating btn-small waves-effect waves-light green"
-                        href="{% url 'package_download' package.slug %}" title="Download">
-                            <i class="material-icons">file_download</i>
-                        </a>&nbsp;
-                        {% endif %}
-                        {% if package.homepage|length %}
-                        <a class="btn-floating btn-small waves-effect waves-light blue"
-                        href="{{ package.homepage }}" target="_blank" title="Home page">
-                            <i class="material-icons">home</i>
-                        </a>&nbsp;
-                        {% endif %}
-                    </div>
-                </div>
+<div class="row white lighten-5" style="margin-bottom: 0px; width: 100%;">
+    {% for package in collection %}
+    <div class="col l4 m6 s12">
+        <div class="card hoverable blue-grey lighten-4">
+            <div class="card-image blue-grey lighten-4" style="height: 250px;">
+                <a href="{% url 'package' package.slug %}">
+                    {% if package.image %}
+                    <img src="{{ package.image.url }}" alt="{{ package.name }}"
+                         class="responsive-img">
+                    {% else %}
+                    <img src="https://bulma.io/images/placeholders/1280x960.png" alt="{{ package.name }}"
+                         class="responsive-img">
+                    {% endif %}
+                </a>
             </div>
-            {% endfor %}
+            <div class="card-action">
+                {% if package.version %}
+                <a class="btn-floating btn-small waves-effect waves-light green"
+                   href="{% url 'package_download' package.slug %}" title="Download">
+                    <i class="material-icons">file_download</i>
+                </a>&nbsp;
+                {% endif %}
+                {% if package.homepage|length %}
+                <a class="btn-floating btn-small waves-effect waves-light blue"
+                   href="{{ package.homepage }}" target="_blank" title="Home page">
+                    <i class="material-icons">home</i>
+                </a>&nbsp;
+                {% endif %}
+                <span class="light">{{ package.name }}</span>
+            </div>
         </div>
-    </div>    
-</div>    
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}
