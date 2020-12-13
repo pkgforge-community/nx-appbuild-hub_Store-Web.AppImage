@@ -135,10 +135,11 @@
         <br/>
         <h3>How does it work</h3>
         <h5 class="light">Wherever possible the vendor-pre-build binary will be taken.</h5>
-        <p class="light">In case the vendor does not provide an AppImage, the AppImage will be created using provided pre-build binaries.</p>
+        <p class="light">In case the vendor does not provide an AppImage, the AppImage will be created using provided
+            pre-build binaries.</p>
         <img src="{% static 'default/flow.svg' %}" class="responsive-img">
     </div>
-    <div class="col center s12 m8 offset-m2 l6 offset-l3 xl4 offset-xl4">
+    <div class="col center s12 m10 offset-m1 l6 offset-l3" >
         <div class="card">
             <div class="card-content" style="padding-bottom: 0px;">
                 <div class="row" style="margin-bottom: 0px;">
@@ -156,7 +157,7 @@
                     <div class="col s2">
                         <i class="small material-icons orange-text">error</i>
                     </div>
-                    <div class="col s10 left-align light">
+                    <div class="col s10 left-align light truncate">
                         It works only with the up-to date systems (GLIBC >= 2.31).
                     </div>
                 </div>
@@ -164,7 +165,7 @@
                     <div class="col s2">
                         <i class="small material-icons orange-text">error</i>
                     </div>
-                    <div class="col s10 left-align light">
+                    <div class="col s10 left-align light truncate">
                         Provided AppImages need more space than the versions provided by the distro
                     </div>
                 </div>
@@ -172,7 +173,7 @@
             </div>
         </div>
     </div>
-    <div class="col center s12 m8 offset-m2 l6 offset-l3 xl4 offset-xl4 ">
+    <div class="col center s12 m5 offset-m1 l4 offset-l2 xl3 offset-xl3" style="height: 19em;">
         <div class="card green lighten-5">
             <div class="card-content" style="padding-bottom: 0px;">
                 <div class="row" style="margin-bottom: 0px;">
@@ -190,7 +191,7 @@
                     <div class="col s2">
                         <i class="small material-icons green-text">check_circle</i>
                     </div>
-                    <div class="col s10 left-align light">
+                    <div class="col s10 left-align light truncate">
                         openSUSE Tumbleweed
                     </div>
                 </div>
@@ -198,7 +199,7 @@
                     <div class="col s2">
                         <i class="small material-icons green-text">check_circle</i>
                     </div>
-                    <div class="col s10 left-align light">
+                    <div class="col s10 left-align light truncate">
                         Ubuntu 20.04
                     </div>
                 </div>
@@ -206,7 +207,7 @@
                     <div class="col s2">
                         <i class="small material-icons green-text">check_circle</i>
                     </div>
-                    <div class="col s10 left-align light">
+                    <div class="col s10 left-align light truncate">
                         KaOS
                     </div>
                 </div>
@@ -214,12 +215,14 @@
                     <div class="col s2">
                         <i class="small material-icons green-text">check_circle</i>
                     </div>
-                    <div class="col s10 left-align light">
+                    <div class="col s10 left-align light truncate">
                         Probably any other distro with GLIBC >= 2.31
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col center s12 m5 l4 xl3" style="height: 19em;">
         <div class="card red lighten-5">
             <div class="card-content" style="padding-bottom: 0px;">
                 <div class="row" style="margin-bottom: 0px;">
@@ -237,7 +240,7 @@
                     <div class="col s2">
                         <i class="small material-icons red-text">remove_circle</i>
                     </div>
-                    <div class="col s10 left-align light">
+                    <div class="col s10 left-align light truncate">
                         Any Linux-system with GLIBC < 2.31
                     </div>
                 </div>
@@ -245,7 +248,7 @@
                     <div class="col s2">
                         <i class="small material-icons red-text">remove_circle</i>
                     </div>
-                    <div class="col s10 left-align light">
+                    <div class="col s10 left-align light truncate">
                         CentOS 6 (GLIBC < 2.31)
                     </div>
                 </div>
@@ -253,7 +256,7 @@
                     <div class="col s2">
                         <i class="small material-icons red-text">remove_circle</i>
                     </div>
-                    <div class="col s10 left-align light">
+                    <div class="col s10 left-align light truncate">
                         CentOS 7 (GLIBC < 2.31)
                     </div>
                 </div>
@@ -261,7 +264,7 @@
                     <div class="col s2">
                         <i class="small material-icons red-text">remove_circle</i>
                     </div>
-                    <div class="col s10 left-align light">
+                    <div class="col s10 left-align light truncate">
                         CentOS 8 (GLIBC < 2.31)
                     </div>
                 </div>
@@ -269,7 +272,7 @@
                     <div class="col s2">
                         <i class="small material-icons red-text">remove_circle</i>
                     </div>
-                    <div class="col s10 left-align light">
+                    <div class="col s10 left-align light truncate">
                         Deepin Linux (GLIBC < 2.31)
                     </div>
                 </div>
