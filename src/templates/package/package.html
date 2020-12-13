@@ -39,10 +39,11 @@
 {% endblock %}
 
 {% block content %}
-<div class="row white darken-3" style="margin-bottom: 0px; width: 100%;">
+<div class="row white darken-3" style="width: 100%;">
     <div class="col s12 m7 xl8 hide-on-small-only valign-wrapper">
         {% if entity.image %}
-        <img src="{{ entity.image.url }}" class="materialboxed">
+        <img src="{{ entity.image.url }}"
+             class="materialboxed z-depth-3">
         {% endif %}
     </div>
     <div class="col s12 m5 xl4">
@@ -50,18 +51,18 @@
             <div class="card-content">
                 <div class="row">
                     {% if entity.homepage|length %}
-                        <div class="col s12 center">
-                            <h5 class="light">Home page</h5>
-                        </div>
-                        <div class="col s12 center">
-                            <h5 class="light">
-                                <a class="waves-effect waves-light btn red truncate"
-                                   href="{{ entity.homepage }}" target="_blank">
-                                    <i class="material-icons right">arrow_forward</i>
-                                    {{ entity.homepage }}
-                                </a>
-                            </h5>
-                        </div>
+                    <div class="col s12 center">
+                        <h5 class="light">Home page</h5>
+                    </div>
+                    <div class="col s12 center">
+                        <h5 class="light">
+                            <a class="waves-effect waves-light btn red truncate"
+                               href="{{ entity.homepage }}" target="_blank">
+                                <i class="material-icons right">arrow_forward</i>
+                                {{ entity.homepage }}
+                            </a>
+                        </h5>
+                    </div>
                     {% endif %}
 
                     {% if entity.version %}
@@ -88,47 +89,42 @@
             <div class="card-action left-align">
                 <div class="row">
                     {% if entity.groups.all|length %}
-                    <div class="col s12">
+                    <div class="col s12 center">
                         <h5 class="light center">Categories</h5>
-                        {% for group in entity.groups.all %}
-                        <div class="row valign-wrapper grey-text text-darken-1">
-                            <div class="col s2">
-                                <a href="{% url 'package_group' group.id %}" class="title">
-                                    <img src="{% static 'icons/package.svg' %}" alt="{{ group.name }}"
-                                         class="circle responsive-img">
-                                </a>
-                            </div>
-                            <div class="col s10 ">
-                                <a href="{% url 'package_group' group.id %}" class="title grey-text text-darken-1">
-                                    <h5>{{ group.name }}</h5>
-                                    <div>{{ group.description }}</div>
-                                </a>
-                            </div>
-                        </div>
-                        {% endfor %}
-                        <br/>
+                        <p class="light">
+                            {% for group in entity.groups.all %}
+                            <a href="{% url 'package_group' group.id %}"
+                               class="waves-effect waves-light btn-small blue-grey darken-1">
+                                >> {{ group.name }}
+                            </a>
+                            {% endfor %}
+                        </p>
                     </div>
                     {% endif %}
 
                     {% if entity.comments.all|length %}
-                    <div class="col s12">
-                        <h5 class="light center">Comments</h5>
-                        <ul type="1">
+                        <div class="col s12">
+                            <h5 class="light center">Comments</h5>
                             {% for comments in entity.comments.all %}
-                            <li>{{ comments.text }}</li>
+                                <p class="light left-align valign-wrapper">
+                                    <i class="small material-icons blue-grey-text text-darken-1">chevron_right</i>
+                                    {{ comments.text }}
+                                </p>
                             {% endfor %}
-                        </ul>
-                        <br/>
-                    </div>
+                        </div>
                     {% endif %}
+
                     {% if entity.versions.all|length %}
-                    <div class="col s12">
-                        <h5 class="light center">Build history</h5>
-                        <ul type="1" class='grey-text text-darken-2'>
+                    <div class="col s12 center">
+                        <h5 class="light">Build history</h5>
+                        <div class="container ">
                             {% for version in entity.versions.all %}
-                            <li>{{ version.name }}, {{ version.description }}</li>
+                                <p class="light left-align valign-wrapper">
+                                    <i class="small material-icons blue-grey-text text-darken-1">chevron_right</i>
+                                    {{ version.name }}, {{ version.description }}
+                                </p>
                             {% endfor %}
-                        </ul>
+                        </div>
                     </div>
                     {% endif %}
                 </div>

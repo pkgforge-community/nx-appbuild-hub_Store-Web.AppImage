@@ -39,7 +39,7 @@
     {% for package in entity.packages.all %}
     <div class="col s12 m6 l4 xl3">
         <div class="card hoverable">
-            <div class="card-image blue-grey lighten-4" style="height: 250px;">
+            <div class="card-image brown lighten-5" style="height: 250px;">
                 <a href="{% url 'package' package.slug %}">
                     {% if package.image %}
                     <img alt="{{ package.name }}" class="responsive-img"
@@ -50,7 +50,7 @@
                     {% endif %}
                 </a>
             </div>
-            <div class="card-action blue-grey lighten-4 truncate">
+            <div class="card-action brown lighten-5 truncate">
                 {% if package.version %}
                 <a class="btn-floating btn-small waves-effect waves-light green"
                    href="{% url 'package_download' package.slug %}" title="Download">
