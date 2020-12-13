@@ -39,16 +39,23 @@
 
         <body>
             {% block body %}
-                <nav>
-                    <div class="nav-wrapper grey lighten-4">
-                        <a href="{% url 'package_dashboard' %}" class="brand-logo">
-                            <img src="{% static 'default/logo.png' %}"
-                                 style="height: 1.8em; margin-left: 20px;">
-                        </a>
+            <nav class="nav-extended grey lighten-3">
+                <div class="nav-wrapper ">
+                    <div class="row" style="margin-bottom: 0px;">
+                        <div class="col s2">
+                            <a href="{% url 'package_dashboard' %}" class="brand-logo">
+                                <img src="{% static 'default/logo.png' %}"
+                                     style="height: 1.8em; margin-left: 20px;">
+                            </a>
+                        </div>
+                        <div class="col s10 valign-wrapper light orange-text text-darken-3">
+                            This is an alpha-version, you use it <b>AT YOUR OWN RISK</b>!
+                        </div>
                     </div>
-                </nav>
+                </div>
+            </nav>
 
-                {% block layout %}
+            {% block layout %}
                     <header>
                         {% block title %}
                         {% endblock title %}

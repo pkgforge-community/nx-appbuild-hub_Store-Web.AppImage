@@ -2,29 +2,37 @@
 {% load widgets %}
 {% load static %}
 {% block body %}
-<nav>
-    <div class="nav-wrapper grey lighten-4">
-        <a href="{% url 'package_dashboard' %}" class="brand-logo">
-            <img src="{% static 'default/logo.png' %}"
-                 style="height: 1.8em; margin-left: 20px;">
-        </a>
+<nav class="nav-extended grey lighten-3">
+    <div class="nav-wrapper ">
+        <div class="row" style="margin-bottom: 0px;">
+            <div class="col s12 m2">
+                <a href="{% url 'package_dashboard' %}" class="brand-logo">
+                    <img src="{% static 'default/logo.png' %}"
+                         style="height: 1.8em; margin-left: 20px;">
+                </a>
+            </div>
+            <div class="col s12 m10 valign-wrapper light orange-text text-darken-3 hide-on-med-and-down">
+                This is an alpha-version, you use it <b>AT YOUR OWN RISK</b>!
+            </div>
+        </div>
     </div>
 </nav>
 
-<div class="row">
-    <div class="col s12 m6 l8">
-        <div class="caption center-align grey-text text-darken-3 white"
-             style="margin-top: 25%;">
 
-            <h3 class="grey-text text-darken-3">
+<div class="row" style="margin-bottom: 0px;">
+    <div class="col s12 m6 l8 ">
+        <div class="caption center-align grey-text text-darken-3 white container"
+             style="margin-top: 20%;">
+
+            <h3 class="light brown-text text-darken-3">
                 AppImage repository
             </h3>
 
             <form method="get" action="{% url 'package_dashboard' %}">
-                <div class="row">
-                    <div class="input-field col s9 m8 offset-m1 offset-xl1">
-                        <i class="material-icons prefix">search</i>
-                        <input type="text" class="validate " name="search" id="search"
+                <div class="row brown-text text-darken-3">
+                    <div class="input-field col s9 m8 offset-m1 offset-xl1 orange-text">
+                        <i class="material-icons prefix orange-text">search</i>
+                        <input type="text" class="validate" name="search" id="search"
                                placeholder="Enter search string...">
                     </div>
                     <div class="input-field col s3">
@@ -33,11 +41,13 @@
                     </div>
                 </div>
             </form>
-            <p class="light"> The home of <b>{{total }}</b> high-quality apps which can be easily installed on any
+            <p class="light brown-text text-darken-3"> The home of <b>{{total }}</b> high-quality apps which can be
+                easily installed on any
                 modern Linux distribution. </p>
+            <br/><br/><br/>
         </div>
     </div>
-    <div class="col s12 m6 l4 hide-on-small-only  valign-wrapper"
+    <div class="col s12 m6 l4 hide-on-small-only valign-wrapper"
          style="max-height: 30em;">
         <img src="{% static 'default/wires.png' %}"
              class="materialboxed left-align" style="z-index: -1;">
@@ -46,7 +56,240 @@
 
 {% widget 'dashboard.groups' %}
 
-<footer class="page-footer docs-footer  grey lighten-5">
+<div class="row brown lighten-5" style="margin-bottom: 0px; width: 100%;">
+    <div class="col s12 center">
+        <h3>About the Project</h3>
+        <h5 class="light">Currently this is a non-profit volunteer one-person open-source project.</h5>
+        <p class="light">easily installed on any modern Linux distribution.</p>
+    </div>
+    <div class="col s12 m6" style="height: 23em;">
+        <div class="card">
+            <div class="card-content center">
+                <h5 class="light truncate">
+                    <i class="tiny material-icons">flash_on</i>
+                    Short term Goals
+                </h5>
+            </div>
+            <div class="card-action left-align container">
+                <p class="light truncate">
+                    <i class="tiny material-icons">check</i>
+                    User friendly Repository for the AppImages
+                </p>
+                <p class="light truncate">
+                    <i class="tiny material-icons">hourglass_empty</i>
+                    Up to date versions of the Software
+                </p>
+                <p class="light truncate">
+                    <i class="tiny material-icons">check</i>
+                    <a href="{% url 'package' 'apprepo' %}">
+                        Command line tool
+                    </a>
+                    to manage AppImages
+                </p>
+                <p class="light truncate">
+                    <i class="tiny material-icons">hourglass_empty</i>
+                    Graphical tool to manage AppImages
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m6" style="height: 23em;">
+        <div class="card">
+            <div class="card-content center">
+                <h5 class="light truncate">
+                    <i class="tiny material-icons">access_time</i>
+                    Long term Goals
+                </h5>
+            </div>
+            <div class="card-action left-align container">
+                <p class="light truncate">
+                    <i class="tiny material-icons">hourglass_empty</i>
+                    Distro-agnostic application management
+                </p>
+                <p class="light truncate">
+                    <i class="tiny material-icons">hourglass_empty</i>
+                    Simplify application distribution process
+                </p>
+                <p class="light truncate">
+                    <i class="tiny material-icons">check</i>
+                    Separate the System from the Applications
+                </p>
+                <p class="light truncate">
+                    <i class="tiny material-icons">check</i>
+                    Keep all installed applications after reinstall
+                </p>
+                <p class="light truncate">
+                    <i class="tiny material-icons">check</i>
+                    Easy backups of the installed applications
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col s12">
+        <br/>
+    </div>
+</div>
+
+<div class="row orange lighten-5" style="margin-bottom: 0px; width: 100%;">
+    <div class="col s12 center">
+        <br/>
+        <h3>How does it work</h3>
+        <h5 class="light">Currently this is a non-profit volunteer one-person open-source project.</h5>
+        <p class="light">easily installed on any modern Linux distribution.</p>
+        <img src="{% static 'default/flow.svg' %}" class="responsive-img">
+    </div>
+    <div class="col center s12 m8 offset-m2 l6 offset-l3 xl4 offset-xl4">
+        <div class="card">
+            <div class="card-content" style="padding-bottom: 0px;">
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <h5 class="light truncate">
+                            <i class="small material-icons orange-text">error</i>
+                        </h5>
+                    </div>
+                    <div class="col s10 left-align">
+                        <h5 class="light truncate">
+                            Trade-offs
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card-action left-align container">
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <i class="small material-icons orange-text">error</i>
+                    </div>
+                    <div class="col s10 left-align light">
+                        It works only with the up-to date systems (GLIBC >= 2.31).
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <i class="small material-icons orange-text">error</i>
+                    </div>
+                    <div class="col s10 left-align light">
+                        Provided AppImages need more space than the versions provided by the distro
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col center s12 m8 offset-m2 l6 offset-l3 xl4 offset-xl4">
+        <div class="card">
+            <div class="card-content" style="padding-bottom: 0px;">
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <h5 class="light truncate">
+                            <i class="small material-icons green-text">check_circle</i>
+                        </h5>
+                    </div>
+                    <div class="col s10 left-align">
+                        <h5 class="light truncate">
+                            It was tested and works at:
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card-action left-align container">
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <i class="small material-icons green-text">check_circle</i>
+                    </div>
+                    <div class="col s10 left-align light">
+                        openSUSE Tumbleweed
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <i class="small material-icons green-text">check_circle</i>
+                    </div>
+                    <div class="col s10 left-align light">
+                        Ubuntu 20.04
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <i class="small material-icons green-text">check_circle</i>
+                    </div>
+                    <div class="col s10 left-align light">
+                        KaOS
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <i class="small material-icons green-text">check_circle</i>
+                    </div>
+                    <div class="col s10 left-align light">
+                        Probably any other distro with GLIBC >= 2.31
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content" style="padding-bottom: 0px;">
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <h5 class="light truncate">
+                            <i class="small material-icons red-text">remove_circle</i>
+                        </h5>
+                    </div>
+                    <div class="col s10 left-align">
+                        <h5 class="light truncate">
+                            It does not works at:
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card-action left-align container">
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <i class="small material-icons red-text">remove_circle</i>
+                    </div>
+                    <div class="col s10 left-align light">
+                        Any Linux-system with GLIBC < 2.31
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <i class="small material-icons red-text">remove_circle</i>
+                    </div>
+                    <div class="col s10 left-align light">
+                        CentOS 6 (GLIBC < 2.31)
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <i class="small material-icons red-text">remove_circle</i>
+                    </div>
+                    <div class="col s10 left-align light">
+                        CentOS 7 (GLIBC < 2.31)
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <i class="small material-icons red-text">remove_circle</i>
+                    </div>
+                    <div class="col s10 left-align light">
+                        CentOS 8 (GLIBC < 2.31)
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <i class="small material-icons red-text">remove_circle</i>
+                    </div>
+                    <div class="col s10 left-align light">
+                        Deepin Linux (GLIBC < 2.31)
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<footer class="page-footer docs-footer  grey lighten-5" style="margin-top:0px;">
     <div class="container">
         <div class="col s12 m10 offset-m1">
             <div class="row">

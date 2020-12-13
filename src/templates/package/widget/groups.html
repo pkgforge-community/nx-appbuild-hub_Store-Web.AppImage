@@ -1,7 +1,7 @@
 {% load widgets %}
 {% load static %}
 
-<div class="row brown darken-3" >
+<div class="row brown darken-3" style="margin-bottom: 0px;">
     <div class="col s12 m3 l5 hide-on-small-only valign-wrapper">
 
         <img src="{% static 'default/categories.png' %}"
@@ -32,7 +32,7 @@
                         </div>
                         <div class="card-action left-align">
                             <a href="{% url 'package_group' group.id %}" class="truncate">
-                                >> {{ group.packages.count }} packages
+                                >> {{ group.packages.count }} apps
                             </a>
                         </div>
                     </div>
