@@ -103,15 +103,17 @@
                     {% endif %}
 
                     {% if entity.comments.all|length %}
-                        <div class="col s12">
-                            <h5 class="light center">Comments</h5>
+                    <div class="col s12">
+                        <h5 class="light center">Comments</h5>
+                        <div class="container ">
                             {% for comments in entity.comments.all %}
-                                <p class="light left-align valign-wrapper">
-                                    <i class="small material-icons blue-grey-text text-darken-1">chevron_right</i>
-                                    {{ comments.text }}
-                                </p>
+                            <p class="light left-align valign-wrapper">
+                                <i class="small material-icons blue-grey-text text-darken-1">chevron_right</i>
+                                {{ comments.text }}
+                            </p>
                             {% endfor %}
                         </div>
+                    </div>
                     {% endif %}
 
                     {% if entity.versions.all|length %}
@@ -119,10 +121,10 @@
                         <h5 class="light">Build history</h5>
                         <div class="container ">
                             {% for version in entity.versions.all %}
-                                <p class="light left-align valign-wrapper">
-                                    <i class="small material-icons blue-grey-text text-darken-1">chevron_right</i>
-                                    {{ version.name }}, {{ version.description }}
-                                </p>
+                            <p class="light left-align valign-wrapper">
+                                <i class="small material-icons blue-grey-text text-darken-1">chevron_right</i>
+                                {{ version.name }}, {{ version.description }}
+                            </p>
                             {% endfor %}
                         </div>
                     </div>
@@ -156,12 +158,9 @@
             </div>
             {% endfor %}
         </div>
-        <br/><br/><br/>
+        <br/>
     </div>
-</div>
-
-{% if entity.version %}
-<div class="row white lighten-5" style="margin-bottom: 0px; width: 100%;">
+    {% if entity.version %}
     <div class="col s12 center">
         <h3 class="light brown-text text-darken-3">How to install:</h3>
         <p class="light">Although every effort is made to ensure that everything
@@ -170,8 +169,8 @@
     </div>
     <div class="col s12">
         <div class='row' style="margin-bottom:0px;">
-            <div class="col s6 card brown darken-3 green-text text-darken-3">
-                <div class="card-content white-text">
+            <div class="col s6 card black">
+                <div class="card-content green-text">
                     wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}<br/>
                     chmod +x ./{{ entity.package }}<br/>
                     ./{{ entity.package }}<br/>
@@ -195,8 +194,8 @@
                     <i class="small material-icons">arrow_forward</i>
                 </h3>
             </div>
-            <div class="col s6 card brown darken-3 green-text text-darken-3">
-                <div class="card-content white-text">
+            <div class="col s6 card black">
+                <div class="card-content green-text">
                     wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}<br/>
                     chmod +x ./{{ entity.package }}<br/>
                     ./{{ entity.package }}<br/>
@@ -204,8 +203,8 @@
             </div>
         </div>
         <div class='row' style="margin-bottom:0px;">
-            <div class="col s6 card brown darken-3 green-text text-darken-3">
-                <div class="card-content white-text">
+            <div class="col s6 card black">
+                <div class="card-content green-text">
                     wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}<br/>
                     chmod +x ./{{ entity.package }}<br/>
                     ./{{ entity.package }}<br/>
@@ -232,8 +231,8 @@
                 </h3>
                 <p>The desktop integration will be provided by this package.</p>
             </div>
-            <div class="col s6 card brown darken-3 green-text text-darken-3">
-                <div class="card-content white-text">
+            <div class="col s6 card black">
+                <div class="card-content green-text">
                     wget {% fullurl 'package_download' slug='apprepo' %} --output-document=Apprepo.AppImage<br/>
                     chmod +x ./Apprepo.AppImage<br/>
                     ./Apprepo.AppImage install {{ entity.slug }}<br/>
@@ -243,9 +242,9 @@
         </div>
         <br/><br/>
     </div>
+    {% endif %}
 </div>
 
-{% endif %}
 {% widget 'dashboard.groups' %}
 
 {% endblock %}
