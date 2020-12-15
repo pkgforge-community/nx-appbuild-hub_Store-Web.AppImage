@@ -47,7 +47,7 @@
         {% endif %}
     </div>
     <div class="col s12 m5 xl4">
-        <div class="card brown lighten-5">
+        <div class="card brown lighten-5 z-depth-5">
             <div class="card-content">
                 <div class="row">
                     {% if entity.homepage|length %}
@@ -55,9 +55,9 @@
                         <h5 class="light">Home page</h5>
                     </div>
                     <div class="col s12 center">
-                        <h5 class="light">
+                        <h5 class="light center">
                             <a class="waves-effect waves-light btn red truncate"
-                               href="{{ entity.homepage }}" target="_blank">
+                               href="{{ entity.homepage }}" target="_blank" style="max-width: 70%;">
                                 <i class="material-icons right">arrow_forward</i>
                                 {{ entity.homepage }}
                             </a>
@@ -81,6 +81,11 @@
                             <i class="material-icons right">file_download</i>
                             Download
                         </a>
+                        <h6 class="light center">Do not forget:</h6>
+                        <div class="card-content green-text black left-align">
+                            chmod +x ./{{ entity.package }}<br/>
+                            ./{{ entity.package }}<br/>
+                        </div>
                     </div>
                     {% endif %}
                 </div>
@@ -99,20 +104,6 @@
                             </a>
                             {% endfor %}
                         </p>
-                    </div>
-                    {% endif %}
-
-                    {% if entity.comments.all|length %}
-                    <div class="col s12">
-                        <h5 class="light center">Comments</h5>
-                        <div class="container ">
-                            {% for comments in entity.comments.all %}
-                            <p class="light left-align valign-wrapper">
-                                <i class="small material-icons blue-grey-text text-darken-1">chevron_right</i>
-                                {{ comments.text }}
-                            </p>
-                            {% endfor %}
-                        </div>
                     </div>
                     {% endif %}
 
@@ -145,7 +136,6 @@
         <p class="light">{{ entity.description|safe }}</p>
         {% endif %}
     </div>
-
     <div class="col s12">
         <div class="row">
             {% for image in entity.images %}
@@ -160,9 +150,23 @@
         </div>
         <br/>
     </div>
+
+    {% if entity.comments.all|length %}
+        <div class="col s12 center">
+            <h3 class="light">Comments</h3>
+        </div>
+        <div class="col s12 m6 offset-m3 x4 offset-l4 xl3 offset-xl4">
+            {% for comments in entity.comments.all %}
+                <p class="light left-align valign-wrapper">
+                    <i class="small material-icons blue-grey-text text-darken-1">chevron_right</i>
+                    {{ comments.text }}
+                </p>
+            {% endfor %}
+        </div>
+    {% endif %}
     {% if entity.version %}
     <div class="col s12 center">
-        <h3 class="light brown-text text-darken-3">How to install:</h3>
+        <h3 class="light brown-text text-darken-3">How to install</h3>
         <p class="light">Although every effort is made to ensure that everything
             in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b></p>
         <br/><br/>
