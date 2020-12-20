@@ -21,7 +21,7 @@ GLIBC_VERSION := $(shell getconf GNU_LIBC_VERSION | sed 's/ /-/g' )
 SHELL:=$(shell which bash)
 PWD:=$(shell pwd)
 
-all: clean init
+all:
 
 	mkdir -p $(PWD)/build
 	mkdir -p $(PWD)/build/AppDir
@@ -66,8 +66,11 @@ all: clean init
 
 	chmod +x $(PWD)/build/AppDir/AppRun
 
+	rm -rf $(PWD)/build/AppDir/vendor/*
 	$(PWD)/build/AppDir/AppRun --python -m pip install  -r $(PWD)/requirements.txt --target=$(PWD)/build/AppDir/vendor --upgrade
 	$(PWD)/build/AppDir/AppRun --python -m pip uninstall typing -y || true
+	rm -rf $(PWD)/build/AppDir/vendor/typing.py || true
+
 
 	cp --force $(PWD)/AppDir/*.desktop $(PWD)/build/AppDir/
 	cp --force $(PWD)/AppDir/*.png $(PWD)/build/AppDir/ || true
@@ -84,5 +87,4 @@ init:
 
 
 clean:
-	rm -rf ${APPDIR}/venv
 	rm -rf ${APPDIR}/build
