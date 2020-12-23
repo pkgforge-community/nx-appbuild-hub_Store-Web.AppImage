@@ -81,15 +81,91 @@
                             <i class="material-icons right">file_download</i>
                             Download
                         </a>
-                        <h6 class="light center">Do not forget:</h6>
-                        <div class="card-content green-text black left-align">
-                            chmod +x ./{{ entity.package }}<br/>
-                            ./{{ entity.package }}<br/>
-                        </div>
                     </div>
                     {% endif %}
                 </div>
+            </div>
+            {% if entity.version %}
+            <h6 class="light center">Do not forget:</h6>
+            <div class="card-content green-text black left-align">
+                chmod +x ./{{ entity.package }}<br/>
+                ./{{ entity.package }}<br/>
+            </div>
+            {% endif %}
 
+            <h5 class="light center">It works in:</h5>
+            <div class="card-action left-align container">
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <i class="small material-icons green-text">check_circle</i>
+                    </div>
+                    <div class="col s10 left-align light truncate">
+                        openSUSE Tumbleweed
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <i class="small material-icons green-text">check_circle</i>
+                    </div>
+                    <div class="col s10 left-align light truncate">
+                        Ubuntu 20.04
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <i class="small material-icons green-text">check_circle</i>
+                    </div>
+                    <div class="col s10 left-align light truncate">
+                        KaOS
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <i class="small material-icons green-text">check_circle</i>
+                    </div>
+                    <div class="col s10 left-align light truncate">
+                        Linux distro with GLIBC >= 2.31
+                    </div>
+                </div>
+            </div>
+            <h5 class="light center">Does not work in:</h5>
+            <div class="card-action left-align container">
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <i class="small material-icons red-text">remove_circle</i>
+                    </div>
+                    <div class="col s10 left-align light truncate">
+                        Ubuntu < 20.04
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <i class="small material-icons red-text">remove_circle</i>
+                    </div>
+                    <div class="col s10 left-align light truncate">
+                        CentOS <= 8
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <i class="small material-icons red-text">remove_circle</i>
+                    </div>
+                    <div class="col s10 left-align light truncate">
+                        Deepin Linux
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class="col s2">
+                        <i class="small material-icons red-text">remove_circle</i>
+                    </div>
+                    <div class="col s10 left-align light truncate">
+                        Linux distro with GLIBC < 2.31
+                    </div>
+                </div>
+            </div>
+            <h6 class="light center">How to get GLIBC version:</h6>
+            <div class="card-content green-text black left-align">
+                ldd --version
             </div>
             <div class="card-action left-align">
                 <div class="row">
@@ -121,8 +197,6 @@
                     </div>
                     {% endif %}
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -152,17 +226,17 @@
     </div>
 
     {% if entity.comments.all|length %}
-        <div class="col s12 center">
-            <h3 class="light">Comments</h3>
-        </div>
-        <div class="col s12 m6 offset-m3 x4 offset-l4 xl3 offset-xl4">
-            {% for comments in entity.comments.all %}
-                <p class="light left-align valign-wrapper">
-                    <i class="small material-icons blue-grey-text text-darken-1">chevron_right</i>
-                    {{ comments.text }}
-                </p>
-            {% endfor %}
-        </div>
+    <div class="col s12 center">
+        <h3 class="light">Comments</h3>
+    </div>
+    <div class="col s12 m6 offset-m3 x4 offset-l4 xl3 offset-xl4">
+        {% for comments in entity.comments.all %}
+        <p class="light left-align valign-wrapper">
+            <i class="small material-icons blue-grey-text text-darken-1">chevron_right</i>
+            {{ comments.text }}
+        </p>
+        {% endfor %}
+    </div>
     {% endif %}
     {% if entity.version %}
     <div class="col s12 center">
