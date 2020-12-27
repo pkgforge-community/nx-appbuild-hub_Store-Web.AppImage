@@ -18,7 +18,8 @@
                 <h1 class="light brown-text text-darken-3">
                     AppImage: {{ entity.name }}
                 </h1>
-                <h5 class="light orange-text pulse waves-effect waves-light">This is unofficial third-party build(!), <br/> you use it AT YOUR OWN RISK!</h5>
+                <h5 class="light orange-text pulse waves-effect waves-light">This is an unofficial third-party build(!),
+                    <br/> you use it AT YOUR OWN RISK!</h5>
             </div>
             <div class="col s12">
                 {% if entity.description|length %}
@@ -63,22 +64,22 @@
                     {% endif %}
 
                     {% if entity.version %}
-                    <div class="col s12">
-                        <h5 class="light center">Latest version</h5>
-                        <div class="row">
-                            <div class="col s4 align-left light">SHA-1 Hash:</div>
-                            <div class="col s8 align-left light">{{ entity.version.hash }}</div>
-                            <div class="col s4 align-left light">Updated at:</div>
-                            <div class="col s8 align-left light">{{ entity.version.created|date:'Y M d' }}</div>
+                        <div class="col s12">
+                            <h5 class="light center">Latest version</h5>
+                            <div class="row">
+                                <div class="col s4 align-left light">SHA-1 Hash:</div>
+                                <div class="col s8 align-left light">{{ entity.version.hash }}</div>
+                                <div class="col s4 align-left light">Updated at:</div>
+                                <div class="col s8 align-left light">{{ entity.version.created|date:'Y M d' }}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col s12 center">
-                        <a class="waves-effect waves-light btn-large green pulse"
-                           href="{% url 'package_download' slug=entity.slug %}">
-                            <i class="material-icons right">file_download</i>
-                            Download
-                        </a>
-                    </div>
+                        <div class="col s12 center">
+                            <a class="waves-effect waves-light btn-large green pulse"
+                               href="{% url 'package_download' slug=entity.slug %}">
+                                <i class="material-icons right">file_download</i>
+                                Download
+                            </a>
+                        </div>
                     {% endif %}
                 </div>
             </div>
