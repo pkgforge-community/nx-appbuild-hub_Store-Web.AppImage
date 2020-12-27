@@ -1,14 +1,21 @@
 {% extends '_layout.html' %}
 
-{% block title %}
-{% autoescape off %}
-<h1 class="header">{{ entity.name }}</h1>
-{% endautoescape %}
-{% endblock %}
 
 
 {% block content %}
-{% autoescape off %}
-{{ entity.content }}
-{% endautoescape %}
+
+    <div class="row" style="margin-bottom: 0px;">
+        <div class="col s10 offset-s1">
+            {% autoescape off %}
+                <h1 class="light brown-text text-darken-3">
+                    {{ entity.name }}
+                </h1>
+            {% endautoescape %}
+        </div>
+        <div class="col s10 offset-s1 light brown-text text-darken-3">
+            {% autoescape off %}
+            {{ entity.content }}
+            {% endautoescape %}
+        </div>
+    </div>
 {% endblock %}

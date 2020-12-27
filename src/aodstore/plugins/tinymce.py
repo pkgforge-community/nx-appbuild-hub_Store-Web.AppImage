@@ -18,11 +18,11 @@
 TINYMCE_DEFAULT_CONFIG = {
     "content_css": 'https://materializecss.com/css/ghpages-materialize.css',
     "formats": {
-        "h1": {"block": 'h1', "classes": 'header'},
-        "h2": {"block": 'h2', "classes": 'header'},
-        "h3": {"block": 'h3', "classes": 'header'},
-        "h4": {"block": 'h4', "classes": 'header'},
-        "h5": {"block": 'h5', "classes": 'header'},
-        "h6": {"block": 'h6', "classes": 'header'},
+        "h1": {"block": 'h1', "classes": 'light brown-text text-darken-3'},
+        "h2": {"block": 'h2', "classes": 'light brown-text text-darken-3'},
+        "h3": {"block": 'h3', "classes": 'light brown-text text-darken-3'},
+        "h4": {"block": 'h4', "classes": 'light brown-text text-darken-3'},
+        "h5": {"block": 'h5', "classes": 'light brown-text text-darken-3'},
+        "h6": {"block": 'h6', "classes": 'light brown-text text-darken-3'},
     },
 }
