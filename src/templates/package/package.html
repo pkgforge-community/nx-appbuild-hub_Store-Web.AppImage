@@ -18,12 +18,9 @@
                 <h1 class="light brown-text text-darken-3">
                     AppImage: {{ entity.name }}
                 </h1>
+                <h5 class="light orange-text pulse waves-effect waves-light">This is unofficial third-party build(!), <br/> you use it AT YOUR OWN RISK!</h5>
             </div>
             <div class="col s12">
-                <p class="light">
-                    Apprepo is a non-profit volunteer project. Although every effort is made to ensure that
-                    everything in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b>.
-                </p>
                 {% if entity.description|length %}
                 <p class="light">{{ entity.description|safe }}</p>
                 {% endif %}
