@@ -1,0 +1,10 @@
+{% load widgets %}
+{% load static %}
+
+<form method="get" action="{% url 'package_dashboard' %}" style="width:100%; margin:0px 1em;">
+    <div class="input-field" style="width:100%;margin:0px;">
+        <i class="material-icons prefix orange-text text-darken-3">search</i>
+        <input type="text" class="validate" name="search" id="search"
+               placeholder="Enter search string...">
+    </div>
+</form>

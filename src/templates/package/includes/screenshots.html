@@ -1,0 +1,22 @@
+<div class="row grey lighten-4 light grey-text text-darken-2" style="margin-bottom: 0px; width: 100%;">
+    <div class="col s12 center">
+        <h3 class="light grey-text text-darken-2">Screenshots</h3>
+        {% if entity.description|length %}
+        <p class="light grey-text text-darken-2">{{ entity.description|safe }}</p>
+        {% endif %}
+    </div>
+    <div class="col s12">
+        <div class="row">
+            {% for image in entity.images %}
+            <div class="col s12 m6 l4 xl3">
+                <div class="card hoverable">
+                    <div class="card-image grey lighten-4 z-depth-3 valign-wrapper" style="height: 200px;">
+                        <img src="{{ image.url }}" style="max-height: 100%; max-width: 100%">
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <br/>
+    </div>
+</div>

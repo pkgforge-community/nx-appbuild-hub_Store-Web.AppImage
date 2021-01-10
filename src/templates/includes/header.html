@@ -1,0 +1,20 @@
+{% load widgets %}
+{% load static %}
+<nav class="nav-extended grey lighten-3">
+    <div class="nav-wrapper ">
+        <div class="row" style="margin-bottom: 0px;">
+            <div class="col s12 m2">
+                <a href="{% url 'package_dashboard' %}" class="brand-logo">
+                    <img src="{% static 'default/logo.png' %}"
+                         style="height: 1.8em; margin-left: 20px;">
+                </a>
+            </div>
+            <div class="col s6 orange-text text-darken-3 hide-on-med-and-down">
+                This is an alpha-version, you use it <b> AT YOUR OWN RISK</b>!
+            </div>
+            <div class="col s4 valign-wrapper white hide-on-med-and-down" style="padding:0px;">
+                {% include 'includes/search.html' %}
+            </div>
+        </div>
+    </div>
+</nav>

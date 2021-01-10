@@ -5,309 +5,43 @@
 {% load math %}
 
 {% block meta %}
-<title>Apprepo - AppImage: {{ entity.name }}</title>
-<meta name="keywords" content="application, repository, linux, appimage, appstore">
-<meta name="description" content="{{ entity.description|striptags }}">
+    <title>Apprepo - AppImage: {{ entity.name }}</title>
+    <meta name="keywords" content="application, repository, linux, appimage, appstore">
+    <meta name="description" content="{{ entity.description|striptags }}">
 {% endblock meta %}
 
 {% block title %}
-<h3 class="light grey-text text-darken-2">
-    AppImage: {{ entity.name }}
-</h3>
-<h5 class="light red-text pulse waves-effect waves-light">
-    This is an unofficial third-party build, <br/> you use it AT YOUR OWN RISK!
-</h5>
-{% if entity.description|length %}
-<p class="light grey-text text-darken-2">{{ entity.description|safe }}</p>
-{% endif %}
-<p class="light grey-text text-darken-2">...</p>
+    <h3 class="light grey-text text-darken-2">
+        AppImage: {{ entity.name }}
+    </h3>
+    <h5 class="light red-text pulse waves-effect waves-light">
+        This is an unofficial third-party build, <br/> you use it AT YOUR OWN RISK!
+    </h5>
+    {% if entity.description|length %}
+        <p class="light grey-text text-darken-2">{{ entity.description|safe }}</p>
+    {% endif %}
+    <p class="light grey-text text-darken-2">...</p>
 {% endblock %}
 
 {% block content %}
-<div class="row" style="width: 100%;">
-    <div class="col s12 m7 xl8 hide-on-small-only valign-wrapper">
-        {% if entity.image %}
-        <img src="{{ entity.image.url }}"
-             class="materialboxed z-depth-3">
-        {% endif %}
-    </div>
-    <div class="col s12 m5 xl4">
-        <div class="card grey lighten-4 light grey-text text-darken-4 z-depth-5">
-            <div class="card-content">
-                <div class="row">
-                    {% if entity.homepage|length %}
-                    <div class="col s12 center">
-                        <h5>Home page</h5>
-                    </div>
-                    <div class="col s12 center">
-                        <h5 class="light center">
-                            <a class="waves-effect waves-light btn red truncate"
-                               href="{{ entity.homepage }}" target="_blank" style="max-width: 70%;">
-                                <i class="material-icons right">arrow_forward</i>
-                                {{ entity.homepage }}
-                            </a>
-                        </h5>
-                    </div>
-                    {% endif %}
-
-                    {% if entity.version %}
-                    <div class="col s12">
-                        <h5 class="light grey-text text-darken-4 center">Latest version</h5>
-                        <div class="row">
-                            <div class="col s4 align-left">SHA-1 Hash:</div>
-                            <div class="col s8 align-left">{{ entity.version.hash }}</div>
-                            <div class="col s4 align-left">Updated at:</div>
-                            <div class="col s8 align-left">{{ entity.version.created|date:'Y M d' }}</div>
-                        </div>
-                    </div>
-                    <div class="col s12 center">
-                        <a class="waves-effect waves-light btn-large green pulse"
-                           href="{% url 'package_download' slug=entity.slug %}">
-                            <i class="material-icons right">file_download</i>
-                            Download
-                        </a>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-            {% if entity.version %}
-            <h6 class="light grey-text text-darken-4 center">Do not forget:</h6>
-            <div class="card-content green-text black left-align">
-                chmod +x ./{{ entity.package }}<br/>
-                ./{{ entity.package }}<br/>
-            </div>
+    <div class="row" style="width: 100%;">
+        <div class="col s12 m7 xl8 hide-on-small-only valign-wrapper">
+            {% if entity.image %}
+            <img src="{{ entity.image.url }}"
+                 class="materialboxed z-depth-3">
             {% endif %}
-
-            <h5 class="light grey-text text-darken-4 center">It works in:</h5>
-            <div class="card-action left-align container light grey-text text-darken-4">
-                <div class="row" style="margin-bottom: 0px;">
-                    <div class="col s2">
-                        <i class="small material-icons green-text">check_circle</i>
-                    </div>
-                    <div class="col s10 left-align light truncate">
-                        openSUSE Tumbleweed
-                    </div>
-                </div>
-                <div class="row" style="margin-bottom: 0px;">
-                    <div class="col s2">
-                        <i class="small material-icons green-text">check_circle</i>
-                    </div>
-                    <div class="col s10 left-align light truncate">
-                        Ubuntu 20.04
-                    </div>
-                </div>
-                <div class="row" style="margin-bottom: 0px;">
-                    <div class="col s2">
-                        <i class="small material-icons green-text">check_circle</i>
-                    </div>
-                    <div class="col s10 left-align light truncate">
-                        KaOS
-                    </div>
-                </div>
-                <div class="row" style="margin-bottom: 0px;">
-                    <div class="col s2">
-                        <i class="small material-icons green-text">check_circle</i>
-                    </div>
-                    <div class="col s10 left-align light truncate">
-                        Linux distro with GLIBC >= 2.31
-                    </div>
-                </div>
-            </div>
-            <h5 class="light grey-text text-darken-4 center">Does not work in:</h5>
-            <div class="card-action left-align container light grey-text text-darken-4">
-                <div class="row" style="margin-bottom: 0px;">
-                    <div class="col s2">
-                        <i class="small material-icons red-text">remove_circle</i>
-                    </div>
-                    <div class="col s10 left-align light truncate">
-                        Ubuntu < 20.04
-                    </div>
-                </div>
-                <div class="row" style="margin-bottom: 0px;">
-                    <div class="col s2">
-                        <i class="small material-icons red-text">remove_circle</i>
-                    </div>
-                    <div class="col s10 left-align light truncate">
-                        CentOS <= 8
-                    </div>
-                </div>
-                <div class="row" style="margin-bottom: 0px;">
-                    <div class="col s2">
-                        <i class="small material-icons red-text">remove_circle</i>
-                    </div>
-                    <div class="col s10 left-align light truncate">
-                        Deepin Linux
-                    </div>
-                </div>
-                <div class="row" style="margin-bottom: 0px;">
-                    <div class="col s2">
-                        <i class="small material-icons red-text">remove_circle</i>
-                    </div>
-                    <div class="col s10 left-align light truncate">
-                        Linux distro with GLIBC < 2.31
-                    </div>
-                </div>
-            </div>
-            <h6 class="light grey-text text-darken-4 center">How to get GLIBC version:</h6>
-            <div class="card-content green-text black left-align">
-                ldd --version
-            </div>
-            <div class="card-action left-align light grey-text text-darken-4">
-                <div class="row">
-                    {% if entity.groups.all|length %}
-                    <div class="col s12 center">
-                        <h5 class="light center">Categories</h5>
-                        <p class="light">
-                            {% for group in entity.groups.all %}
-                            <a href="{% url 'package_group' group.id %}"
-                               class="waves-effect waves-light btn-small blue-grey darken-1">
-                                >> {{ group.name }}
-                            </a>
-                            {% endfor %}
-                        </p>
-                    </div>
-                    {% endif %}
-
-                    {% if entity.versions.all|length %}
-                    <div class="col s12 center">
-                        <h5 class="light grey-text text-darken-4">Build history</h5>
-                        <div class="container ">
-                            {% for version in entity.versions.all %}
-                            <p class="light grey-text text-darken-4 left-align valign-wrapper">
-                                <i class="small material-icons blue-grey-text text-darken-1">chevron_right</i>
-                                {{ version.name }}, {{ version.description }}
-                            </p>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    {% endif %}
-                </div>
+        </div>
+        <div class="col s12 m5 xl4">
+            <div class="card grey lighten-4 light grey-text text-darken-4 z-depth-5">
+                {% include "package/includes/info.html" with entity=entity %}
             </div>
         </div>
     </div>
-</div>
 
+    {% include "package/includes/screenshots.html" with entity=entity %}
+    {% include "package/includes/comments.html" with entity=entity %}
+    {% include "package/includes/install.html" with entity=entity %}
 
-<div class="row grey lighten-4 light grey-text text-darken-2" style="margin-bottom: 0px; width: 100%;">
-    <div class="col s12 center">
-        <h3 class="light grey-text text-darken-2">Screenshots</h3>
-        {% if entity.description|length %}
-        <p class="light grey-text text-darken-2">{{ entity.description|safe }}</p>
-        {% endif %}
-    </div>
-    <div class="col s12">
-        <div class="row">
-            {% for image in entity.images %}
-            <div class="col s12 m6 l4 xl3">
-                <div class="card hoverable">
-                    <div class="card-image grey lighten-4 z-depth-3 valign-wrapper" style="height: 200px;">
-                        <img src="{{ image.url }}" style="max-height: 100%; max-width: 100%">
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        <br/>
-    </div>
-
-    {% if entity.comments.all|length %}
-    <div class="col s12 center">
-        <h3 class="light grey-text text-darken-2">Comments</h3>
-    </div>
-    <div class="col s12 m6 offset-m3 x4 offset-l4 xl3 offset-xl4">
-        {% for comments in entity.comments.all %}
-        <p class="light left-align valign-wrapper">
-            <i class="small material-icons blue-grey-text text-darken-1">chevron_right</i>
-            {{ comments.text }}
-        </p>
-        {% endfor %}
-    </div>
-    {% endif %}
-    {% if entity.version %}
-    <div class="col s12 center">
-        <h3 class="light grey-text text-darken-2">How to install</h3>
-        <p class="light grey-text text-darken-2">Although every effort is made to ensure that everything
-            in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b></p>
-        <p class="light grey-text text-darken-2">...</p>
-    </div>
-    <div class="col s12">
-        <div class='row' style="margin-bottom:0px;">
-            <div class="col s12 center">
-                <h5 class="light grey-text text-darken-2">
-                    Official way
-                </h5>
-                <p>For the desktop integration you need to <a
-                        href="https://docs.appimage.org/user-guide/run-appimages.html#integrating-appimages-into-the-desktop"
-                        target="_blank">install</a> some additional packages.</p>
-            </div>
-            <div class="col s12 l8 offset-l2 card black">
-                <div class="card-content green-text">
-                    wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}<br/>
-                    chmod +x ./{{ entity.package }}<br/>
-                    ./{{ entity.package }}<br/>
-                </div>
-            </div>
-        </div>
-        <br/>
-
-        <div class='row'>
-            <div class="col s12 center">
-                <h5 class="light grey-text text-darken-2">
-                    Command line
-                </h5>
-                <p class="light grey-text text-darken-2">...</p>
-            </div>
-            <div class="col s12 l8 offset-l2 card black">
-                <div class="card-content green-text">
-                    wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}<br/>
-                    chmod +x ./{{ entity.package }}<br/>
-                    ./{{ entity.package }}<br/>
-                </div>
-            </div>
-        </div>
-        <div class='row'>
-            <div class="col s12 center">
-                <h5 class="light grey-text text-darken-2">
-                    <a href="https://github.com/probonopd/go-appimage" target="_blank"
-                       class="light grey-text text-darken-2">
-                        Go-appimage
-                    </a>
-                </h5>
-                <p>For the desktop integration you need to <a
-                        href="https://github.com/probonopd/go-appimage/blob/master/src/appimaged/README.md#installation-and-usage"
-                        target="_blank">install</a> some additional packages.</p>
-            </div>
-            <div class="col s12 l8 offset-l2 card black">
-                <div class="card-content green-text">
-                    wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}<br/>
-                    chmod +x ./{{ entity.package }}<br/>
-                    ./{{ entity.package }}<br/>
-                </div>
-            </div>
-        </div>
-
-        <div class='row'>
-            <div class="col s12 center">
-                <h5 class="light grey-text text-darken-2">
-                    <a href="{% url 'package' 'apprepo' %}"
-                       class="light grey-text text-darken-2">AppRepo</a>
-                </h5>
-                <p>The desktop integration will be provided by <a href="{% url 'package' 'apprepo' %}">this</a> package.</p>
-            </div>
-            <div class="col s12 l8 offset-l2 card black">
-                <div class="card-content green-text">
-                    wget {% fullurl 'package_download' slug='apprepo' %} --output-document=Apprepo.AppImage<br/>
-                    chmod +x ./Apprepo.AppImage<br/>
-                    ./Apprepo.AppImage install {{ entity.slug }}<br/>
-                    ~/Applications/{{ entity.package }}
-                </div>
-            </div>
-        </div>
-        <br/><br/>
-    </div>
-    {% endif %}
-</div>
-
-{% widget 'dashboard.groups' %}
+    {% widget 'dashboard.groups' %}
 
 {% endblock %}

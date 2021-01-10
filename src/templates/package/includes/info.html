@@ -1,0 +1,152 @@
+<div class="card-content">
+    <div class="row">
+        {% if entity.homepage|length %}
+        <div class="col s12 center">
+            <h5>Home page</h5>
+        </div>
+        <div class="col s12 center">
+            <h5 class="light center">
+                <a class="waves-effect waves-light btn red truncate"
+                   href="{{ entity.homepage }}" target="_blank" style="max-width: 70%;">
+                    <i class="material-icons right">arrow_forward</i>
+                    {{ entity.homepage }}
+                </a>
+            </h5>
+        </div>
+        {% endif %}
+
+        {% if entity.version %}
+        <div class="col s12">
+            <h5 class="light grey-text text-darken-4 center">Latest version</h5>
+            <div class="row">
+                <div class="col s4 align-left">SHA-1 Hash:</div>
+                <div class="col s8 align-left">{{ entity.version.hash }}</div>
+                <div class="col s4 align-left">Updated at:</div>
+                <div class="col s8 align-left">{{ entity.version.created|date:'Y M d' }}</div>
+            </div>
+        </div>
+        <div class="col s12 center">
+            <a class="waves-effect waves-light btn-large green pulse"
+               href="{% url 'package_download' slug=entity.slug %}">
+                <i class="material-icons right">file_download</i>
+                Download
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% if entity.version %}
+<h6 class="light grey-text text-darken-4 center">Do not forget:</h6>
+<div class="card-content green-text black left-align">
+    chmod +x ./{{ entity.package }}<br/>
+    ./{{ entity.package }}<br/>
+</div>
+{% endif %}
+
+<h5 class="light grey-text text-darken-4 center">It works in:</h5>
+<div class="card-action left-align container light grey-text text-darken-4">
+    <div class="row" style="margin-bottom: 0px;">
+        <div class="col s2">
+            <i class="small material-icons green-text">check_circle</i>
+        </div>
+        <div class="col s10 left-align light truncate">
+            openSUSE Tumbleweed
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 0px;">
+        <div class="col s2">
+            <i class="small material-icons green-text">check_circle</i>
+        </div>
+        <div class="col s10 left-align light truncate">
+            Ubuntu 20.04
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 0px;">
+        <div class="col s2">
+            <i class="small material-icons green-text">check_circle</i>
+        </div>
+        <div class="col s10 left-align light truncate">
+            KaOS
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 0px;">
+        <div class="col s2">
+            <i class="small material-icons green-text">check_circle</i>
+        </div>
+        <div class="col s10 left-align light truncate">
+            Linux distro with GLIBC >= 2.31
+        </div>
+    </div>
+</div>
+
+
+<h5 class="light grey-text text-darken-4 center">Does not work in:</h5>
+<div class="card-action left-align container light grey-text text-darken-4">
+    <div class="row" style="margin-bottom: 0px;">
+        <div class="col s2">
+            <i class="small material-icons red-text">remove_circle</i>
+        </div>
+        <div class="col s10 left-align light truncate">
+            Ubuntu < 20.04
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 0px;">
+        <div class="col s2">
+            <i class="small material-icons red-text">remove_circle</i>
+        </div>
+        <div class="col s10 left-align light truncate">
+            CentOS <= 8
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 0px;">
+        <div class="col s2">
+            <i class="small material-icons red-text">remove_circle</i>
+        </div>
+        <div class="col s10 left-align light truncate">
+            Deepin Linux
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 0px;">
+        <div class="col s2">
+            <i class="small material-icons red-text">remove_circle</i>
+        </div>
+        <div class="col s10 left-align light truncate">
+            Linux distro with GLIBC < 2.31
+        </div>
+    </div>
+</div>
+<h6 class="light grey-text text-darken-4 center">How to get GLIBC version:</h6>
+<div class="card-content green-text black left-align">
+    ldd --version
+</div>
+<div class="card-action left-align light grey-text text-darken-4">
+    <div class="row">
+        {% if entity.groups.all|length %}
+        <div class="col s12 center">
+            <h5 class="light center">Categories</h5>
+            <p class="light">
+                {% for group in entity.groups.all %}
+                <a href="{% url 'package_group' group.id %}"
+                   class="waves-effect waves-light btn-small blue-grey darken-1">
+                    >> {{ group.name }}
+                </a>
+                {% endfor %}
+            </p>
+        </div>
+        {% endif %}
+
+        {% if entity.versions.all|length %}
+        <div class="col s12 center">
+            <h5 class="light grey-text text-darken-4">Build history</h5>
+            <div class="container ">
+                {% for version in entity.versions.all %}
+                <p class="light grey-text text-darken-4 left-align valign-wrapper">
+                    <i class="small material-icons blue-grey-text text-darken-1">chevron_right</i>
+                    {{ version.name }}, {{ version.description }}
+                </p>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
