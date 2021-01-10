@@ -11,41 +11,28 @@
 
 
 {% block title %}
-<div class="row" style="margin-bottom: 0px;">
-    <div class="col s12 m6 l8 center">
-        <div class="row">
-            <div class="col s12">
-                <h1 class="light brown-text text-darken-3">
-                    Looking for: {{ request }}
-                </h1>
-            </div>
-            <div class="col s12">
-                <p class="light">
-                    Apprepo is a non-profit volunteer project. Although every effort is made to ensure that
-                    everything in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b>
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="col s12 m6 l4 hide-on-small-only valign-wrapper"
-         style="max-height: 20em;">
-        <img src="{% static 'default/wires.png' %}"
-             class="materialboxed left-align" style="z-index: -1;">
-    </div>
-</div>
+<h1 class="light grey-text text-darken-2">
+    Looking for: {{ request }}
+</h1>
+<p class="light grey-text text-darken-2">
+    Apprepo is a non-profit volunteer project. Although every effort is made to ensure that
+    everything in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b>
+</p>
+<p class="light grey-text text-darken-2 ">...</p>
+
 {% endblock %}
 
 
 {% block content %}
-<div class="row white lighten-5" style="margin-bottom: 0px; width: 100%;">
+<div class="row" style="margin-bottom: 0px; width: 100%;">
     {% for package in collection %}
     <div class="col l4 m6 s12">
-        <div class="card hoverable blue-grey lighten-4">
-            <div class="card-image blue-grey lighten-4" style="height: 250px;">
+        <div class="card grey lighten-5 z-depth-1 hoverable">
+            <div class="card-image" style="height: 250px;">
                 <a href="{% url 'package' package.slug %}">
                     {% if package.image %}
                     <img src="{{ package.image.url }}" alt="{{ package.name }}"
-                         class="responsive-img">
+                         class="responsive-img" style="max-height:100%;">
                     {% else %}
                     <img src="https://bulma.io/images/placeholders/1280x960.png" alt="{{ package.name }}"
                          class="responsive-img">

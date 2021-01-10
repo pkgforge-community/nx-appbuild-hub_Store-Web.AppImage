@@ -10,36 +10,24 @@
 {% endblock meta %}
 
 {% block title %}
-<div class="row" style="margin-bottom: 0px;">
-    <div class="col s12 m6 l8 center">
-        <div class="row">
-            <div class="col s12">
-                <h1 class="light brown-text text-darken-3">{{ entity.name }}</h1>
-            </div>
-            <div class="col s12">
-                <p class="light">Apprepo is a non-profit volunteer project. Although every effort is made to ensure that
-                    everything in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b>.
-                </p>
-                {% if entity.description|length %}
-                <p class="light">{{ entity.description|safe }}</p>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-    <div class="col s12 m6 l4 hide-on-small-only valign-wrapper"
-         style="max-height: 20em;">
-        <img src="{% static 'default/wires.png' %}"
-             class="materialboxed left-align" style="z-index: -1;">
-    </div>
-</div>
+<h2 class="light grey-text text-darken-2">
+    {{ entity.name }}
+</h2>
+<p class="light grey-text text-darken-2 ">Apprepo is a non-profit volunteer project. Although every effort is made to
+    ensure that
+    everything in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b>.
+</p>
+{% if entity.description|length %}
+<p class="light grey-text text-darken-2 ">{{ entity.description|safe }}</p>
+{% endif %}
 {% endblock %}
 
 {% block content %}
-<div class="row white lighten-5" style="width: 100%;">
+<div class="row grey lighten-4" style="width: 100%;">
     {% for package in entity.packages.all %}
     <div class="col s12 m6 l4 xl3">
-        <div class="card hoverable">
-            <div class="card-image brown lighten-5" style="height: 250px;">
+        <div class="card hoverable grey lighten-5 z-depth-1">
+            <div class="card-image" style="height: 250px;">
                 <a href="{% url 'package' package.slug %}">
                     {% if package.image %}
                     <img alt="{{ package.name }}" class="responsive-img"
@@ -50,7 +38,7 @@
                     {% endif %}
                 </a>
             </div>
-            <div class="card-action brown lighten-5 truncate">
+            <div class="card-action grey-text text-darken-2 truncate">
                 {% if package.version %}
                 <a class="btn-floating btn-small waves-effect waves-light green"
                    href="{% url 'package_download' package.slug %}" title="Download">
@@ -69,7 +57,6 @@
     </div>
     {% endfor %}
 </div>
-
 
 {% widget 'dashboard.groups' %}
 

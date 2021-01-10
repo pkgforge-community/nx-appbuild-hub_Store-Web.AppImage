@@ -11,33 +11,20 @@
 {% endblock meta %}
 
 {% block title %}
-<div class="row" style="margin-bottom: 0px;">
-    <div class="col s12 m6 l8 center">
-        <div class="row">
-            <div class="col s12">
-                <h1 class="light brown-text text-darken-3">
-                    AppImage: {{ entity.name }}
-                </h1>
-                <h5 class="light orange-text pulse waves-effect waves-light">This is an unofficial third-party build(!),
-                    <br/> you use it AT YOUR OWN RISK!</h5>
-            </div>
-            <div class="col s12">
-                {% if entity.description|length %}
-                <p class="light">{{ entity.description|safe }}</p>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-    <div class="col s12 m6 l4 hide-on-small-only valign-wrapper"
-         style="max-height: 20em;">
-        <img src="{% static 'default/wires.png' %}"
-             class="materialboxed left-align" style="z-index: -1;">
-    </div>
-</div>
+<h3 class="light grey-text text-darken-2">
+    AppImage: {{ entity.name }}
+</h3>
+<h5 class="light red-text pulse waves-effect waves-light">
+    This is an unofficial third-party build, <br/> you use it AT YOUR OWN RISK!
+</h5>
+{% if entity.description|length %}
+<p class="light grey-text text-darken-2">{{ entity.description|safe }}</p>
+{% endif %}
+<p class="light grey-text text-darken-2">...</p>
 {% endblock %}
 
 {% block content %}
-<div class="row white darken-3" style="width: 100%;">
+<div class="row" style="width: 100%;">
     <div class="col s12 m7 xl8 hide-on-small-only valign-wrapper">
         {% if entity.image %}
         <img src="{{ entity.image.url }}"
@@ -45,12 +32,12 @@
         {% endif %}
     </div>
     <div class="col s12 m5 xl4">
-        <div class="card brown lighten-5 z-depth-5">
+        <div class="card grey lighten-4 light grey-text text-darken-4 z-depth-5">
             <div class="card-content">
                 <div class="row">
                     {% if entity.homepage|length %}
                     <div class="col s12 center">
-                        <h5 class="light">Home page</h5>
+                        <h5>Home page</h5>
                     </div>
                     <div class="col s12 center">
                         <h5 class="light center">
@@ -64,35 +51,35 @@
                     {% endif %}
 
                     {% if entity.version %}
-                        <div class="col s12">
-                            <h5 class="light center">Latest version</h5>
-                            <div class="row">
-                                <div class="col s4 align-left light">SHA-1 Hash:</div>
-                                <div class="col s8 align-left light">{{ entity.version.hash }}</div>
-                                <div class="col s4 align-left light">Updated at:</div>
-                                <div class="col s8 align-left light">{{ entity.version.created|date:'Y M d' }}</div>
-                            </div>
+                    <div class="col s12">
+                        <h5 class="light grey-text text-darken-4 center">Latest version</h5>
+                        <div class="row">
+                            <div class="col s4 align-left">SHA-1 Hash:</div>
+                            <div class="col s8 align-left">{{ entity.version.hash }}</div>
+                            <div class="col s4 align-left">Updated at:</div>
+                            <div class="col s8 align-left">{{ entity.version.created|date:'Y M d' }}</div>
                         </div>
-                        <div class="col s12 center">
-                            <a class="waves-effect waves-light btn-large green pulse"
-                               href="{% url 'package_download' slug=entity.slug %}">
-                                <i class="material-icons right">file_download</i>
-                                Download
-                            </a>
-                        </div>
+                    </div>
+                    <div class="col s12 center">
+                        <a class="waves-effect waves-light btn-large green pulse"
+                           href="{% url 'package_download' slug=entity.slug %}">
+                            <i class="material-icons right">file_download</i>
+                            Download
+                        </a>
+                    </div>
                     {% endif %}
                 </div>
             </div>
             {% if entity.version %}
-            <h6 class="light center">Do not forget:</h6>
+            <h6 class="light grey-text text-darken-4 center">Do not forget:</h6>
             <div class="card-content green-text black left-align">
                 chmod +x ./{{ entity.package }}<br/>
                 ./{{ entity.package }}<br/>
             </div>
             {% endif %}
 
-            <h5 class="light center">It works in:</h5>
-            <div class="card-action left-align container">
+            <h5 class="light grey-text text-darken-4 center">It works in:</h5>
+            <div class="card-action left-align container light grey-text text-darken-4">
                 <div class="row" style="margin-bottom: 0px;">
                     <div class="col s2">
                         <i class="small material-icons green-text">check_circle</i>
@@ -126,8 +113,8 @@
                     </div>
                 </div>
             </div>
-            <h5 class="light center">Does not work in:</h5>
-            <div class="card-action left-align container">
+            <h5 class="light grey-text text-darken-4 center">Does not work in:</h5>
+            <div class="card-action left-align container light grey-text text-darken-4">
                 <div class="row" style="margin-bottom: 0px;">
                     <div class="col s2">
                         <i class="small material-icons red-text">remove_circle</i>
@@ -161,11 +148,11 @@
                     </div>
                 </div>
             </div>
-            <h6 class="light center">How to get GLIBC version:</h6>
+            <h6 class="light grey-text text-darken-4 center">How to get GLIBC version:</h6>
             <div class="card-content green-text black left-align">
                 ldd --version
             </div>
-            <div class="card-action left-align">
+            <div class="card-action left-align light grey-text text-darken-4">
                 <div class="row">
                     {% if entity.groups.all|length %}
                     <div class="col s12 center">
@@ -183,10 +170,10 @@
 
                     {% if entity.versions.all|length %}
                     <div class="col s12 center">
-                        <h5 class="light">Build history</h5>
+                        <h5 class="light grey-text text-darken-4">Build history</h5>
                         <div class="container ">
                             {% for version in entity.versions.all %}
-                            <p class="light left-align valign-wrapper">
+                            <p class="light grey-text text-darken-4 left-align valign-wrapper">
                                 <i class="small material-icons blue-grey-text text-darken-1">chevron_right</i>
                                 {{ version.name }}, {{ version.description }}
                             </p>
@@ -201,11 +188,11 @@
 </div>
 
 
-<div class="row brown lighten-5" style="margin-bottom: 0px; width: 100%;">
+<div class="row grey lighten-4 light grey-text text-darken-2" style="margin-bottom: 0px; width: 100%;">
     <div class="col s12 center">
-        <h3 class="light">Screenshots</h3>
+        <h3 class="light grey-text text-darken-2">Screenshots</h3>
         {% if entity.description|length %}
-        <p class="light">{{ entity.description|safe }}</p>
+        <p class="light grey-text text-darken-2">{{ entity.description|safe }}</p>
         {% endif %}
     </div>
     <div class="col s12">
@@ -225,7 +212,7 @@
 
     {% if entity.comments.all|length %}
     <div class="col s12 center">
-        <h3 class="light">Comments</h3>
+        <h3 class="light grey-text text-darken-2">Comments</h3>
     </div>
     <div class="col s12 m6 offset-m3 x4 offset-l4 xl3 offset-xl4">
         {% for comments in entity.comments.all %}
@@ -238,39 +225,39 @@
     {% endif %}
     {% if entity.version %}
     <div class="col s12 center">
-        <h3 class="light brown-text text-darken-3">How to install</h3>
-        <p class="light">Although every effort is made to ensure that everything
+        <h3 class="light grey-text text-darken-2">How to install</h3>
+        <p class="light grey-text text-darken-2">Although every effort is made to ensure that everything
             in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b></p>
-        <br/><br/>
+        <p class="light grey-text text-darken-2">...</p>
     </div>
     <div class="col s12">
         <div class='row' style="margin-bottom:0px;">
-            <div class="col s6 card black">
-                <div class="card-content green-text">
-                    wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}<br/>
-                    chmod +x ./{{ entity.package }}<br/>
-                    ./{{ entity.package }}<br/>
-                </div>
-            </div>
-            <div class="col s6 center">
-                <h3 class="light">
-                    <i class="small material-icons">arrow_back</i>
+            <div class="col s12 center">
+                <h5 class="light grey-text text-darken-2">
                     Official way
-                </h3>
+                </h5>
                 <p>For the desktop integration you need to <a
                         href="https://docs.appimage.org/user-guide/run-appimages.html#integrating-appimages-into-the-desktop"
                         target="_blank">install</a> some additional packages.</p>
             </div>
+            <div class="col s12 l8 offset-l2 card black">
+                <div class="card-content green-text">
+                    wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}<br/>
+                    chmod +x ./{{ entity.package }}<br/>
+                    ./{{ entity.package }}<br/>
+                </div>
+            </div>
         </div>
+        <br/>
 
-        <div class='row' style="margin-bottom:0px;">
-            <div class="col s6 center">
-                <h3 class="light">
+        <div class='row'>
+            <div class="col s12 center">
+                <h5 class="light grey-text text-darken-2">
                     Command line
-                    <i class="small material-icons">arrow_forward</i>
-                </h3>
+                </h5>
+                <p class="light grey-text text-darken-2">...</p>
             </div>
-            <div class="col s6 card black">
+            <div class="col s12 l8 offset-l2 card black">
                 <div class="card-content green-text">
                     wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}<br/>
                     chmod +x ./{{ entity.package }}<br/>
@@ -278,36 +265,36 @@
                 </div>
             </div>
         </div>
-        <div class='row' style="margin-bottom:0px;">
-            <div class="col s6 card black">
-                <div class="card-content green-text">
-                    wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}<br/>
-                    chmod +x ./{{ entity.package }}<br/>
-                    ./{{ entity.package }}<br/>
-                </div>
-            </div>
-            <div class="col s6 center">
-                <h3 class="light">
-                    <i class="small material-icons">arrow_back</i>
-                    <a href="https://github.com/probonopd/go-appimage" target="_blank">
+        <div class='row'>
+            <div class="col s12 center">
+                <h5 class="light grey-text text-darken-2">
+                    <a href="https://github.com/probonopd/go-appimage" target="_blank"
+                       class="light grey-text text-darken-2">
                         Go-appimage
                     </a>
-                </h3>
+                </h5>
                 <p>For the desktop integration you need to <a
                         href="https://github.com/probonopd/go-appimage/blob/master/src/appimaged/README.md#installation-and-usage"
                         target="_blank">install</a> some additional packages.</p>
             </div>
+            <div class="col s12 l8 offset-l2 card black">
+                <div class="card-content green-text">
+                    wget {% fullurl 'package_download' slug=entity.slug %} --output-document={{ entity.package }}<br/>
+                    chmod +x ./{{ entity.package }}<br/>
+                    ./{{ entity.package }}<br/>
+                </div>
+            </div>
         </div>
 
         <div class='row'>
-            <div class="col s6 center">
-                <h3 class="light">
-                    <a href="{% url 'package' 'apprepo' %}">AppRepo</a>
-                    <i class="small material-icons">arrow_forward</i>
-                </h3>
-                <p>The desktop integration will be provided by this package.</p>
+            <div class="col s12 center">
+                <h5 class="light grey-text text-darken-2">
+                    <a href="{% url 'package' 'apprepo' %}"
+                       class="light grey-text text-darken-2">AppRepo</a>
+                </h5>
+                <p>The desktop integration will be provided by <a href="{% url 'package' 'apprepo' %}">this</a> package.</p>
             </div>
-            <div class="col s6 card black">
+            <div class="col s12 l8 offset-l2 card black">
                 <div class="card-content green-text">
                     wget {% fullurl 'package_download' slug='apprepo' %} --output-document=Apprepo.AppImage<br/>
                     chmod +x ./Apprepo.AppImage<br/>

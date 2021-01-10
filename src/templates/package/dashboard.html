@@ -11,59 +11,41 @@
                          style="height: 1.8em; margin-left: 20px;">
                 </a>
             </div>
-            <div class="col s12 m10 valign-wrapper light orange-text text-darken-3 hide-on-med-and-down">
-                This is an alpha-version, you use it <b>AT YOUR OWN RISK</b>!
+            <div class="col s6 orange-text text-darken-3 hide-on-med-and-down">
+                This is an alpha-version, you use it <b> AT YOUR OWN RISK</b>!
+            </div>
+            <div class="col s4 valign-wrapper white hide-on-med-and-down">
+                <form method="get" action="{% url 'package_dashboard' %}">
+                    <div class="input-field">
+                        <div class="row" style="margin:0px;">
+                            <div class="col s10">
+                                <i class="material-icons prefix orange-text text-darken-3">search</i>
+                                <input type="text" class="validate" name="search" id="search"
+                                       placeholder="Enter search string...">
+                            </div>
+                            <div class="col s2">
+                                <a class="waves-effect waves-light btn-small orange pulse">
+                                    YOLO!
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </nav>
 
-
-<div class="row" style="margin-bottom: 0px;">
-    <div class="col s12 m6 l8 ">
-        <div class="caption center-align grey-text text-darken-3 white container"
-             style="margin-top: 20%;">
-
-            <h3 class="light brown-text text-darken-3">
-                AppImage repository
-            </h3>
-
-            <form method="get" action="{% url 'package_dashboard' %}">
-                <div class="row brown-text text-darken-3">
-                    <div class="input-field col s9 m8 offset-m1 offset-xl1 orange-text">
-                        <i class="material-icons prefix orange-text">search</i>
-                        <input type="text" class="validate" name="search" id="search"
-                               placeholder="Enter search string...">
-                    </div>
-                    <div class="input-field col s3">
-                        <input type="submit" class="waves-effect waves-light btn orange pulse"
-                               value="YOLO!"/>
-                    </div>
-                </div>
-            </form>
-            <p class="light brown-text text-darken-3"> The home of <b>{{total }}</b> high-quality apps which can be
-                easily installed on any
-                modern Linux distribution. </p>
-            <br/><br/><br/>
-        </div>
-    </div>
-    <div class="col s12 m6 l4 hide-on-small-only valign-wrapper"
-         style="max-height: 30em;">
-        <img src="{% static 'default/wires.png' %}"
-             class="materialboxed left-align" style="z-index: -1;">
-    </div>
-</div>
-
 {% widget 'dashboard.groups' %}
 
-<div class="row brown lighten-5" style="margin-bottom: 0px; width: 100%;">
+<div class="row grey lighten-4" style="margin-bottom: 0px; width: 100%;">
     <div class="col s12 center">
-        <h3>About the Project</h3>
-        <h5 class="light">Currently this is a non-profit volunteer one-person open-source project.</h5>
-        <p class="light">...</p>
+        <h3 class="light grey-text text-darken-2">About the Project</h3>
+        <p class="light grey-text text-darken-2">Currently this is a non-profit volunteer one-person open-source project.</p>
+        <p class="light grey-text text-darken-2">...</p>
     </div>
-    <div class="col s12 m6" style="height: 23em;">
-        <div class="card">
+    <div class="col center s12 m6 xl4 offset-xl2" style="height: 23em;">
+        <div class="card light grey-text text-darken-2">
             <div class="card-content center">
                 <h5 class="light truncate">
                     <i class="tiny material-icons">flash_on</i>
@@ -93,8 +75,8 @@
             </div>
         </div>
     </div>
-    <div class="col s12 m6" style="height: 23em;">
-        <div class="card">
+    <div class="col center s12 m6 xl4" style="height: 23em;">
+        <div class="card light grey-text text-darken-2">
             <div class="card-content center">
                 <h5 class="light truncate">
                     <i class="tiny material-icons">access_time</i>
@@ -127,7 +109,7 @@
     </div>
     <div class="col s8 offset-s2 center">
         <br/>
-        <h4>Trade-offs</h4>
+        <h4 class="light grey-text text-darken-2">Trade-offs</h4>
         <div class="row" style="margin-bottom: 0px;">
             <div class="col s2">
                 <i class="small material-icons orange-text">error</i>
@@ -151,14 +133,14 @@
 <div class="row white lighten-5" style="margin-bottom: 0px; width: 100%;">
     <div class="col s12 center">
         <br/>
-        <h3>How does it work</h3>
-        <h5 class="light">Wherever possible the vendor-pre-build binary will be taken.</h5>
-        <p class="light">In case the vendor does not provide an AppImage, the AppImage will be created using provided
+        <h3 class="light grey-text text-darken-2">How does it work</h3>
+        <h5 class="light grey-text text-darken-2">Wherever possible the vendor-pre-build binary will be taken.</h5>
+        <p class="light grey-text text-darken-2">In case the vendor does not provide an AppImage, the AppImage will be created using provided
             pre-build binaries.</p>
         <img src="{% static 'default/flow.svg' %}" class="responsive-img">
     </div>
-    <div class="col center s12 m6 l5 offset-l1 xl4 offset-xl2" style="height: 19em;">
-        <div class="card green lighten-5">
+    <div class="col center s12 m6 xl4 offset-xl2" style="height: 19em;">
+        <div class="card green lighten-5 light grey-text text-darken-2">
             <div class="card-content" style="padding-bottom: 0px;">
                 <div class="row" style="margin-bottom: 0px;">
                     <div class="col s2">
@@ -206,8 +188,8 @@
             </div>
         </div>
     </div>
-    <div class="col center s12 m6 l5 xl4" style="height: 19em;">
-        <div class="card red lighten-5">
+    <div class="col center s12 m6 xl4" style="height: 19em;">
+        <div class="card red lighten-5 light grey-text text-darken-2">
             <div class="card-content" style="padding-bottom: 0px;">
                 <div class="row" style="margin-bottom: 0px;">
                     <div class="col s2">
@@ -265,9 +247,8 @@
     </div>
 </div>
 
-
-<footer class="page-footer docs-footer  grey lighten-5" style="margin-top:0px;">
-    <div class="container">
+<footer class="page-footer docs-footer  grey lighten-5">
+    <div class="container light grey-text text-darken-2">
         <div class="col s12 m10 offset-m1">
             <div class="row">
                 <div class="col s12">

@@ -1,15 +1,26 @@
 {% load widgets %}
 {% load static %}
 
-<div class="row brown darken-3" style="margin-bottom: 0px;">
+<div class="center">
+    <h2 class="light grey-text text-darken-2">
+        AppImage repository
+    </h2>
+    <p class="light grey-text text-darken-2">
+        The home of <b>{{total }}</b> high-quality apps which can be
+        easily installed on any
+        modern Linux distribution.
+    </p>
+    <br/>
+</div>
+<div class="row" style="margin-bottom: 0px; width:100% z-index: 10;">
     <div class="col s12 m3 l5 hide-on-small-only valign-wrapper">
 
         <img src="{% static 'default/categories.png' %}"
-             class="materialboxed" style="margin-top: 25%;">
+             class="materialboxed" style="margin-top: 25%; z-index:-1;">
 
-        <div class="caption center-align grey lighten-3 grey-text text-darken-3" style="position:absolute; width: 41%;">
+        <div class="caption center-align white grey-text text-darken-3" style="position:absolute; width: 41%;">
             <h3>Apprepo is a non-profit volunteer project.</h3>
-            <h5 class="light">
+            <h5 class="light grey-text text-darken-3">
                 Although every effort is made to ensure that everything
                 in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b>
             </h5>
@@ -18,26 +29,24 @@
     <div class="col s12 m9 l7">
         <div class="row">
             {% for group in collection %}
-            <div class="col s12 m6 l4 xl3">
-                <div class="card horizontal blue-grey darken-1">
-                    <div class="card-image circle responsive-img">
-                        <img src="{% static 'icons/package.svg' %}">
-                    </div>
-                    <div class="card-stacked">
-                        <div class="card-content white-text">
+                  <div class="col s12 m6 xl4">
+                    <div class="card-panel grey lighten-5 z-depth-1 hoverable">
+                      <div class="row valign-wrapper">
+                        <div class="col s2" style="height:27px;">
                             <a href="{% url 'package_group' group.id %}"
-                               class="card-title grey-text text-lighten-5 truncate">
-                                {{ group.name }}
+                               class="card-title grey-text text-darken-2 truncate">
+                                  <img src="{{ group.icon.url }}" alt="" class="circle responsive-img">
                             </a>
                         </div>
-                        <div class="card-action left-align">
-                            <a href="{% url 'package_group' group.id %}" class="truncate">
-                                >> {{ group.packages.count }} apps
+                        <div class="col s10">
+                            <a href="{% url 'package_group' group.id %}"
+                               class="card-title grey-text text-darken-2 truncate">
+                                {{ group.name }} ({{ group.packages.count }} apps)
                             </a>
                         </div>
+                      </div>
                     </div>
-                </div>
-            </div>
+                  </div>
             {% endfor %}
         </div>
     </div>
