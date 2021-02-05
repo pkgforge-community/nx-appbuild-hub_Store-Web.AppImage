@@ -68,7 +68,6 @@ def dashboard_sidebar_widget(request=None, package=None):
 def dashboard_groups_widget(template=None, package=None):
     from apps.package.model.group import PackageGroup
     return render_to_string("package/widget/groups.html" if not template else template, {
-        'collection': PackageGroup.objects.
-                            order_by('name').
-                            all()
+        'collection': package.groups(),
+        'total': package.count(),
     })

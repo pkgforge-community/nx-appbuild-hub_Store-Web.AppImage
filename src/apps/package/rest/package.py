@@ -24,7 +24,25 @@ from apps.package.model.package import Package
 from .serializer.package import PackageSerializer
 
 
-class PackageList(viewsets.GenericViewSet, mixins.RetrieveModelMixin, mixins.ListModelMixin):
+class PackageViewSet(viewsets.GenericViewSet, mixins.RetrieveModelMixin):
+    serializer_class = PackageSerializer
+    permission_classes = []
+    queryset = Package.objects
+    lookup_value_regex = '.+'
+    lookup_url_kwarg = "token"
+
+    def retrieve(self, request, *args, **kwargs):
+        token = self.kwargs.get('token')
+        if not token: raise Exception('Search string can not be empty')
+
+        entity = self.queryset.get(token=token)
+        if not entity: raise Exception('Package can not be empty')
+
+        serializer = self.get_serializer(entity)
+        return Response(serializer.data)
+
+
+class PackageListViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
     serializer_class = PackageSerializer
     permission_classes = []
     queryset = Package.objects
@@ -46,14 +64,11 @@ class PackageList(viewsets.GenericViewSet, mixins.RetrieveModelMixin, mixins.Lis
         return Response(serializer.data)
 
     def retrieve(self, request, *args, **kwargs):
-        print(self.kwargs)
-        slug = self.kwargs.get(self.lookup_url_kwarg)
-        if slug is None or not len(slug):
-            raise Exception('Search string can not be empty')
+        slug = self.kwargs.get('slug')
+        if not slug: raise Exception('Search string can not be empty')
 
         entity = self.queryset.get(Q(slug=slug) | Q(package=slug))
-        if entity is None or not entity:
-            raise Exception('Package can not be empty')
+        if not entity: raise Exception('Package can not be empty')
 
         serializer = self.get_serializer(entity)
         return Response(serializer.data)

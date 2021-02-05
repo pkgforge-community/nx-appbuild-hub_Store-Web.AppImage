@@ -35,7 +35,9 @@ class ServicePackage(object):
 
     def groups(self):
         from ..model.group import PackageGroup
-        return PackageGroup.objects.all()
+        return PackageGroup.objects. \
+            order_by('name'). \
+            all()
 
     def random(self, limit=None):
         if limit is None or limit == 1:

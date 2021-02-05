@@ -16,6 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 from importlib import util
+
 from rest_framework import routers
 
 aod_store_restapi = routers.DefaultRouter()
@@ -40,11 +41,15 @@ spec = util.find_spec('apps.package.rest.group')
 package_group = spec.loader.load_module()
 aod_store_restapi.register(r'api/package/groups', package_group.PackageGroupList)
 
+spec = util.find_spec('apps.package.rest.package')
+package = spec.loader.load_module()
+aod_store_restapi.register(r'api/package', package.PackageListViewSet)
+
 spec = util.find_spec('apps.package.rest.upload')
 package_upload = spec.loader.load_module()
-aod_store_restapi.register(r'api/package/upload/complete', package_upload.PackageUploadCompleteView)
-aod_store_restapi.register(r'api/package/upload', package_upload.PackageUploadView)
+aod_store_restapi.register(r'api/privat/package/upload/complete', package_upload.PackageUploadCompleteView)
+aod_store_restapi.register(r'api/privat/package/upload', package_upload.PackageUploadView)
 
 spec = util.find_spec('apps.package.rest.package')
 package = spec.loader.load_module()
-aod_store_restapi.register(r'api/package', package.PackageList)
+aod_store_restapi.register(r'api/privat/package', package.PackageViewSet)
