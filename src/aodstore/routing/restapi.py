@@ -47,9 +47,9 @@ aod_store_restapi.register(r'api/package', package.PackageListViewSet)
 
 spec = util.find_spec('apps.package.rest.upload')
 package_upload = spec.loader.load_module()
-aod_store_restapi.register(r'api/privat/package/upload/complete', package_upload.PackageUploadCompleteView)
-aod_store_restapi.register(r'api/privat/package/upload', package_upload.PackageUploadView)
+aod_store_restapi.register(r'api/private/package/upload/complete', package_upload.PackageUploadCompleteView)
+aod_store_restapi.register(r'api/private/package/upload', package_upload.PackageUploadView)
 
 spec = util.find_spec('apps.package.rest.package')
 package = spec.loader.load_module()
-aod_store_restapi.register(r'api/privat/package', package.PackageViewSet)
+aod_store_restapi.register(r'api/private/package', package.PackageViewSet)

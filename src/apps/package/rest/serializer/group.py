@@ -16,15 +16,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 from rest_framework import serializers
-from apps.package.model.group import PackageGroup
 
-from .package import PackageSerializer
+from apps.package.model.group import PackageGroup
 
 
 class PackageGroupSerializer(serializers.HyperlinkedModelSerializer):
-    packages = serializers.SerializerMethodField()
-    packages = PackageSerializer(many=True, read_only=True)
-
     class Meta:
         model = PackageGroup
-        fields = ['name', 'description', 'packages']
+        fields = ['name', 'description']

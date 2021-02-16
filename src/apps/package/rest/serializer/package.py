@@ -17,19 +17,23 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 from django.urls import reverse
 from rest_framework import serializers
+
 from apps.package.model.package import Package
+from .group import PackageGroupSerializer
 from .version import PackageVersionSerializer
 
 
 class PackageSerializer(serializers.HyperlinkedModelSerializer):
     versions = PackageVersionSerializer(many=True, read_only=True)
+    groups = PackageGroupSerializer(many=True, read_only=True)
+
     version = serializers.SerializerMethodField()
     file = serializers.SerializerMethodField()
     hash = serializers.SerializerMethodField()
 
     class Meta:
         model = Package
-        fields = ['name', 'slug', 'version', 'description', 'hash', 'package', 'file', 'versions']
+        fields = ['name', 'slug', 'version', 'description', 'hash', 'package', 'file', 'versions', 'groups']
 
     def get_version(self, obj):
         version = obj.version
