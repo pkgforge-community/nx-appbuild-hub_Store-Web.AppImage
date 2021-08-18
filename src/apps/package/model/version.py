@@ -28,6 +28,9 @@ class PackageVersion(models.Model):
     updated = models.DateTimeField(auto_now=True)
     hash = models.CharField(max_length=255)
 
+    ipfs_cid = models.CharField(max_length=255, null=True, blank=True)
+    ipfs_gateway = models.CharField(max_length=255, null=True, blank=True)
+
     downloads = models.IntegerField(null=True, blank=True, default=0)
 
     file = models.FileField(upload_to='package/version/%Y/%m/%d/%H%M%S')
@@ -35,7 +38,13 @@ class PackageVersion(models.Model):
 
     @property
     def url(self):
-        return self.file.url
+        if not self.ipfs_cid or not len(self.ipfs_cid):
+            if not self.file: return None
+            return self.file.url
+
+        return "https://ipfs.io/ipfs/{}?filename={}".format(
+            self.ipfs_cid, self.package.package
+        )
 
     def __str__(self):
         return self.name

@@ -50,6 +50,10 @@ package_upload = spec.loader.load_module()
 aod_store_restapi.register(r'api/private/package/upload/complete', package_upload.PackageUploadCompleteView)
 aod_store_restapi.register(r'api/private/package/upload', package_upload.PackageUploadView)
 
+spec = util.find_spec('apps.package.rest.package_version')
+package_version = spec.loader.load_module()
+aod_store_restapi.register(r'api/private/package/version', package_version.PackageVersionViewSet)
+
 spec = util.find_spec('apps.package.rest.package')
 package = spec.loader.load_module()
 aod_store_restapi.register(r'api/private/package', package.PackageViewSet)

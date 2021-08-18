@@ -15,24 +15,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+from django.conf.urls import url, include
 from django.urls import path
 from django.views.static import serve
-from django.conf.urls import url, include
-from . import settings
-
-from .routing.swagger import aod_store_openapi
-from .routing.restapi import aod_store_restapi
-from .routing.admin import aod_store_admin
-
-from .security import for_authenticated
-from .security import for_developers
 
 from apps.package.views.dashboard import DashboardView
-from apps.package.views.package import PackageView
-from apps.package.views.package import PackageDownloadView
 from apps.package.views.group import GroupView
-from apps.public.views.page import PageView
+from apps.package.views.package import PackageDownloadView
+from apps.package.views.package import PackageView
 from apps.package.views.sitemap import SitemapView
+from apps.public.views.page import PageView
+from . import settings
+from .routing.admin import aod_store_admin
+from .routing.restapi import aod_store_restapi
+from .routing.swagger import aod_store_openapi
 
 urlpatterns = []
 urlpatterns.append(path(r'rest/', include(aod_store_restapi.urls)))

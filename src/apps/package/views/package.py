@@ -15,13 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-import os
-import inject
-
-from django.http import FileResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 
+import inject
 from apps.package.model.package import Package
 
 
@@ -38,27 +36,16 @@ class PackageView(TemplateView):
 
 class PackageDownloadView(TemplateView):
     def get(self, request, slug=None):
-
-        if slug is None or not len(slug):
+        if not slug or not len(slug):
             raise Exception('slug can not be empty')
 
         package = Package.objects.get(slug=slug)
-        if package is None or not package:
-            raise Exception('package can not be empty')
+        if not package: raise Exception('package can not be empty')
 
         version = package.version
-        if version is None or not version:
-            raise Exception('package version can not be empty')
+        if not version: raise Exception('package version can not be empty')
 
         version.downloads += 1
         version.save(force_update=True)
 
-        version_file = version.file
-        if version_file is None or not version_file:
-            raise Exception('package version can not be empty')
-
-        response = FileResponse(open(version_file.path, 'rb'), as_attachment=False)
-        response["Content-Disposition"] = 'attachment; filename="{}"'.format(package.package)
-        response["Content-Length"] = os.path.getsize(version_file.path)
-
-        return response
+        return HttpResponseRedirect(version.url)

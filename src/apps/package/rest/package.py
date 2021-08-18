@@ -22,6 +22,7 @@ from rest_framework.response import Response
 
 from apps.package.model.package import Package
 from .serializer.package import PackageSerializer
+from drf_yasg.utils import swagger_auto_schema
 
 
 class PackageViewSet(viewsets.GenericViewSet, mixins.RetrieveModelMixin):
@@ -31,6 +32,7 @@ class PackageViewSet(viewsets.GenericViewSet, mixins.RetrieveModelMixin):
     lookup_value_regex = '.+'
     lookup_url_kwarg = "token"
 
+    @swagger_auto_schema(tags=['API - package-maintainer'])
     def retrieve(self, request, *args, **kwargs):
         token = self.kwargs.get('token')
         if not token: raise Exception('Search string can not be empty')
@@ -55,6 +57,7 @@ class PackageListViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
             return self.queryset.all()
         return self.queryset.filter(Q(name__startswith=search) | Q(description__icontains=search))
 
+    @swagger_auto_schema(tags=['API - package-manager'])
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset(request.query_params.get('search'))
         serializer = self.serializer_class(queryset, many=True, context={
@@ -63,6 +66,7 @@ class PackageListViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
 
         return Response(serializer.data)
 
+    @swagger_auto_schema(tags=['API - package-manager'])
     def retrieve(self, request, *args, **kwargs):
         slug = self.kwargs.get('slug')
         if not slug: raise Exception('Search string can not be empty')

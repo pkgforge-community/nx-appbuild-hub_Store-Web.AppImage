@@ -21,6 +21,11 @@
             <div class="row">
                 <div class="col s4 align-left">SHA-1 Hash:</div>
                 <div class="col s8 align-left">{{ entity.version.hash }}</div>
+                {% if entity.version.ipfs_cid|length %}
+                <div class="col s4 align-left">IPFS CID:</div>
+                <div class="col s8 align-left">{{ entity.version.ipfs_cid }}</div>
+                {% endif %}
+
                 <div class="col s4 align-left">Updated at:</div>
                 <div class="col s8 align-left">{{ entity.version.created|date:'Y M d' }}</div>
             </div>

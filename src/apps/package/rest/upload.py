@@ -29,6 +29,7 @@ from apps.package.model.upload import PackageUpload
 from apps.package.model.version import PackageVersion
 from .serializer.upload import PackageUploadInitializeSerializer
 from .serializer.upload import PackageUploadSerializer
+from drf_yasg.utils import swagger_auto_schema
 
 
 class PackageUploadView(viewsets.GenericViewSet, ChunkedUploadView):
@@ -54,6 +55,7 @@ class PackageUploadView(viewsets.GenericViewSet, ChunkedUploadView):
         entity.file.save(name='', content=ContentFile(''), save=save)
         return entity
 
+    @swagger_auto_schema(tags=['API - package-maintainer'])
     @action(detail=False, methods=['post'])
     def initialize(self, request, *args, **kwargs):
         return self._post(request, *args, **kwargs)
@@ -65,6 +67,7 @@ class PackageUploadCompleteView(viewsets.GenericViewSet, ChunkedUploadCompleteVi
     queryset = PackageUpload.objects
     model = PackageUpload
 
+    @swagger_auto_schema(tags=['API - package-maintainer'])
     @action(detail=False, methods=['post'])
     def finalize(self, request, *args, **kwargs):
         return self._post(request, *args, **kwargs)

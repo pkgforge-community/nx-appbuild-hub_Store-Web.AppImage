@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # This software is a part of the A.O.D apprepo project
 # Copyright 2020 Alex Woroschilow (alex.woroschilow@gmail.com)
 #
@@ -20,17 +19,34 @@ from rest_framework import serializers
 from apps.package.model.version import PackageVersion
 
 
-class PackageVersionSerializer(serializers.HyperlinkedModelSerializer):
-    file = serializers.SerializerMethodField()
+class PackageVersionCreateSerializer(serializers.HyperlinkedModelSerializer):
+    package = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = PackageVersion
-        fields = ['name', 'description', 'hash', 'file']
+        fields = ['name', 'description', 'hash', 'ipfs_cid', 'ipfs_gateway', 'package']
+
+    def get_package(self, value):
+        from apps.package.rest.serializer.package import PackageSerializer
+
+        return PackageSerializer(value.package, context={
+            'request': self.context.get('request')
+        }).data
+
+
+class PackageVersionSerializer(serializers.HyperlinkedModelSerializer):
+    file = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = PackageVersion
+        fields = ['name', 'description', 'hash', 'file', 'ipfs_cid', 'ipfs_gateway']
 
     def get_file(self, version):
-        if version.file is None:
-            return None
+        if not version.file: return None
 
         assert ('request' in self.context.keys())
-        return self.context['request']. \
-            build_absolute_uri(version.file.url)
+
+        request = self.context.get('request')
+        if not request: return None
+
+        return request.build_absolute_uri(version.file.url)
