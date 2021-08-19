@@ -20,6 +20,9 @@ import os
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        # 'HOST': '/home/sensey/.mysql/mysqld.sock',
+        # 'USER': 'root',
+        # 'NAME': 'apprepo',
         'OPTIONS': {
             'read_default_file': os.environ.get('config', 'default.conf'),
         },

@@ -14,8 +14,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-from .services import package
-
-
-def configure(binder):
-    binder.bind('package', package.ServicePackage())
+from .model.group import *
+from .model.package import *
+from .model.comment import *
+from .model.image import *
+from .model.request import *
+from .model.upload import *
+from .model.version import *
