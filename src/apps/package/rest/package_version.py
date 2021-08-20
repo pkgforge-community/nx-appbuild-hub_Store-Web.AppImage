@@ -42,12 +42,15 @@ class PackageVersionViewSet(viewsets.GenericViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        version_presented = PackageVersion.objects.filter(
-            ipfs_cid=serializer.validated_data.get('ipfs_cid'),
-            package=Package.objects.get(token=token),
-        )
+        if PackageVersion.objects.filter(
+                ipfs_cid=serializer.validated_data.get('ipfs_cid'),
+                package=Package.objects.get(token=token),
+        ): raise ValueError('Version with this CID already exists')
 
-        if version_presented: raise ValueError('Existed version')
+        if PackageVersion.objects.filter(
+                hash=serializer.validated_data.get('hash'),
+                package=Package.objects.get(token=token),
+        ): raise ValueError('Version with this Hash already exists')
 
         return Response(self.serializer_class(instance=PackageVersion.objects.create(
             package=Package.objects.get(token=token),
