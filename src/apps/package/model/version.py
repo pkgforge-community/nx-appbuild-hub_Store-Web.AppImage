@@ -33,7 +33,7 @@ class PackageVersion(models.Model):
 
     downloads = models.IntegerField(null=True, blank=True, default=0)
 
-    file = models.FileField(upload_to='package/version/%Y/%m/%d/%H%M%S')
+    file = models.FileField(upload_to='package/version/%Y/%m/%d/%H%M%S', null=True, blank=True)
     package = models.ForeignKey('package.Package', on_delete=models.CASCADE)
 
     @property
