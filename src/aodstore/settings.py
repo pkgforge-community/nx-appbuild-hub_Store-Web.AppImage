@@ -111,6 +111,7 @@ assert (STATIC_URL is not None)
 
 MEDIA_ROOT = str(config.get('media.location', './medias/') or './medias/')
 MEDIA_URL = str(config.get('media.prefix', '/media/') or '/media/')
+print(MEDIA_ROOT)
 assert (MEDIA_ROOT is not None)
 
 FIXTURE_DIRS = [os.path.join(BASE_DIR, 'fixtures')]

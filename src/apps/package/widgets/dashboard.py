@@ -15,59 +15,70 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-import inject
+import hexdi
 from django.template.loader import render_to_string
 
+from apps.package.services.package import ServicePackage
 from apps.widgets import widget
 
 
 @widget(name='dashboard.search')
 def search(request=None):
+
+    service_package: ServicePackage = hexdi.resolve('package')
+    if not service_package: raise Exception('Unknown service')
+
     return render_to_string("package/widget/search.html", {
         'poll': 'test'
     })
 
 
 @widget(name='dashboard.latest')
-@inject.params(package='package')
-def latest(request=None, package=None):
+def latest(request=None):
+    service_package: ServicePackage = hexdi.resolve('package')
+    if not service_package: raise Exception('Unknown service')
+
     return render_to_string("package/widget/latest.html", {
-        'collection': package.random(2)
+        'collection': service_package.random(2)
     })
 
 
 @widget(name='dashboard.featured')
-@inject.params(package='package')
-def featured(request=None, package=None):
+def featured(request=None):
+    service_package: ServicePackage = hexdi.resolve('package')
+    if not service_package: raise Exception('Unknown service')
+
     return render_to_string("package/widget/featured.html", {
-        'package': package.random()
+        'package': service_package.random()
     })
 
 
 @widget(name='dashboard.popular')
-@inject.params(package='package')
-def popular(request=None, package=None):
+def popular(request=None):
+    service_package: ServicePackage = hexdi.resolve('package')
+    if not service_package: raise Exception('Unknown service')
+
     return render_to_string("package/widget/popular.html", {
-        'collection': package.random(2)
+        'collection': service_package.random(2)
     })
 
 
 @widget(name='dashboard.sidebar')
-@inject.params(package='package')
-def dashboard_sidebar_widget(request=None, package=None):
-    from apps.package.model.group import PackageGroup
+def dashboard_sidebar_widget(request=None):
+    service_package: ServicePackage = hexdi.resolve('package')
+    if not service_package: raise Exception('Unknown service')
+
     return render_to_string("package/widget/sidebar.html", {
-        'collection': PackageGroup.objects.
-                            order_by('name').
-                            all()
+        'collection': service_package.groups()
     })
 
 
 @widget(name='dashboard.groups')
-@inject.params(package='package')
-def dashboard_groups_widget(template=None, package=None):
-    from apps.package.model.group import PackageGroup
+def dashboard_groups_widget(template=None):
+    service_package: ServicePackage = hexdi.resolve('package')
+    if not service_package: raise Exception('Unknown service')
+
     return render_to_string("package/widget/groups.html" if not template else template, {
-        'collection': package.groups(),
-        'total': package.count(),
+        'collection': service_package.groups(),
+        'total': service_package.count(),
     })

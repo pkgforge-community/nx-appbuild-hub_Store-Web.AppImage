@@ -15,12 +15,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-import os
+import hexdi
 from django.apps import AppConfig
 
+from .services.package import ServicePackage
 from .widgets import dashboard
 
-from .services.package import ServicePackage
+
+@hexdi.permanent('package')
+class ServicePackageInstance(ServicePackage):
+    pass
 
 
 class Config(AppConfig):

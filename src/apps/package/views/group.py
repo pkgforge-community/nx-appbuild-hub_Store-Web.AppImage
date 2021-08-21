@@ -15,17 +15,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-import inject
+import hexdi
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 
-from apps.package.model.group import PackageGroup
+from apps.package.services.package import ServicePackage
 
 
 class GroupView(TemplateView):
-    @inject.params(package='package')
-    def get(self, request, id=None, package=None):
+    def get(self, request, id):
+        service_package: ServicePackage = hexdi.resolve('package')
+        if not service_package: raise Exception('Unknown service')
+
         return render(request, "package/group.html", {
-            'entity': PackageGroup.objects.get(id=id),
-            'collection': package.groups(),
+            'collection': service_package.groups(),
+            'entity': service_package.group(id),
         })

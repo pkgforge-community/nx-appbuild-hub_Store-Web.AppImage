@@ -15,10 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-import inject
+import hexdi
 from django.core.management import BaseCommand
 
-from apps.package.model.package import Package
+import inject
+from apps.config.services import ConfigFile
+from apps.package.services.package import ServicePackage
 
 
 class Command(BaseCommand):
@@ -27,17 +29,22 @@ class Command(BaseCommand):
     @inject.params(config='config')
     def handle(self, *args, **options):
 
-        assert ('config' in options.keys())
-        config = options['config']
+        service_config: ConfigFile = hexdi.resolve('config')
+        if not service_config: raise Exception('Unknown service')
 
-        limit = int(config.get('package.history.limit', 3))
+        service_package: ServicePackage = hexdi.resolve('package')
+        if not service_package: raise Exception('Unknown service')
+
+        limit = int(service_config.get('package.history.limit', 3))
         if limit is None or limit <= 0:
             return self.stdout.write(self.style.SUCCESS('done: cleanup deactivated (limit <= 0)'))
 
-        for package in Package.objects.all():
+        for package in service_package.packages():
             for index, version in enumerate(package.versions):
-                if index <= int(limit): continue
+                if index <= int(limit):
+                    continue
+                    
                 self.stdout.write(self.style.SUCCESS('removing: {}, {}'.format(package, version.name)))
                 version.delete()
 
-        self.stdout.write(self.style.SUCCESS('done: {} processed'.format(Package.objects.count())))
+        self.stdout.write(self.style.SUCCESS('done: {} processed'.format(service_package.count())))

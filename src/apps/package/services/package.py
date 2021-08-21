@@ -33,11 +33,26 @@ class ServicePackage(object):
         return self.queryset. \
             count()
 
+    def package(self, slug):
+        from apps.package.model.package import Package
+        return Package.objects.get(slug=slug)
+
+    def group(self, unique):
+        from apps.package.model.group import PackageGroup
+        return PackageGroup.objects.get(pk=unique)
+
     def groups(self):
-        from ..model.group import PackageGroup
+        from apps.package.model.group import PackageGroup
         return PackageGroup.objects. \
             order_by('name'). \
             all()
+
+    def packages(self):
+        from apps.package.model.package import Package
+        return Package.objects. \
+            order_by('name'). \
+            all()
+
 
     def random(self, limit=None):
         if limit is None or limit == 1:

@@ -14,31 +14,31 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+import hexdi
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 
-import inject
-from apps.package.model.package import Package
+from apps.package.services.package import ServicePackage
 
 
 class PackageView(TemplateView):
-    @inject.params(package='package')
-    def get(self, request, slug=None, package=None):
-        if not len(slug): raise ValueError('id can not be empty')
+    def get(self, request, slug):
+        service_package: ServicePackage = hexdi.resolve('package')
+        if not service_package: raise Exception('Unknown service')
 
         return render(request, "package/package.html", {
-            'entity': Package.objects.get(slug=slug),
-            'collection': package.groups(),
+            'entity': service_package.package(slug),
+            'collection': service_package.groups(),
         })
 
 
 class PackageDownloadView(TemplateView):
-    def get(self, request, slug=None):
-        if not slug or not len(slug):
-            raise Exception('slug can not be empty')
+    def get(self, request, slug):
+        service_package: ServicePackage = hexdi.resolve('package')
+        if not service_package: raise Exception('Unknown service')
 
-        package = Package.objects.get(slug=slug)
+        package = service_package.package(slug)
         if not package: raise Exception('package can not be empty')
 
         version = package.version

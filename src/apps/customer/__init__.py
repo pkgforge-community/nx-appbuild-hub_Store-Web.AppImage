@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # This software is a part of the A.O.D apprepo project
 # Copyright 2020 Alex Woroschilow (alex.woroschilow@gmail.com)
 #
@@ -15,7 +14,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+import hexdi
 from django.apps import AppConfig
+
+from .services.customer import ServiceCustomer
+
+
+@hexdi.permanent('customer')
+class ServiceCustomerInstance(ServiceCustomer):
+    pass
 
 
 class Config(AppConfig):

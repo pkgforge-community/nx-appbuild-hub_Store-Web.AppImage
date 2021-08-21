@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # This software is a part of the A.O.D apprepo project
 # Copyright 2020 Alex Woroschilow (alex.woroschilow@gmail.com)
 #
@@ -15,29 +14,34 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-import inject
+import hexdi
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 
+from apps.package.services.package import ServicePackage
+
 
 class DashboardView(TemplateView):
-    @inject.params(package='package')
-    def get(self, request, search=None, package=None):
+    def get(self, request):
         search = request.GET.get('search')
         if search is not None and len(search):
             return self.search(request, search)
         return self.dashboard(request)
 
-    @inject.params(package='package')
-    def dashboard(self, request, package=None):
+    def dashboard(self, request):
+        service_package: ServicePackage = hexdi.resolve('package')
+        if not service_package: raise Exception('Unknown service')
+
         return render(request, "package/dashboard.html", {
-            'collection': package.groups(),
-            'total': package.count(),
+            'collection': service_package.groups(),
+            'total': service_package.count(),
         })
 
-    @inject.params(package='package')
-    def search(self, request, search=None, package=None):
+    def search(self, request, search):
+        service_package: ServicePackage = hexdi.resolve('package')
+        if not service_package: raise Exception('Unknown service')
+
         return render(request, "package/search.html", {
-            'collection': package.search(search),
+            'collection': service_package.search(search),
             'request': search
         })
