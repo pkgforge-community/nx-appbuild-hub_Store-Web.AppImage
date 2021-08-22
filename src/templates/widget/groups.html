@@ -12,15 +12,16 @@
                 The home of <b>{{total }}</b> high-quality apps which can be
                 easily installed on any modern Linux distribution.
             </p>
+        </div>
+        <div class="col s12 l6 offset-l3">
             <p class="light grey-text text-darken-2">
                 <a href="{% url 'package' 'apprepo' %}">
                     <img src="{% static 'default/apprepo.gif' %}">
                 </a>
             </p>
             <p class="light grey-text text-darken-3">
-                Apprepo is a non-profit volunteer project. Although every effort is made to ensure that everything
+                Apprepo is a non-profit volunteer project. <br/> Although every effort is made to ensure that everything
                 in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b>
-
             </p>
         </div>
     </div>
@@ -31,7 +32,7 @@
         <img src="{% static 'default/laptop.png' %}"
              class="materialboxed" style="z-index: -1;">
     </div>
-    <div class="col s12 m6 xl4">
+    <div class="col s12 m6">
         <div class="row">
             {% for group in collection %}
             <div class="col s12 m6 xl4">
