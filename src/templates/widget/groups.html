@@ -2,9 +2,8 @@
 {% load static %}
 
 <div class="center">
-
-    <div class="row">
-        <div class="col s8 offset-s2">
+    <div class="row hide-on-small-only">
+        <div class="col s10 offset-l2">
             <h2 class="light grey-text text-darken-2">
                 AppImage repository
             </h2>
@@ -13,12 +12,38 @@
                 easily installed on any modern Linux distribution.
             </p>
         </div>
-        <div class="col s12 l6 offset-l3">
+    </div>
+    <div class="row">
+        <div class="col s12 l7 offset-l3">
             <p class="light grey-text text-darken-2">
                 <a href="{% url 'package' 'apprepo' %}">
-                    <img src="{% static 'default/apprepo.gif' %}">
+                    <img src="{% static 'default/apprepo.gif' %}"
+                       class="responsive-img">
                 </a>
             </p>
+        </div>
+        <div class="col s12 l2">
+            <ul class="section table-of-contents left left-align">
+                <li>
+                    <a href="{% url 'page' 'about' %}" class="active">
+                        What is AppRepo?
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'page' 'how-it-works' %}">
+                        How does it work?
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'page' 'how-to-help' %}">
+                        You like the Idea?
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row hide-on-small-only">
+        <div class="col s12 l6 offset-l4">
             <p class="light grey-text text-darken-3">
                 Apprepo is a non-profit volunteer project. <br/> Although every effort is made to ensure that everything
                 in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b>
@@ -49,7 +74,7 @@
                                class="title-text grey-text text-darken-2 truncate">
                                 {{ group.name }}
                             </a>
-                              <span class="grey-text text-darken-2 truncate">
+                            <span class="grey-text text-darken-2 truncate">
                                   {{ group.packages.count }} apps
                               </span>
                         </div>
