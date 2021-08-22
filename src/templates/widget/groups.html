@@ -38,17 +38,20 @@
             <div class="col s12 m6 xl4">
                 <div class="card-panel grey lighten-3 z-depth-3 hoverable ">
                     <div class="row valign-wrapper">
-                        <div class="col s2" style="height:27px;">
+                        <div class="col s3" style="height:27px;">
                             <a href="{% url 'package_group' group.id %}"
                                class="card-title grey-text text-darken-2 truncate">
                                 <img src="{{ group.icon.url }}" alt="" class="circle responsive-img">
                             </a>
                         </div>
-                        <div class="col s10">
+                        <div class="col s9">
                             <a href="{% url 'package_group' group.id %}"
-                               class="card-title grey-text text-darken-2 truncate">
-                                {{ group.name }} ({{ group.packages.count }} apps)
+                               class="title-text grey-text text-darken-2 truncate">
+                                {{ group.name }}
                             </a>
+                              <span class="grey-text text-darken-2 truncate">
+                                  {{ group.packages.count }} apps
+                              </span>
                         </div>
                     </div>
                 </div>
