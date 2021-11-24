@@ -38,6 +38,7 @@ class Package(models.Model):
     slug = models.CharField(max_length=255, null=False, unique=True)
     token = models.CharField(max_length=255, null=False, unique=True)
     homepage = models.CharField(max_length=255, null=True, blank=True)
+    repository = models.CharField(max_length=255, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     description = models.TextField(null=True, blank=True)

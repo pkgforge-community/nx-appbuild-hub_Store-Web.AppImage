@@ -29,7 +29,7 @@ from .inline.version import PackageVersionInline
 
 class PackageAdmin(nested_admin.NestedModelAdmin):
     form = PackageForm
-    list_display = ['name', 'token', 'slug', 'package', 'created']
+    list_display = ['name', 'token', 'slug', 'package', 'created', 'repository']
     search_fields = ('icon', 'name', 'description')
     readonly_fields = ["preview"]
 

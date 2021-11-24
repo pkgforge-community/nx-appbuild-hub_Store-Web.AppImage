@@ -32,6 +32,7 @@ class PackageForm(forms.ModelForm):
     token = forms.CharField(required=True, initial=string_random)
     slug = forms.CharField(required=True, initial=string_random)
     description = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 20}))
+    repository = forms.CharField(required=True)
 
     class Meta:
         model = Package

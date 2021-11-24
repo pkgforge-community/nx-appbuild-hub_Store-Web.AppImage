@@ -2,18 +2,28 @@
     <div class="row">
         {% if entity.homepage|length %}
         <div class="col s12 center">
-            <h5>Home page</h5>
+            <h5>Learn more:</h5>
         </div>
         <div class="col s12 center">
-            <h5 class="light center">
-                <a class="waves-effect waves-light btn red truncate"
-                   href="{{ entity.homepage }}" target="_blank" style="max-width: 70%;">
-                    <i class="material-icons right">arrow_forward</i>
-                    {{ entity.homepage }}
-                </a>
-            </h5>
+            <a class="waves-effect waves-light btn red truncate"
+               href="{{ entity.homepage }}" target="_blank" style="max-width: 70%;">
+                <i class="material-icons right">arrow_forward</i>
+                Home page
+            </a>
+
+            {% if entity.repository|length %}
+            <a class="waves-effect waves-light btn grey darken-4 truncate"
+               href="{{ entity.repository }}" target="_blank" style="max-width: 70%;">
+                <i class="material-icons right">arrow_forward</i>
+                github.com
+            </a>
+            <p class="section">
+                Feel free to submit a pull-request if you have something to say / add / improve
+            </p>
+            {% endif %}
         </div>
         {% endif %}
+
 
         {% if entity.version %}
         <div class="col s12">
@@ -55,30 +65,6 @@
             <i class="small material-icons green-text">check_circle</i>
         </div>
         <div class="col s10 left-align light truncate">
-            openSUSE Tumbleweed
-        </div>
-    </div>
-    <div class="row" style="margin-bottom: 0px;">
-        <div class="col s2">
-            <i class="small material-icons green-text">check_circle</i>
-        </div>
-        <div class="col s10 left-align light truncate">
-            Ubuntu 20.04
-        </div>
-    </div>
-    <div class="row" style="margin-bottom: 0px;">
-        <div class="col s2">
-            <i class="small material-icons green-text">check_circle</i>
-        </div>
-        <div class="col s10 left-align light truncate">
-            KaOS
-        </div>
-    </div>
-    <div class="row" style="margin-bottom: 0px;">
-        <div class="col s2">
-            <i class="small material-icons green-text">check_circle</i>
-        </div>
-        <div class="col s10 left-align light truncate">
             Linux distro with GLIBC >= 2.31
         </div>
     </div>
@@ -108,14 +94,6 @@
             <i class="small material-icons red-text">remove_circle</i>
         </div>
         <div class="col s10 left-align light truncate">
-            Deepin Linux
-        </div>
-    </div>
-    <div class="row" style="margin-bottom: 0px;">
-        <div class="col s2">
-            <i class="small material-icons red-text">remove_circle</i>
-        </div>
-        <div class="col s10 left-align light truncate">
             Linux distro with GLIBC < 2.31
         </div>
     </div>
@@ -124,6 +102,7 @@
 <div class="card-content green-text black left-align">
     ldd --version
 </div>
+
 <div class="card-action left-align light grey-text text-darken-4">
     <div class="row">
         {% if entity.groups.all|length %}
