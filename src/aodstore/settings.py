@@ -59,6 +59,9 @@ JET_CHANGE_FORM_SIBLING_LINKS = False
 DEBUG = int(config.get('default.debug', 1) or 1)
 CORS_ORIGIN_ALLOW_ALL = bool(config.get('default.cors', 1) or 1)
 
+DOMAIN = config.get('default.domain', 'http://localhost:8001')
+SECURE_PROXY_SSL_HEADER = ('SERVER_SCHEME', 'https')
+
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = []
@@ -80,7 +83,6 @@ INSTALLED_APPS.append('chunked_upload')
 INSTALLED_APPS.append('drf_yasg')
 INSTALLED_APPS.append('django.contrib.admin.apps.SimpleAdminConfig')
 INSTALLED_APPS.append('aodstore')
-INSTALLED_APPS.append('apps.inject.Config')
 INSTALLED_APPS.append('apps.config.Config')
 INSTALLED_APPS.append('apps.package.Config')
 INSTALLED_APPS.append('apps.widgets.Config')

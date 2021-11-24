@@ -16,22 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-import os
-import inject
-import sys
-import optparse
 import logging
-import django
-import corsheaders
-import ckeditor
-import nested_admin
-import chunked_upload
-import tinymce
-import rest_framework
-import drf_yasg
-import adminplus
-import aodstore
-import jet
+import optparse
+import os
+import sys
 
 abspath = sys.argv[0] \
     if len(sys.argv) else \

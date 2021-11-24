@@ -18,7 +18,6 @@
 import hexdi
 from django.core.management import BaseCommand
 
-import inject
 from apps.config.services import ConfigFile
 from apps.package.services.package import ServicePackage
 
@@ -26,7 +25,6 @@ from apps.package.services.package import ServicePackage
 class Command(BaseCommand):
     help = "Cleanup packages"
 
-    @inject.params(config='config')
     def handle(self, *args, **options):
 
         service_config: ConfigFile = hexdi.resolve('config')
@@ -43,7 +41,7 @@ class Command(BaseCommand):
             for index, version in enumerate(package.versions):
                 if index <= int(limit):
                     continue
-                    
+
                 self.stdout.write(self.style.SUCCESS('removing: {}, {}'.format(package, version.name)))
                 version.delete()
 

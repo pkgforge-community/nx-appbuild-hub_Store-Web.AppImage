@@ -15,11 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-import inject
+import hexdi
 from chunked_upload.models import ChunkedUpload
 from chunked_upload.views import ChunkedUploadCompleteView
 from chunked_upload.views import ChunkedUploadView
 from django.core.files.base import ContentFile
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import viewsets
 from rest_framework.decorators import action
 
@@ -29,7 +30,6 @@ from apps.package.model.upload import PackageUpload
 from apps.package.model.version import PackageVersion
 from .serializer.upload import PackageUploadInitializeSerializer
 from .serializer.upload import PackageUploadSerializer
-from drf_yasg.utils import swagger_auto_schema
 
 
 class PackageUploadView(viewsets.GenericViewSet, ChunkedUploadView):
@@ -75,12 +75,12 @@ class PackageUploadCompleteView(viewsets.GenericViewSet, ChunkedUploadCompleteVi
     def get_queryset(self, request):
         return self.model.objects.all()
 
-    @inject.params(config='config')
-    def on_completion(self, uploaded_file, request, config=None):
+    def on_completion(self, uploaded_file, request):
         data = request.data
         if data is None:
             return data
 
+        config = hexdi.resolve('config')
         assert ('file' in data.keys())
 
         uploaded_file.name = data['file']
@@ -109,10 +109,8 @@ class PackageUploadCompleteView(viewsets.GenericViewSet, ChunkedUploadCompleteVi
             return data
 
         try:
-            print(chunked_upload)
             chunked_upload.delete()
         except Exception as ex:
-            print(ex)
             pass
 
         package = Package.objects.get(

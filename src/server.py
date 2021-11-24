@@ -19,21 +19,10 @@
 import logging
 import optparse
 import os
-import inject
 import sys
-import optparse
-import logging
-import django
-import corsheaders
-import ckeditor
-import nested_admin
-import chunked_upload
-import tinymce
-import rest_framework
-import drf_yasg
-import adminplus
-import jet
 from multiprocessing import Pool
+
+import hexdi
 
 abspath = sys.argv[0] \
     if len(sys.argv) else \
@@ -76,9 +65,7 @@ if __name__ == '__main__':
 
         django.setup()
 
-        container = inject.get_injector_or_die()
-        config = container.get_instance('config')
-
+        config = hexdi.resolve('config')
         host = config.get('server.host', '0.0.0.0')
         ports = config.get('server.port', '8000')
 
