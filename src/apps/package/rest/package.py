@@ -46,6 +46,33 @@ class PackageViewSet(viewsets.GenericViewSet, mixins.RetrieveModelMixin):
         return Response(serializer.data)
 
 
+class PackageDeprecatedViewSet(viewsets.GenericViewSet, mixins.RetrieveModelMixin):
+    serializer_class = PackageSerializer
+    permission_classes = []
+    queryset = Package.objects
+    pagination_class = None
+    lookup_value_regex = '.+'
+    lookup_url_kwarg = "slug"
+
+    def get_queryset(self, search=None):
+        if search is None or not len(search):
+            return self.queryset.all()
+        return self.queryset.filter(Q(name__startswith=search) | Q(description__icontains=search))
+
+    @swagger_auto_schema(tags=['API - package-manager'])
+    def retrieve(self, request, slug, *args, **kwargs):
+        slug = self.kwargs.get('slug')
+        if not slug: raise Exception('Search string can not be empty')
+
+        entity = self.queryset.get(Q(slug=slug) | Q(package=slug))
+        if not entity: raise Exception('Package can not be empty')
+
+        serializer = self.get_serializer(entity, context={
+            'request': request,
+        })
+        return Response(serializer.data)
+
+
 class PackageListViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
     serializer_class = PackageSerializer
     permission_classes = []

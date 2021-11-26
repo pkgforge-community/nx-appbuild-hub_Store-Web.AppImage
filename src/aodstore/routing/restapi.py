@@ -44,6 +44,7 @@ aod_store_restapi.register(r'api/package/groups', package_group.PackageGroupList
 spec = util.find_spec('apps.package.rest.package')
 package = spec.loader.load_module()
 aod_store_restapi.register(r'api/package', package.PackageListViewSet)
+aod_store_restapi.register(r'api/package', package.PackageDeprecatedViewSet)
 
 spec = util.find_spec('apps.package.rest.upload')
 package_upload = spec.loader.load_module()
