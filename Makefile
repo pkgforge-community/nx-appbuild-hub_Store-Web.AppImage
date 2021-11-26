@@ -29,31 +29,31 @@ all:
 	mkdir -p $(PWD)/build/AppDir/server
 	mkdir -p $(PWD)/build/AppDir/vendor
 
-	wget --output-document=$(PWD)/build/build.rpm  http://mirror.centos.org/centos/8/AppStream/x86_64/os/Packages/python38-3.8.6-3.module_el8.4.0+665+abc3a503.x86_64.rpm
+	wget --output-document=$(PWD)/build/build.rpm  http://mirror.centos.org/centos/8-stream/AppStream/x86_64/os/Packages/python38-3.8.6-3.module_el8.5.0+742+dbad1979.x86_64.rpm
 	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
 
-	wget --output-document=$(PWD)/build/build.rpm  http://mirror.centos.org/centos/8/AppStream/x86_64/os/Packages/python38-devel-3.8.6-3.module_el8.4.0+665+abc3a503.x86_64.rpm
+	wget --output-document=$(PWD)/build/build.rpm  http://mirror.centos.org/centos/8-stream/AppStream/x86_64/os/Packages/python38-devel-3.8.6-3.module_el8.5.0+742+dbad1979.x86_64.rpm
 	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
 
-	wget --output-document=$(PWD)/build/build.rpm  http://mirror.centos.org/centos/8/AppStream/x86_64/os/Packages/python38-pip-19.3.1-1.module_el8.4.0+647+0ba99ce8.noarch.rpm
+	wget --output-document=$(PWD)/build/build.rpm  http://mirror.centos.org/centos/8-stream/AppStream/x86_64/os/Packages/python38-pip-19.3.1-4.module_el8.6.0+929+89303463.noarch.rpm
 	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
 
-	wget --output-document=$(PWD)/build/build.rpm  http://mirror.centos.org/centos/8/AppStream/x86_64/os/Packages/python38-setuptools-41.6.0-4.module_el8.4.0+647+0ba99ce8.noarch.rpm
+	wget --output-document=$(PWD)/build/build.rpm  http://mirror.centos.org/centos/8-stream/AppStream/x86_64/os/Packages/python38-setuptools-41.6.0-5.module_el8.6.0+929+89303463.noarch.rpm
 	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
 
-	wget --output-document=$(PWD)/build/build.rpm  http://mirror.centos.org/centos/8/AppStream/x86_64/os/Packages/python38-libs-3.8.6-3.module_el8.4.0+665+abc3a503.x86_64.rpm
+	wget --output-document=$(PWD)/build/build.rpm  http://mirror.centos.org/centos/8-stream/AppStream/x86_64/os/Packages/python38-libs-3.8.12-1.module_el8.6.0+929+89303463.x86_64.rpm
 	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
 
-	wget --output-document=$(PWD)/build/build.rpm  http://mirror.centos.org/centos/8/BaseOS/x86_64/os/Packages/openssl-libs-1.1.1g-15.el8_3.x86_64.rpm
+	wget --output-document=$(PWD)/build/build.rpm  http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/Packages/openssl-libs-1.1.1k-4.el8.x86_64.rpm
 	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
 
-	wget --output-document=$(PWD)/build/build.rpm  http://mirror.centos.org/centos/8/BaseOS/x86_64/os/Packages/libffi-3.1-22.el8.x86_64.rpm
+	wget --output-document=$(PWD)/build/build.rpm  http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/Packages/libffi-3.1-22.el8.x86_64.rpm
 	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
 
-	wget --output-document=$(PWD)/build/build.rpm  http://mirror.centos.org/centos/8/AppStream/x86_64/os/Packages/intltool-0.51.0-11.el8.noarch.rpm
+	wget --output-document=$(PWD)/build/build.rpm  http://mirror.centos.org/centos/8-stream/AppStream/x86_64/os/Packages/intltool-0.51.0-11.el8.noarch.rpm
 	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
 
-	wget --output-document=$(PWD)/build/build.rpm  http://mirror.centos.org/centos/8/BaseOS/x86_64/os/Packages/libgudev-232-4.el8.x86_64.rpm
+	wget --output-document=$(PWD)/build/build.rpm  http://mirror.centos.org/centos/8-stream/BaseOS/x86_64/os/Packages/libgudev-232-4.el8.x86_64.rpm
 	cd $(PWD)/build && rpm2cpio $(PWD)/build/build.rpm | cpio -idmv && cd ..
 
 
