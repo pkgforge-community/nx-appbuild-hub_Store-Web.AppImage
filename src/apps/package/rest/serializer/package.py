@@ -19,12 +19,14 @@ from rest_framework import serializers
 
 from apps.package.model.package import Package
 from .group import PackageGroupSerializer
+from .image import PackageImageSerializer
 from .version import PackageVersionSerializer
 
 
 class PackageSerializer(serializers.HyperlinkedModelSerializer):
     versions = PackageVersionSerializer(many=True, read_only=True)
     groups = PackageGroupSerializer(many=True, read_only=True)
+    images = PackageImageSerializer(many=True, read_only=True)
 
     version = serializers.SerializerMethodField()
     file = serializers.SerializerMethodField()
@@ -32,7 +34,7 @@ class PackageSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Package
-        fields = ['name', 'slug', 'version', 'description', 'hash', 'package', 'file', 'versions', 'groups']
+        fields = ['name', 'slug', 'version', 'description', 'hash', 'package', 'file', 'versions', 'groups', 'images']
 
     def get_version(self, obj):
         version = obj.version
@@ -47,7 +49,9 @@ class PackageSerializer(serializers.HyperlinkedModelSerializer):
         return version.hash
 
     def get_file(self, obj):
-        assert ('request' in self.context.keys())
+        if 'request' not in self.context.keys():
+            return None
+
         return self.context['request'].build_absolute_uri(
             reverse('package_download', args=(obj.slug,))
         )

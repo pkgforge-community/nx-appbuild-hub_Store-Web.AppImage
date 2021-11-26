@@ -42,9 +42,10 @@ class PackageVersionSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['name', 'description', 'hash', 'file', 'ipfs_cid', 'ipfs_gateway']
 
     def get_file(self, version):
-        if not version.file: return None
+        if 'request' not in self.context.keys():
+            return None
 
-        assert ('request' in self.context.keys())
+        if not version.file: return None
 
         request = self.context.get('request')
         if not request: return None

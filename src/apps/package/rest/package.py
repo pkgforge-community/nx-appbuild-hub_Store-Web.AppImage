@@ -16,13 +16,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 from django.db.models import Q
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import mixins
 from rest_framework import viewsets
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from apps.package.model.package import Package
 from .serializer.package import PackageSerializer
-from drf_yasg.utils import swagger_auto_schema
+from ..model.group import PackageGroup
 
 
 class PackageViewSet(viewsets.GenericViewSet, mixins.RetrieveModelMixin):
@@ -50,7 +52,7 @@ class PackageListViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
     queryset = Package.objects
     pagination_class = None
     lookup_value_regex = '.+'
-    lookup_url_kwarg = "slug"
+    lookup_url_kwarg = "unique"
 
     def get_queryset(self, search=None):
         if search is None or not len(search):
@@ -66,13 +68,33 @@ class PackageListViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
 
         return Response(serializer.data)
 
-    @swagger_auto_schema(tags=['API - package-manager'])
-    def retrieve(self, request, *args, **kwargs):
-        slug = self.kwargs.get('slug')
+    @swagger_auto_schema(tags=['API - package-manager'], responses={
+        200: PackageSerializer,
+    })
+    @action(url_path='by_group', methods=['get'], detail=True)
+    def by_group(self, request, unique, *args, **kwargs):
+        unique = self.kwargs.get('unique')
+        if not unique: raise Exception('Search string can not be empty')
+
+        collection = PackageGroup.objects.get(pk=unique).package_set.all()
+        if not collection: raise Exception('Package can not be empty')
+
+        return Response((PackageSerializer(collection, context={
+            'request': request,
+        }, many=True)).data)
+
+    @swagger_auto_schema(tags=['API - package-manager'], responses={
+        200: PackageSerializer,
+    })
+    @action(url_path='by_slug', methods=['get'], detail=True)
+    def by_slug(self, request, unique, *args, **kwargs):
+        slug = self.kwargs.get('unique')
         if not slug: raise Exception('Search string can not be empty')
 
         entity = self.queryset.get(Q(slug=slug) | Q(package=slug))
         if not entity: raise Exception('Package can not be empty')
 
-        serializer = self.get_serializer(entity)
+        serializer = self.get_serializer(entity, context={
+            'request': request,
+        })
         return Response(serializer.data)

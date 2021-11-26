@@ -56,8 +56,7 @@ class Package(models.Model):
 
     @property
     def images(self):
-        return PackageImage.objects. \
-            filter(package=self). \
+        return self.packageimage_set. \
             order_by('-id')
 
     @property
@@ -69,8 +68,7 @@ class Package(models.Model):
 
     @property
     def versions(self):
-        return PackageVersion.objects. \
-            filter(package=self). \
+        return self.packageversion_set. \
             order_by('-id')
 
     @property

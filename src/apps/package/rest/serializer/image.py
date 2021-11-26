@@ -17,12 +17,24 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 from rest_framework import serializers
 
-from apps.package.model.group import PackageGroup
+from apps.package.model.image import PackageImage
 
 
-class PackageGroupSerializer(serializers.HyperlinkedModelSerializer):
-    unique = serializers.IntegerField(source='pk')
+class PackageImageSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
-        model = PackageGroup
-        fields = ['name', 'description', 'icon', 'unique']
+        model = PackageImage
+        fields = ['url']
+
+    def get_url(self, entity: PackageImage):
+        if 'request' not in self.context.keys():
+            return None
+
+        if not entity.url:
+            return None
+
+        request = self.context.get('request')
+        if not request: return None
+
+        return request.build_absolute_uri(entity.url)
