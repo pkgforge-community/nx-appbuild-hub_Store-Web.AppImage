@@ -31,10 +31,25 @@ class PackageSerializer(serializers.HyperlinkedModelSerializer):
     version = serializers.SerializerMethodField()
     file = serializers.SerializerMethodField()
     hash = serializers.SerializerMethodField()
+    icon = serializers.SerializerMethodField()
+    preview = serializers.SerializerMethodField()
 
     class Meta:
         model = Package
-        fields = ['name', 'slug', 'version', 'description', 'hash', 'package', 'file', 'versions', 'groups', 'images']
+        fields = [
+            'name',
+            'slug',
+            'version',
+            'description',
+            'hash',
+            'package',
+            'icon',
+            'preview',
+            'file',
+            'versions',
+            'groups',
+            'images'
+        ]
 
     def get_version(self, obj):
         version = obj.version
@@ -52,6 +67,31 @@ class PackageSerializer(serializers.HyperlinkedModelSerializer):
         if 'request' not in self.context.keys():
             return None
 
-        return self.context['request'].build_absolute_uri(
+        request = self.context.get('request')
+        return request.build_absolute_uri(
             reverse('package_download', args=(obj.slug,))
         )
+
+    def get_icon(self, obj):
+        if 'request' not in self.context.keys():
+            return None
+
+        request = self.context.get('request')
+        if not request: return None
+
+        image = obj.icon
+        if not image: return None
+
+        return request.build_absolute_uri(image.url)
+
+    def get_preview(self, obj):
+        if 'request' not in self.context.keys():
+            return None
+
+        request = self.context.get('request')
+        if not request: return None
+
+        image = obj.image
+        if not image: return None
+
+        return request.build_absolute_uri(image.url)
