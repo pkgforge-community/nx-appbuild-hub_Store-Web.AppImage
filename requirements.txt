@@ -31,7 +31,7 @@ django-jet==1.0.8
 django-js-asset==1.2.2
 django-nested-admin==3.2.4
 django-tinymce==3.0.2
-djangorestframework==3.10.3
+djangorestframework==3.11.2
 dominate==2.4.0
 drf-yasg==1.17.0
 gevent==1.5a4
