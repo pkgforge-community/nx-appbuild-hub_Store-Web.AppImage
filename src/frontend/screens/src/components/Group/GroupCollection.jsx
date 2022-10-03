@@ -33,19 +33,17 @@ export default function GroupCollection(props) {
             )
     }, [props.sourceUrl])
 
-    if (collection == undefined) {
-        return <MessageLoading />
-    }
-
     return (
         <>
-            <Columns vCentered={true} centered={true}>
-                {collection.map((entity, index) => (
-                    <Columns.Column size={2}>
-                        <GroupCollectionElement entity={entity} />
-                    </Columns.Column>
-                ))}
-            </Columns>
+            {collection != undefined
+                ? <Columns vCentered={true} centered={true}>
+                    {collection.map((entity, index) => (
+                        <Columns.Column size={2}>
+                            <GroupCollectionElement entity={entity} />
+                        </Columns.Column>
+                    ))}
+                </Columns>
+                : <MessageLoading />}
         </>
     );
 };
