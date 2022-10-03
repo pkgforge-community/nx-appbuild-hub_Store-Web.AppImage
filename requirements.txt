@@ -3,10 +3,10 @@ amqp==2.5.2
 asgi-redis==1.4.3
 asgiref==1.1.2
 attrs==19.3.0
-autobahn==19.11.1
+autobahn==20.12.3
 Automat==0.8.0
 billiard==3.6.1.0
-celery==4.3.0
+celery==5.2.2
 certifi==2019.11.28
 cffi==1.13.2
 channels==1.1.3
@@ -14,7 +14,7 @@ chardet==3.0.4
 constantly==15.1.0
 coreapi==2.3.3
 coreschema==0.0.4
-cryptography==2.8
+cryptography==3.2
 cssselect==1.1.0
 d==0.2.2
 daphne==1.4.1
@@ -31,7 +31,7 @@ django-jet==1.0.8
 django-js-asset==1.2.2
 django-nested-admin==3.2.4
 django-tinymce==3.0.2
-djangorestframework==3.10.3
+djangorestframework==3.11.2
 dominate==2.4.0
 drf-yasg==1.17.0
 gevent==1.5a4
@@ -43,9 +43,9 @@ importlib-metadata==0.23
 incremental==17.5.0
 inflection==0.3.1
 itypes==1.1.0
-Jinja2==2.10.3
+Jinja2==2.11.3
 kombu==4.6.6
-lxml==4.4.2
+lxml==4.9.1
 Markdown==3.1.1
 MarkupSafe==1.1.1
 more-itertools==7.2.0
@@ -56,7 +56,7 @@ packaging==20.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.19
-Pygments==2.5.2
+Pygments==2.7.4
 PyHamcrest==1.9.0
 pyOpenSSL==19.1.0
 pyparsing==2.4.6
@@ -70,7 +70,7 @@ ruamel.yaml.clib==0.2.0
 service-identity==18.1.0
 six==1.13.0
 sqlparse==0.3.0
-Twisted==20.3.0
+Twisted==22.4.0
 txaio==18.8.1
 uritemplate==3.0.1
 vine==1.3.0
