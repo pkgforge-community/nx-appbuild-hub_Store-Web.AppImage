@@ -30,7 +30,7 @@
     "interactjs": "^1.10.11",
     "js-cookie": "^3.0.1",
     "kalend": "^0.7.5",
-    "moment": "^2.29.2",
+    "moment": "^2.29.4",
     "raw-loader": "^4.0.2",
     "react": "^18.2.0",
     "react-bulma-components": "^4.0.7",
