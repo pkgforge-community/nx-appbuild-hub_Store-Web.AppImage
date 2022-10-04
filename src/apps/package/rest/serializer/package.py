@@ -18,16 +18,15 @@ from django.urls import reverse
 from rest_framework import serializers
 
 from apps.package.model.package import Package
-from .group import PackageGroupSerializer
 from .image import PackageImageSerializer
 from .version import PackageVersionSerializer
 
 
 class PackageSerializer(serializers.HyperlinkedModelSerializer):
     versions = PackageVersionSerializer(many=True, read_only=True)
-    groups = PackageGroupSerializer(many=True, read_only=True)
     images = PackageImageSerializer(many=True, read_only=True)
 
+    groups = serializers.SerializerMethodField()
     version = serializers.SerializerMethodField()
     file = serializers.SerializerMethodField()
     hash = serializers.SerializerMethodField()
@@ -56,6 +55,12 @@ class PackageSerializer(serializers.HyperlinkedModelSerializer):
             'groups',
             'images'
         ]
+
+    def get_groups(self, obj):
+        from .group import PackageGroupSerializer
+        return PackageGroupSerializer(obj.groups, context={
+            'request': self.context.get('request')
+        }, many=True).data
 
     def get_version(self, obj):
         version = obj.version

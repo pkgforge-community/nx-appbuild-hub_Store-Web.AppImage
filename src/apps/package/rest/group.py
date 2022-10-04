@@ -14,43 +14,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework import serializers
-from django.urls import reverse
 
 from apps.package.model.group import PackageGroup
-from drf_yasg.utils import swagger_auto_schema
-
-from .serializer.group import PackageGroupSerializer
-from .serializer.package import PackageSerializer
-
-
-class PackageGroupDetailSerializer(serializers.HyperlinkedModelSerializer):
-    unique = serializers.IntegerField(source='pk')
-    page = serializers.SerializerMethodField()
-
-    packages = PackageSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = PackageGroup
-        fields = [
-            'name',
-            'description',
-            'page',
-            'icon',
-            'unique',
-            'packages',
-        ]
-
-    def get_page(self, obj):
-        if 'request' not in self.context.keys():
-            return None
-
-        request = self.context.get('request')
-        return request.build_absolute_uri(
-            reverse('package_group', args=(obj.pk,))
-        )
+from .serializer.group import PackageGroupSerializer, PackageGroupDetailSerializer
 
 
 class PackageGroupList(viewsets.GenericViewSet):
@@ -75,7 +44,9 @@ class PackageGroupList(viewsets.GenericViewSet):
         entity = self.queryset.get(pk=unique)
         if not entity: raise Exception('Group can not be empty')
 
-        serializer = PackageGroupDetailSerializer(entity)
+        serializer = PackageGroupDetailSerializer(entity, context={
+            'request': request
+        })
         return Response(serializer.data)
 
     @swagger_auto_schema(tags=['API - package-manager'])
