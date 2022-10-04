@@ -78,12 +78,16 @@ export default function Package(props) {
                                     <Block alignContent='center'>
                                         <Heading subtitle size={5}>Learn more:</Heading>
                                         <Button.Group size={"small"} align="center">
-                                            <Button size={"small"} color="danger">
-                                                Home page
-                                            </Button>
-                                            <Button size={"small"} color="dark">
-                                                Source code
-                                            </Button>
+                                            <a href={entity.pageHome} target="_blank">
+                                                <Button size={"small"} color="danger">
+                                                    Home page
+                                                </Button>
+                                            </a>
+                                            <a href={entity.pageSource} target="_blank">
+                                                <Button size={"small"} color="dark">
+                                                    Source code
+                                                </Button>
+                                            </a>
                                         </Button.Group>
                                         <Content className="has-text-weight-light"
                                             size={"small"} style={{ textAlign: "center" }}>
@@ -100,9 +104,11 @@ export default function Package(props) {
                                             Updated At: --
                                         </Content>
                                         <Button.Group align='center'>
-                                            <Button size={"medium"} color="success">
-                                                Download
-                                            </Button>
+                                            <a href={entity.file} target="_blank">
+                                                <Button size={"medium"} color="success">
+                                                    Download
+                                                </Button>
+                                            </a>
                                         </Button.Group>
                                     </Block>
                                     <br />
@@ -116,9 +122,11 @@ export default function Package(props) {
                                     <Block alignContent='center' style={{ textAlign: "center" }}>
                                         <Heading subtitle size={5}>Categories:</Heading>
                                         {entity.groups.map((group, index) => (
-                                            <Tag style={{ margin: "3px" }}>
-                                                <Image src={group.icon} size={16} />&nbsp;{group.name}
-                                            </Tag>
+                                            <a href={group.page} target="_blank">
+                                                <Tag style={{ margin: "3px" }}>
+                                                    <Image src={group.icon} size={16} />&nbsp;{group.name}
+                                                </Tag>
+                                            </a>
                                         ))}
                                     </Block>
                                 </Box>
