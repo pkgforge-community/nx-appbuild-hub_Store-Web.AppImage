@@ -78,12 +78,12 @@ export default function Package(props) {
                                     <Block alignContent='center'>
                                         <Heading subtitle size={5}>Learn more:</Heading>
                                         <Button.Group size={"small"} align="center">
-                                            <a href={entity.pageHome} target="_blank">
+                                            <a href={entity.page_home} target="_blank">
                                                 <Button size={"small"} color="danger">
                                                     Home page
                                                 </Button>
                                             </a>
-                                            <a href={entity.pageSource} target="_blank">
+                                            <a href={entity.page_source} target="_blank">
                                                 <Button size={"small"} color="dark">
                                                     Source code
                                                 </Button>
