@@ -33,6 +33,9 @@ class PackageSerializer(serializers.HyperlinkedModelSerializer):
     hash = serializers.SerializerMethodField()
     icon = serializers.SerializerMethodField()
     preview = serializers.SerializerMethodField()
+    page = serializers.SerializerMethodField()
+    page_home = serializers.SerializerMethodField()
+    page_source = serializers.SerializerMethodField()
 
     class Meta:
         model = Package
@@ -46,6 +49,9 @@ class PackageSerializer(serializers.HyperlinkedModelSerializer):
             'icon',
             'preview',
             'file',
+            'page',
+            'page_home',
+            'page_source',
             'versions',
             'groups',
             'images'
@@ -71,6 +77,21 @@ class PackageSerializer(serializers.HyperlinkedModelSerializer):
         return request.build_absolute_uri(
             reverse('package_download', args=(obj.slug,))
         )
+
+    def get_page(self, obj):
+        if 'request' not in self.context.keys():
+            return None
+
+        request = self.context.get('request')
+        return request.build_absolute_uri(
+            reverse('package', args=(obj.slug,))
+        )
+
+    def get_page_home(self, obj):
+        return obj.homepage
+
+    def get_page_source(self, obj):
+        return obj.repository
 
     def get_icon(self, obj):
         if 'request' not in self.context.keys():

@@ -18,11 +18,28 @@
 from rest_framework import serializers
 
 from apps.package.model.group import PackageGroup
+from django.urls import reverse
 
 
 class PackageGroupSerializer(serializers.HyperlinkedModelSerializer):
     unique = serializers.IntegerField(source='pk')
+    page = serializers.SerializerMethodField()
 
     class Meta:
         model = PackageGroup
-        fields = ['name', 'description', 'icon', 'unique']
+        fields = [
+            'name',
+            'description',
+            'page',
+            'icon',
+            'unique'
+        ]
+
+    def get_page(self, obj):
+        if 'request' not in self.context.keys():
+            return None
+
+        request = self.context.get('request')
+        return request.build_absolute_uri(
+            reverse('package_group', args=(obj.pk,))
+        )
