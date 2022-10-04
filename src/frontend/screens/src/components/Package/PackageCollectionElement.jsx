@@ -29,15 +29,19 @@ export const PackageCollectionElement = (props) => {
             }}>
                 <Columns.Column size={12}
                     style={{ maxHeight: "210px" }}>
-                    <figure onClick={() => { console.info(entity) }}>
-                        <img src={entity.preview}
-                            alt={entity.name} />
-                    </figure>
+                    <a href={entity.page}>
+                        <figure>
+                            <img src={entity.preview}
+                                alt={entity.name} />
+                        </figure>
+                    </a>
                 </Columns.Column>
                 <Columns.Column size={12} style={{ background: "white" }}>
-                    <Heading subtitle onClick={() => { console.info(entity) }}>
-                        {entity.name}
-                    </Heading>
+                    <a href={entity.page}>
+                        <Heading subtitle>
+                            {entity.name}
+                        </Heading>
+                    </a>
                 </Columns.Column>
             </Columns>
         </Block>
