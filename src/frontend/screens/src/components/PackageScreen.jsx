@@ -9,17 +9,13 @@
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-"use strict";
-import React from "react";
-import ReactDOM from "react-dom";
-import { PackageScreen } from "../components/PackageScreen";
+import React from 'react';
+import Package from './Package/Package';
 
-let container = document.getElementById("PackageScreen");
-if (!container.hasAttribute("data-source")) {
-  throw "Please set .workout[data-source=....]";
-}
-
-const root = ReactDOM.createRoot(container);
-root.render(
-  <PackageScreen sourceUrl={container.getAttribute("data-source")} />
-);
+export const PackageScreen = (props) => {
+    return (
+        <>
+            <Package sourceUrl={props.sourceUrl} />
+        </>
+    );
+};
