@@ -1,0 +1,74 @@
+
+
+@font_main_1: 'Ubuntu', sans-serif;
+
+
+
+
+@fontsize_main_1: 20px;
+
+
+
+
+
+@color_main_1: #004B70;
+@color_main_2: #ffffff;
+@color_main_3: #54bbba;
+@color_main_4: #f3d400;
+@color_main_5: #e4e4e4;
+@color_main_6: #4FBBBD;
+@color_main_7: #F3D300;
+@color_main_8: #00bcbe;
+@color_main_title: #FFD744;
+@color_main_btn-blue: @color_main_1;
+
+
+
+
+
+@color_add_1: #004969;
+
+
+
+
+
+
+
+
+
+
+@content_section: 1170px;
+
+
+@transition_button: 0.4s;
+
+
+/*adaptive*/
+@fontsize_main_1_adaptive: 14px;
+
+@content_section_1_tablet: 96%;
+@content_section_1_mobile: 94%;
+@content_section_wrapper_mobile: 100%;
+
+.responsive(@maxWidth; @rules) {
+  @media only screen and (max-width: @maxWidth) {
+    @rules();
+  }
+}
+
+.responsiveHeight(@maxHeight; @rules) {
+  @media only screen and (max-height: @maxHeight) {
+    @rules();
+  }
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 import React from 'react';
 import {
-    Columns, Form
+    Columns, Form, Content
 } from 'react-bulma-components';
 import { MessageLoading } from "../Message/MessageLoading";
 import { PackageCollectionElement } from "./PackageCollectionElement";
@@ -66,7 +66,10 @@ export default function PackageCollectionSearch(props) {
                             onKeyDown={(e) => { doSearch(e); }}
                         />
                     </Form.Control>
-                    <br />
+                    <br/>
+                    <Content size={"size-6"} className="has-text-centered">
+                        Apprepo is a non-profit volunteer project. Although every effort is made to ensure that everything in the repository is safe to install, you use it AT YOUR OWN RISK
+                    </Content>
                 </Columns.Column>
 
                 {collection != undefined
