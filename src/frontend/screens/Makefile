@@ -20,17 +20,8 @@ PWD := $(shell pwd)
 all: clean $(SCREENS_TO_BUILD) export
 
 export: $(SCREENS_TO_EXPORT)
-	cp --recursive --force $(PWD)/dist/static/@mediapipe     $(PWD)/../../apps/customer/static || true
-	cp --recursive --force $(PWD)/dist/static/audio          $(PWD)/../../apps/customer/static || true
-	cp --recursive --force $(PWD)/dist/static/img            $(PWD)/../../apps/customer/static || true
-	cp --recursive --force $(PWD)/dist/static/Environment    $(PWD)/../../apps/customer/static || true
-	cp --recursive --force $(PWD)/dist/static/models         $(PWD)/../../apps/customer/static || true
-	cp --recursive --force $(PWD)/dist/static/sounds         $(PWD)/../../apps/customer/static || true
-	cp --recursive --force $(PWD)/dist/static/textures       $(PWD)/../../apps/customer/static || true
-	cp --recursive --force $(PWD)/dist/static/examples       $(PWD)/../../apps/customer/static || true
-	cp --recursive --force $(PWD)/dist/static/styles         $(PWD)/../../apps/customer/static || true
+	cp --recursive --force $(PWD)/dist/static/     $(PWD)/../../apps/public/static || true
 	
-
 server:
 	npx webpack  serve --config=$(PWD)/src/$(filter-out $@,$(MAKECMDGOALS))/webpack.config.js
 	
@@ -44,4 +35,8 @@ $(SCREENS_TO_BUILD):
 	npx webpack --mode=production --config=$(PWD)/src/$@/webpack.config.js
 
 $(SCREENS_TO_EXPORT):
-	cp --force $(PWD)/dist/$@  $(PWD)/../../apps/customer/static/js
+	mkdir --parents $(PWD)/../../apps/public/static/js
+	cp --force $(PWD)/dist/$@  $(PWD)/../../apps/public/static/js
+
+	mkdir --parents $(PWD)/../interface/src/static/js
+	cp --force $(PWD)/dist/$@  $(PWD)/../interface/src/static/js

@@ -21,8 +21,8 @@ export const MessageLoading = (props) => {
     return <Block style={{ margin: "15px 15px" }} >
         <Columns vCentered={true} centered={true}>
             <Columns.Column size={12} className="has-text-centered">
-                <Heading>Das Workout wird geladen...</Heading>
-                <Heading subtitle>Bitte warten Sie, bis das Workout geladen ist</Heading>
+                <Heading size={4}>Wird geladen...</Heading>
+                <Heading subtitle>Bitte warten Sie, bis die Daten geladen ist</Heading>
             </Columns.Column>
         </Columns>
         <Columns vCentered={true} centered={true}>
