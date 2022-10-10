@@ -88,6 +88,8 @@ class PackageSerializer(serializers.HyperlinkedModelSerializer):
         return version.hash
 
     def get_file(self, obj: Package):
+        if obj.version is None: return None
+
         if 'request' not in self.context.keys():
             return None
 

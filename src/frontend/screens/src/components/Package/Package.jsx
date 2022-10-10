@@ -107,13 +107,14 @@ export default function Package(props) {
                                                 Updated at: <b>{Moment(entity.updated_at * 1000).format('DD.MM.YYYY')}</b>. This date is <b>related to the AppImage</b> not the version of the application itself.
                                             </Content> : ""}
 
-                                        <Button.Group align='center'>
-                                            <a href={entity.file} target="_blank">
-                                                <Button size={"medium"} color="success">
-                                                    Download
-                                                </Button>
-                                            </a>
-                                        </Button.Group>
+                                        {entity.file != undefined ?
+                                            <Button.Group align='center'>
+                                                <a href={entity.file} target="_blank">
+                                                    <Button size={"medium"} color="success">
+                                                        Download
+                                                    </Button>
+                                                </a>
+                                            </Button.Group> : ""}
                                     </Block>
                                     <br />
                                     <Block alignContent='center' style={{ textAlign: "center" }}>
@@ -145,7 +146,7 @@ export default function Package(props) {
                                 __html: entity.description
                             }} size={"medium"} />
                         <br />
-                    </Columns.Column>
+                    </Columns.Column>   
                     <Columns.Column size={12} centered={true}>
                         <Heading size={3}>How to install</Heading>
                         <Content className="has-text-weight-light" size={"medium"} style={{ textAlign: "center" }}>

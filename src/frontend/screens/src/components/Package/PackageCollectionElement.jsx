@@ -12,9 +12,13 @@
 import React, { useState } from 'react';
 import {
     Block,
-    Columns, Heading
+    Columns, Heading, Content
 } from 'react-bulma-components';
 
+
+import { BiDownload, BiHome } from 'react-icons/bi';
+import { BsGithub } from 'react-icons/bs';
+import Moment from 'moment';
 
 export const PackageCollectionElement = (props) => {
     const [entity, setEntity] = useState(props.entity)
@@ -24,9 +28,17 @@ export const PackageCollectionElement = (props) => {
             <Columns style={{
                 borderRadius: "15px",
                 border: "2px solid #E9E9E9",
-                height: "280px",
+                height: "320px",
                 padding: "5px"
             }}>
+                <Columns.Column size={12} style={{ background: "white" }}>
+                    <a href={entity.page}>
+                        <Heading size="5">
+                            {entity.name}
+                        </Heading>
+                    </a>
+                </Columns.Column>
+
                 <Columns.Column size={12}
                     style={{ maxHeight: "210px" }}>
                     <a href={entity.page}>
@@ -37,11 +49,33 @@ export const PackageCollectionElement = (props) => {
                     </a>
                 </Columns.Column>
                 <Columns.Column size={12} style={{ background: "white" }}>
-                    <a href={entity.page}>
-                        <Heading subtitle>
-                            {entity.name}
-                        </Heading>
-                    </a>
+                    <Columns>
+                        {entity.page_home != undefined ?
+                            <Columns.Column size={1}>
+                                <a href={entity.page_home} target="_blank">
+                                    <BiHome />
+                                </a>
+                            </Columns.Column> : ""}
+                        {entity.page_source != undefined ?
+                            <Columns.Column size={1}>
+                                <a href={entity.page_source} target="_blank">
+                                    <BsGithub />
+                                </a>
+                            </Columns.Column> : ""}
+                        {entity.file != undefined ?
+                            <Columns.Column size={1}>
+                                <a href={entity.file} target="_blank">
+                                    <BiDownload />
+                                </a>
+                            </Columns.Column> : ""}
+                        {entity.updated_at != undefined ?
+                            <Columns.Column size={7} offset={1}>
+                                <Content size={"size-6"} style={{ textAlign: "left" }}>
+                                    Updated: {Moment(entity.updated_at * 1000).format('DD.MM.YYYY')}
+                                </Content>
+                            </Columns.Column>
+                            : ""}
+                    </Columns>
                 </Columns.Column>
             </Columns>
         </Block>
