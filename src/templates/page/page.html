@@ -1,21 +1,32 @@
 {% extends '_layout.html' %}
+{% load widgets %}
+{% load static %}
+{% load fullurl %}
+{% load math %}
 
-
-
-{% block content %}
-
-    <div class="row" style="margin-bottom: 0px;">
-        <div class="col s10 offset-s1">
-            {% autoescape off %}
-                <h1 class="light brown-text text-darken-3">
-                    {{ entity.name }}
-                </h1>
-            {% endautoescape %}
+{% block body %}
+<div class="container" style="margin-top:15px;">
+    <div class="container">
+        <div id="PackageHeaderSearchScreen"
+             data-source="{% url 'package-list' %}">
         </div>
-        <div class="col s10 offset-s1 light brown-text text-darken-3">
+        <script src="{% static 'js/PackageHeaderSearchScreen.js' %}"></script>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <h1 class="title">
+            {% autoescape off %}
+            {{ entity.name }}
+            {% endautoescape %}
+        </h1>
+        <div class="content">
             {% autoescape off %}
             {{ entity.content }}
             {% endautoescape %}
         </div>
     </div>
+</section>
+{% include 'includes/footer.html' %}
 {% endblock %}

@@ -57,8 +57,10 @@ export default function PackageHeaderSearch(props) {
         <>
             <Columns vCentered={true}>
                 <Columns.Column size={2} paddingless={true}>
-                    <Image src="static/img/logo.png"
-                        fallback="/static/img/logo.png" />
+                    <a href="/">
+                        <Image src="static/img/logo.png"
+                            fallback="/static/img/logo.png" />
+                    </a>
                 </Columns.Column>
                 <Columns.Column size={8} paddingless={true}>
                     <Form.Control>

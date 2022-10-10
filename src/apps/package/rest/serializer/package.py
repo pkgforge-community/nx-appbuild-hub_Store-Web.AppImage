@@ -14,12 +14,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+from datetime import datetime
+
 from django.urls import reverse
 from rest_framework import serializers
 
 from apps.package.model.package import Package
 from .image import PackageImageSerializer
 from .version import PackageVersionSerializer
+from ...model.version import PackageVersion
 
 
 class PackageSerializer(serializers.HyperlinkedModelSerializer):
@@ -36,6 +39,8 @@ class PackageSerializer(serializers.HyperlinkedModelSerializer):
     page_home = serializers.SerializerMethodField()
     page_source = serializers.SerializerMethodField()
 
+    updated_at = serializers.SerializerMethodField()
+
     class Meta:
         model = Package
         fields = [
@@ -43,6 +48,7 @@ class PackageSerializer(serializers.HyperlinkedModelSerializer):
             'slug',
             'version',
             'description',
+            'updated_at',
             'hash',
             'package',
             'icon',
@@ -56,25 +62,32 @@ class PackageSerializer(serializers.HyperlinkedModelSerializer):
             'images'
         ]
 
+    def get_updated_at(self, obj: Package):
+        latest: PackageVersion = obj.version
+        if latest is None or latest.created is None:
+            return None
+
+        return datetime.timestamp(latest.created)
+
     def get_groups(self, obj):
         from .group import PackageGroupSerializer
         return PackageGroupSerializer(obj.groups, context={
             'request': self.context.get('request')
         }, many=True).data
 
-    def get_version(self, obj):
+    def get_version(self, obj: Package):
         version = obj.version
         if version is None: return None
         if version.file is None: return None
         return version.name
 
-    def get_hash(self, obj):
+    def get_hash(self, obj: Package):
         version = obj.version
         if version is None: return None
         if version.file is None: return None
         return version.hash
 
-    def get_file(self, obj):
+    def get_file(self, obj: Package):
         if 'request' not in self.context.keys():
             return None
 
@@ -83,7 +96,7 @@ class PackageSerializer(serializers.HyperlinkedModelSerializer):
             reverse('package_download', args=(obj.slug,))
         )
 
-    def get_page(self, obj):
+    def get_page(self, obj: Package):
         if 'request' not in self.context.keys():
             return None
 
@@ -92,13 +105,13 @@ class PackageSerializer(serializers.HyperlinkedModelSerializer):
             reverse('package', args=(obj.slug,))
         )
 
-    def get_page_home(self, obj):
+    def get_page_home(self, obj: Package):
         return obj.homepage
 
-    def get_page_source(self, obj):
+    def get_page_source(self, obj: Package):
         return obj.repository
 
-    def get_icon(self, obj):
+    def get_icon(self, obj: Package):
         if 'request' not in self.context.keys():
             return None
 
@@ -110,7 +123,7 @@ class PackageSerializer(serializers.HyperlinkedModelSerializer):
 
         return request.build_absolute_uri(image.url)
 
-    def get_preview(self, obj):
+    def get_preview(self, obj: Package):
         if 'request' not in self.context.keys():
             return None
 

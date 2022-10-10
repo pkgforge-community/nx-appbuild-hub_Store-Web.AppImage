@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="76mm"
+   height="76mm"
+   viewBox="0 0 76 76"
+   version="1.1"
+   id="svg877"
+   inkscape:export-filename="/home/sensey/Projects/ErgofoxLanding/src/img/favicon.png"
+   inkscape:export-xdpi="126.87"
+   inkscape:export-ydpi="126.87"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="favicon.svg">
+  <defs
+     id="defs871" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="357.25219"
+     inkscape:cy="-89.509136"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="2560"
+     inkscape:window-height="1411"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata874">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-57.659452,-41.771071)">
+    <g
+       transform="matrix(2.3103983,0,0,2.3103983,66.633985,42.308346)"
+       data-name="Group 116"
+       id="Group_116"
+       inkscape:export-xdpi="1107.85"
+       inkscape:export-ydpi="1107.85">
+      <g
+         transform="translate(0,0.088)"
+         data-name="Group 113"
+         id="Group_113">
+        <g
+           data-name="Group 112"
+           id="Group_112">
+          <path
+             style="fill:#004969"
+             inkscape:connector-curvature="0"
+             transform="translate(-407.157,346.534)"
+             d="m 429.795,-326.9 -9.212,12.523 a 0.986,0.986 0 0 1 -1.713,-0.227 l -11.6,-29.842 a 1.53,1.53 0 0 1 2.244,-1.847 l 18.884,11.955 a 5.173,5.173 0 0 1 1.397,7.438 z"
+             data-name="Path 2191"
+             id="Path_2191" />
+        </g>
+      </g>
+      <g
+         transform="translate(1.615)"
+         data-name="Group 115"
+         id="Group_115">
+        <g
+           data-name="Group 114"
+           id="Group_114">
+          <path
+             style="fill:#4fbbbd"
+             inkscape:connector-curvature="0"
+             transform="translate(-410.221,346.7)"
+             d="m 411.193,-327.286 9.22,12.838 a 0.986,0.986 0 0 0 1.712,-0.2 l 12.369,-29.932 a 1.53,1.53 0 0 0 -2.2,-1.9 l -19.56,11.74 a 5.174,5.174 0 0 0 -1.541,7.454 z"
+             data-name="Path 2192"
+             id="Path_2192" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

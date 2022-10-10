@@ -26,17 +26,19 @@ export const GroupCollectionElement = (props) => {
                 height: "130px",
             }}>
                 <Columns.Column size={12} centered={true} align="center">
-                    <Image onClick={() => { console.info(entity) }}
-                        src={entity.icon}
-                        alt={entity.name}
-                        size={48}
-                    />
+                    <a href={entity.page}>
+                        <Image src={entity.icon}
+                            alt={entity.name}
+                            size={48}
+                        />
+                    </a>
                 </Columns.Column>
                 <Columns.Column size={12}>
-                    <Heading subtitle weight={"light"} size={5}
-                        onClick={() => { console.info(entity) }}>
-                        {entity.name}
-                    </Heading>
+                    <a href={entity.page}>
+                        <Heading subtitle weight={"light"} size={5}>
+                            {entity.name}
+                        </Heading>
+                    </a>
                 </Columns.Column>
             </Columns>
         </Block>

@@ -80,3 +80,4 @@ urllib3
 inject
 requests
 django-fullurl
+django_extensions

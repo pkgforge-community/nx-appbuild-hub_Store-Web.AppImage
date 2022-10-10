@@ -3,218 +3,71 @@
 {% load static %}
 
 {% block body %}
-    {% include 'includes/header.html' %}
-    {% widget 'dashboard.groups' 'widget/groups.html' %}
-
-    <div class="row grey lighten-4" style="margin-bottom: 0px; width: 100%;">
-        <div class="col s12 center">
-            <h3 class="light grey-text text-darken-2">About the Project</h3>
-            <p class="light grey-text text-darken-2">Currently this is a non-profit volunteer one-person open-source project.</p>
-            <p class="light grey-text text-darken-2">...</p>
-        </div>
-        <div class="col center s12 m6 xl4 offset-xl2" style="height: 23em;">
-            <div class="card light grey-text text-darken-2">
-                <div class="card-content center">
-                    <h5 class="light truncate">
-                        <i class="tiny material-icons">flash_on</i>
-                        Short term Goals
-                    </h5>
-                </div>
-                <div class="card-action left-align container">
-                    <p class="light truncate">
-                        <i class="tiny material-icons">check</i>
-                        User friendly Repository for the AppImages
+      <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-5 is-offset-4 has-text-centered">
+                    <a href="/" class="logo">
+                        <img title="apprepo" src="/static/img/logo.png">
+                    </a>
+                    <p class="has-text-centered is-size-6">
+                        The home of {{total}} high-quality apps which can be easily installed on any modern Linux distribution.
                     </p>
-                    <p class="light truncate">
-                        <i class="tiny material-icons">hourglass_empty</i>
-                        Up to date versions of the Software
-                    </p>
-                    <p class="light truncate">
-                        <i class="tiny material-icons">check</i>
-                        <a href="{% url 'package' 'apprepo' %}">
-                            Command line tool
-                        </a>
-                        to manage AppImages
-                    </p>
-                    <p class="light truncate">
-                        <i class="tiny material-icons">hourglass_empty</i>
-                        Graphical tool to manage AppImages
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col center s12 m6 xl4" style="height: 23em;">
-            <div class="card light grey-text text-darken-2">
-                <div class="card-content center">
-                    <h5 class="light truncate">
-                        <i class="tiny material-icons">access_time</i>
-                        Long term Goals
-                    </h5>
-                </div>
-                <div class="card-action left-align container">
-                    <p class="light truncate">
-                        <i class="tiny material-icons">hourglass_empty</i>
-                        Distro-agnostic application management
-                    </p>
-                    <p class="light truncate">
-                        <i class="tiny material-icons">hourglass_empty</i>
-                        Simplify application distribution process
-                    </p>
-                    <p class="light truncate">
-                        <i class="tiny material-icons">check</i>
-                        Separate the System from the Applications
-                    </p>
-                    <p class="light truncate">
-                        <i class="tiny material-icons">check</i>
-                        Keep all installed applications after reinstall
-                    </p>
-                    <p class="light truncate">
-                        <i class="tiny material-icons">check</i>
-                        Easy backups of the installed applications
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col s8 offset-s2 center">
-            <br/>
-            <h4 class="light grey-text text-darken-2">Trade-offs</h4>
-            <div class="row" style="margin-bottom: 0px;">
-                <div class="col s2">
-                    <i class="small material-icons orange-text">error</i>
-                </div>
-                <div class="col s10 left-align light">
-                    Current setup works only with the up-to date systems (GLIBC >= 2.31).
-                </div>
-            </div>
-            <div class="row" style="margin-bottom: 0px;">
-                <div class="col s2">
-                    <i class="small material-icons orange-text">error</i>
-                </div>
-                <div class="col s10 left-align light ">
-                    Provided AppImages need more space than the versions provided by the distro
                 </div>
             </div>
             <br/>
-        </div>
-    </div>
 
-    <div class="row white lighten-5" style="margin-bottom: 0px; width: 100%;">
-        <div class="col s12 center">
-            <br/>
-            <h3 class="light grey-text text-darken-2">How does it work</h3>
-            <h5 class="light grey-text text-darken-2">Wherever possible the vendor-pre-build binary will be taken.</h5>
-            <p class="light grey-text text-darken-2">In case the vendor does not provide an AppImage, the AppImage will be created using provided
-                pre-build binaries.</p>
-            <img src="{% static 'default/flow.svg' %}" class="responsive-img">
-        </div>
-        <div class="col center s12 m6 xl4 offset-xl2" style="height: 19em;">
-            <div class="card green lighten-5 light grey-text text-darken-2">
-                <div class="card-content" style="padding-bottom: 0px;">
-                    <div class="row" style="margin-bottom: 0px;">
-                        <div class="col s2">
-                        </div>
-                        <div class="col s10 left-align">
-                            <h5 class="light truncate">
-                                It was tested and works with:
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-action left-align container">
-                    <div class="row" style="margin-bottom: 0px;">
-                        <div class="col s2">
-                            <i class="small material-icons green-text">check_circle</i>
-                        </div>
-                        <div class="col s10 left-align light truncate">
-                            openSUSE Tumbleweed
-                        </div>
-                    </div>
-                    <div class="row" style="margin-bottom: 0px;">
-                        <div class="col s2">
-                            <i class="small material-icons green-text">check_circle</i>
-                        </div>
-                        <div class="col s10 left-align light truncate">
-                            Ubuntu 20.04
-                        </div>
-                    </div>
-                    <div class="row" style="margin-bottom: 0px;">
-                        <div class="col s2">
-                            <i class="small material-icons green-text">check_circle</i>
-                        </div>
-                        <div class="col s10 left-align light truncate">
-                            KaOS
-                        </div>
-                    </div>
-                    <div class="row" style="margin-bottom: 0px;">
-                        <div class="col s2">
-                            <i class="small material-icons green-text">check_circle</i>
-                        </div>
-                        <div class="col s10 left-align light truncate">
-                            Probably any other distro with GLIBC >= 2.31
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col center s12 m6 xl4" style="height: 19em;">
-            <div class="card red lighten-5 light grey-text text-darken-2">
-                <div class="card-content" style="padding-bottom: 0px;">
-                    <div class="row" style="margin-bottom: 0px;">
-                        <div class="col s2">
-                        </div>
-                        <div class="col s10 left-align">
-                            <h5 class="light truncate">
-                                It does not works with:
-                            </h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-action left-align container">
-                    <div class="row" style="margin-bottom: 0px;">
-                        <div class="col s2">
-                            <i class="small material-icons red-text">remove_circle</i>
-                        </div>
-                        <div class="col s10 left-align light truncate">
-                            Any Linux-system with GLIBC < 2.31
-                        </div>
-                    </div>
-                    <div class="row" style="margin-bottom: 0px;">
-                        <div class="col s2">
-                            <i class="small material-icons red-text">remove_circle</i>
-                        </div>
-                        <div class="col s10 left-align light truncate">
-                            CentOS 6 (GLIBC < 2.31)
-                        </div>
-                    </div>
-                    <div class="row" style="margin-bottom: 0px;">
-                        <div class="col s2">
-                            <i class="small material-icons red-text">remove_circle</i>
-                        </div>
-                        <div class="col s10 left-align light truncate">
-                            CentOS 7 (GLIBC < 2.31)
-                        </div>
-                    </div>
-                    <div class="row" style="margin-bottom: 0px;">
-                        <div class="col s2">
-                            <i class="small material-icons red-text">remove_circle</i>
-                        </div>
-                        <div class="col s10 left-align light truncate">
-                            CentOS 8 (GLIBC < 2.31)
-                        </div>
-                    </div>
-                    <div class="row" style="margin-bottom: 0px;">
-                        <div class="col s2">
-                            <i class="small material-icons red-text">remove_circle</i>
-                        </div>
-                        <div class="col s10 left-align light truncate">
-                            Deepin Linux (GLIBC < 2.31)
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                <div id="PackageCollectionSearchScreen"
+                     data-source="{% url 'package-list' %}"
+                     data-source-preview="/static/preview.json"
+                     data-source-favorite="/static/preview.favorite.json"
+                     data-source-workout="/static/workout.json"
+                ></div>
+                <script src="{% static 'js/PackageCollectionSearchScreen.js' %}"></script>
+                <br/>
+                <br/>
 
+                <div class="has-text-centered">
+                    <div class="columns">
+                        <div class="column">
+                            <h3 class="coaching__text is-4 has-text-weight-light">
+                                Easy
+                            </h3>
+                            <p class="has-text-centered is-size-6">
+                                The key idea of the AppImage format is one app = one file.
+                                Every AppImage contains an app and all the files the app needs to run.
+                            </p>
+                        </div>
+                        <div class="column">
+                            <h3 class="coaching__text is-4 has-text-weight-light">
+                                User friendly
+                            </h3>
+                            <p class="has-text-centered is-size-6">
+                                Just download the application, make it executable, and run! No need to install. Runs on most 64-bit Linux desktops.
+                            </p>
+                        </div>
+                        <div class="column">
+                            <h3 class="coaching__text is-4 has-text-weight-light">
+                                Distro-agnostic
+                            </h3>
+                            <p class="has-text-centered is-size-6">
+                                AppImages can be downloaded and run without installation or the need for root rights.
+                            </p>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+
+                <div id="GroupCollectionScreen"
+                     data-source="{% url 'packagegroup-list' %}"
+                     data-source-preview="/static/preview.json"
+                     data-source-favorite="/static/preview.favorite.json"
+                     data-source-workout="/static/workout.json"
+                ></div>
+
+                <script src="{% static 'js/GroupCollectionScreen.js' %}"></script>
+        </div>
+      </section>
     {% include 'includes/footer.html' %}
 {% endblock body %}
 

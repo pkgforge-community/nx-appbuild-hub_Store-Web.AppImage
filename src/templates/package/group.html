@@ -9,55 +9,23 @@
 <meta name="description" content="{{ entity.description|striptags }}">
 {% endblock meta %}
 
-{% block title %}
-<h2 class="light grey-text text-darken-2">
-    {{ entity.name }}
-</h2>
-<p class="light grey-text text-darken-2 ">Apprepo is a non-profit volunteer project. Although every effort is made to
-    ensure that
-    everything in the repository is safe to install, you use it <b>AT YOUR OWN RISK</b>.
-</p>
-{% if entity.description|length %}
-<p class="light grey-text text-darken-2 ">{{ entity.description|safe }}</p>
-{% endif %}
-{% endblock %}
-
-{% block content %}
-<div class="row grey lighten-4" style="width: 100%;">
-    {% for package in entity.packages.all %}
-    <div class="col s12 m6 l4 xl3">
-        <div class="card hoverable grey lighten-5 z-depth-1">
-            <div class="card-image" style="height: 250px;">
-                <a href="{% url 'package' package.slug %}">
-                    {% if package.image %}
-                    <img alt="{{ package.name }}" class="responsive-img"
-                         src="{{ package.image.url }}" style="max-height: 100%; max-width: 100%">
-                    {% else %}
-                    <img src="https://bulma.io/images/placeholders/1280x960.png"
-                         alt="{{ package.name }}" class="responsive-img">
-                    {% endif %}
-                </a>
-            </div>
-            <div class="card-action grey-text text-darken-2 truncate">
-                {% if package.version %}
-                <a class="btn-floating btn-small waves-effect waves-light green"
-                   href="{% url 'package_download' package.slug %}" title="Download">
-                    <i class="material-icons">file_download</i>
-                </a>&nbsp;
-                {% endif %}
-                {% if package.homepage|length %}
-                <a class="btn-floating btn-small waves-effect waves-light blue"
-                   href="{{ package.homepage }}" target="_blank" title="Home page">
-                    <i class="material-icons">home</i>
-                </a>&nbsp;
-                {% endif %}
-                <span class="light">{{ package.name }}</span>
-            </div>
+{% block body %}
+<div class="container" style="margin-top:15px;">
+    <div class="container">
+        <div id="PackageHeaderSearchScreen"
+             data-source="{% url 'package-list' %}">
         </div>
+        <script src="{% static 'js/PackageHeaderSearchScreen.js' %}"></script>
     </div>
-    {% endfor %}
 </div>
 
-{% widget 'dashboard.groups' %}
-
+<section class="section">
+    <div class="container">
+        <div id="GroupScreen"
+             data-source="{% url 'packagegroup-detail' entity.pk %}">
+        </div>
+        <script src="{% static 'js/GroupScreen.js' %}"></script>
+    </div>
+</section>
+{% include 'includes/footer.html' %}
 {% endblock %}

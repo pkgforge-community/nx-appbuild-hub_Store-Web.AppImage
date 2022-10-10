@@ -14,6 +14,7 @@ import {
     Columns, Heading, Image, Content, Block, Tag, Button, Box, Icon
 } from 'react-bulma-components';
 import { MessageLoading } from "../Message/MessageLoading";
+import Moment from 'moment';
 
 
 export default function Package(props) {
@@ -100,9 +101,12 @@ export default function Package(props) {
                                         <Content className="has-text-weight-light" size={"small"} style={{ textAlign: "left" }}>
                                             SHA-1 Hash: {entity.hash}
                                         </Content>
-                                        <Content className="has-text-weight-light" size={"small"} style={{ textAlign: "left" }}>
-                                            Updated At: --
-                                        </Content>
+
+                                        {entity.updated_at != undefined ?
+                                            <Content className="has-text-weight-light" size={"small"} style={{ textAlign: "left" }}>
+                                                Updated at: <b>{Moment(entity.updated_at * 1000).format('DD.MM.YYYY')}</b>. This date is <b>related to the AppImage</b> not the version of the application itself.
+                                            </Content> : ""}
+
                                         <Button.Group align='center'>
                                             <a href={entity.file} target="_blank">
                                                 <Button size={"medium"} color="success">
