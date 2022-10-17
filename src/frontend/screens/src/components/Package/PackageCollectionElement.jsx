@@ -9,16 +9,16 @@
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+import Moment from 'moment';
 import React, { useState } from 'react';
 import {
     Block,
-    Columns, Heading, Content
+    Columns, Content, Heading
 } from 'react-bulma-components';
-
-
 import { BiDownload, BiHome } from 'react-icons/bi';
 import { BsGithub } from 'react-icons/bs';
-import Moment from 'moment';
+
+
 
 export const PackageCollectionElement = (props) => {
     const [entity, setEntity] = useState(props.entity)
