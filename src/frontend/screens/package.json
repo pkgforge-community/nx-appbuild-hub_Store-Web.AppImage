@@ -26,7 +26,7 @@
     "axios": "^0.21.1",
     "buffer": "^6.0.3",
     "create-react-class": "^15.7.0",
-    "fabric": "^4.6.0",
+    "fabric": "^5.2.4",
     "interactjs": "^1.10.11",
     "js-cookie": "^3.0.1",
     "kalend": "^0.7.5",
