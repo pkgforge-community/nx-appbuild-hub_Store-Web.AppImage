@@ -60,9 +60,7 @@ RUN dnf install -y --nobest openssl-libs libffi libnotify gcc make wget curl fus
     dnf install -y --nobest mariadb-devel mariadb-connector-c glibc-langpack-de.x86_64
 
 RUN mkdir --parents /srv/apps && \
-    mkdir --parents /srv/ssl && \
     mkdir --parents /srv/static && \
-    mkdir --parents /srv/translations && \
     mkdir --parents /srv/templates
 
 COPY ./src/*.py            /srv/
@@ -70,9 +68,7 @@ COPY ./requirements.txt    /srv/
 
 COPY ./src/apps/           /srv/apps
 COPY ./src/aodstore/       /srv/aodstore
-COPY ./src/translations/   /srv/translations
 COPY ./src/templates/      /srv/templates
-COPY ./ssl/                /srv/ssl
 
 RUN python3 -m pip install --user -r /srv/requirements.txt
 RUN python3 /srv/manage.py collectstatic --noinput

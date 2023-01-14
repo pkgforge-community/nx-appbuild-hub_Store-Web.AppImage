@@ -15,8 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+import imp
 import os
 import ast
+import uuid
 
 from .plugins.cors import *
 from .plugins.database import *
@@ -29,16 +31,19 @@ from .plugins.translation import *
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-APP_NAME = os.environ.get('APPLICATION_NAME')
-SECRET_KEY = os.environ.get('APPLICATION_SECRET')
+APP_NAME = os.getenv('APPLICATION_NAME')
+# SECRET_KEY = os.getenv('APPLICATION_SECRET', 'asdfasdfadf')
+SECRET_KEY = os.getenv('APPLICATION_SECRET')
+SECRET_KEY = SECRET_KEY if len(SECRET_KEY) else str(uuid.uuid4())
+
 
 ROOT_URLCONF = 'aodstore.urls'
 WSGI_APPLICATION = 'aodstore.wsgi.application'
 
-USE_TZ = os.environ.get('TIMEZONE_ENABLED', 'False')
+USE_TZ = os.getenv('TIMEZONE_ENABLED', 'False')
 USE_TZ = ast.literal_eval(USE_TZ) if USE_TZ else False
 
-TIME_ZONE = os.environ.get('TIMEZONE', 'Europe/Berlin')
+TIME_ZONE = os.getenv('TIMEZONE', 'Europe/Berlin')
 TIME_ZONE =TIME_ZONE if len(TIME_ZONE) else 'Europe/Berlin'
 assert (len(TIME_ZONE))
 
@@ -46,14 +51,14 @@ JET_SIDE_MENU_COMPACT = True
 JET_CHANGE_FORM_SIBLING_LINKS = False
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = ast.literal_eval(os.environ.get('DEBUG', 'False'))
+DEBUG = ast.literal_eval(os.getenv('DEBUG', 'False'))
 
-SERVER_URL = os.environ.get('SERVER_URL')
-SERVER_HOST = os.environ.get('SERVER_HOST')
-SERVER_SCHEME = os.environ.get('SERVER_SCHEME')
-SERVER_PORT = os.environ.get('SERVER_PORT')
-SERVER_KEY = os.environ.get('SERVER_KEY')
-SERVER_CRT = os.environ.get('SERVER_CRT')
+SERVER_URL = os.getenv('SERVER_URL')
+SERVER_HOST = os.getenv('SERVER_HOST')
+SERVER_SCHEME = os.getenv('SERVER_SCHEME')
+SERVER_PORT = os.getenv('SERVER_PORT')
+SERVER_KEY = os.getenv('SERVER_KEY')
+SERVER_CRT = os.getenv('SERVER_CRT')
 
 if len(SERVER_SCHEME) and SERVER_SCHEME == "https": 
     SECURE_PROXY_SSL_HEADER = ('SERVER_SCHEME', SERVER_SCHEME)
@@ -85,7 +90,6 @@ INSTALLED_APPS.append('chunked_upload')
 INSTALLED_APPS.append('drf_yasg')
 INSTALLED_APPS.append('django.contrib.admin.apps.SimpleAdminConfig')
 INSTALLED_APPS.append('aodstore')
-INSTALLED_APPS.append('apps.config.Config')
 INSTALLED_APPS.append('apps.package.Config')
 INSTALLED_APPS.append('apps.widgets.Config')
 INSTALLED_APPS.append('apps.public.Config')
@@ -109,31 +113,31 @@ AUTH_PASSWORD_VALIDATORS.append({'NAME': 'django.contrib.auth.password_validatio
 AUTH_PASSWORD_VALIDATORS.append({'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'})
 AUTH_PASSWORD_VALIDATORS.append({'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'})
 
-STATIC_ROOT = os.environ.get('STATIC_LOCATION','/srv/static/')
+STATIC_ROOT = os.getenv('STATIC_LOCATION','/srv/static/')
 STATIC_ROOT =STATIC_ROOT if len(STATIC_ROOT) else '/srv/static/'
 assert (len(STATIC_ROOT))
 
-STATIC_URL = os.environ.get('STATIC_PREFIX','/static/')
+STATIC_URL = os.getenv('STATIC_PREFIX','/static/')
 STATIC_URL =STATIC_URL if len(STATIC_URL) else '/static/'
 assert (len(STATIC_URL))
 
-MEDIA_ROOT = os.environ.get('MEDIA_LOCATION','/srv/media/')
+MEDIA_ROOT = os.getenv('MEDIA_LOCATION','/srv/media/')
 MEDIA_ROOT =MEDIA_ROOT if len(MEDIA_ROOT) else '/srv/media/'
 assert (len(MEDIA_ROOT))
 
-MEDIA_URL = os.environ.get('MEDIA_PREFIX','/media/')
+MEDIA_URL = os.getenv('MEDIA_PREFIX','/media/')
 MEDIA_URL =MEDIA_URL if len(MEDIA_URL) else '/media/'
 assert (len(MEDIA_URL))
 
 FIXTURE_DIRS = [os.path.join(BASE_DIR, 'fixtures')]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
-EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.getenv('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')
+EMAIL_HOST = os.getenv('EMAIL_HOST')
 
-EMAIL_PORT = os.environ.get('EMAIL_PORT', '587')
+EMAIL_PORT = os.getenv('EMAIL_PORT', '587')
 EMAIL_PORT =EMAIL_PORT if len(EMAIL_PORT) else 587
 
-EMAIL_USE_TLS = os.environ.get('EMAIL_TLS', 'True')
+EMAIL_USE_TLS = os.getenv('EMAIL_TLS', 'True')
 EMAIL_USE_TLS =ast.literal_eval(EMAIL_USE_TLS) if EMAIL_USE_TLS else True

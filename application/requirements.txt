@@ -81,3 +81,4 @@ inject
 requests
 django-fullurl
 django_extensions
+dj_static

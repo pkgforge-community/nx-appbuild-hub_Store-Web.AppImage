@@ -1,33 +1,26 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
-# This software is a part of the A.O.D apprepo (https://apprepo.de) project
-# Copyright 2020 Alex Woroschilow (alex.woroschilow@gmail.com)
+# Copyright 2020 Alex Woroschilow (info@apprepo.de)
 #
-# This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License
-# as published by the Free Software Foundation; either version 2
-# of the License, or (at your option) any later version.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# http://www.apache.org/licenses/LICENSE-2.0
 #
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 import logging
 import optparse
 import os
 import sys
+import warnings
 
-abspath = sys.argv[0] \
-    if len(sys.argv) else \
-    os.path.abspath(__file__)
+warnings.filterwarnings("ignore")
+
+abspath = os.path.abspath(sys.argv[0]) if len(sys.argv) else os.path.abspath(__file__)
 os.chdir(os.path.dirname(abspath))
 
-
-class OptionParserAOD(optparse.OptionParser):
+class OptionParserFitbase(optparse.OptionParser):
     def error(self, msg):
         pass
 
@@ -43,22 +36,16 @@ class OptionParserAOD(optparse.OptionParser):
 
 if __name__ == '__main__':
 
-    parser = OptionParserAOD()
-    parser.add_option("--config", default='default.conf', dest="config", help="The config file")
+    parser = OptionParserFitbase()
+    parser.add_option("--loglevel", default=logging.DEBUG, dest="loglevel", help="Logging level")
+
     (options, args) = parser.parse_args()
 
-    if not os.path.exists(options.config):
-        logger = logging.getLogger('console')
-        logger.error('Config file not found: {}'.format(options.config))
-        sys.exit(1)
+    log_format = '[%(relativeCreated)d][%(name)s] %(levelname)s - %(message)s'
+    logging.basicConfig(level=options.loglevel, format=log_format, stream=sys.stdout)
 
     try:
-
-        os.environ.setdefault('config', '{}'.format(options.config))
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'aodstore.settings')
-
-        from aodstore import settings
-
         from django.core.management import execute_from_command_line
 
     except ImportError as exc:

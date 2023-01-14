@@ -27,19 +27,13 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        service_config: ConfigFile = hexdi.resolve('config')
-        if not service_config: raise Exception('Unknown service')
 
         service_package: ServicePackage = hexdi.resolve('package')
         if not service_package: raise Exception('Unknown service')
 
-        limit = int(service_config.get('package.history.limit', 3))
-        if limit is None or limit <= 0:
-            return self.stdout.write(self.style.SUCCESS('done: cleanup deactivated (limit <= 0)'))
-
         for package in service_package.packages():
             for index, version in enumerate(package.versions):
-                if index <= int(limit):
+                if index <= 3:
                     continue
 
                 self.stdout.write(self.style.SUCCESS('removing: {}, {}'.format(package, version.name)))

@@ -1,80 +1,67 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
-# This software is a part of the A.O.D apprepo project
-# Copyright 2020 Alex Woroschilow (alex.woroschilow@gmail.com)
+# Copyright 2022 Alex Woroschilow (info@apprepo.de)
 #
-# This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License
-# as published by the Free Software Foundation; either version 2
-# of the License, or (at your option) any later version.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# http://www.apache.org/licenses/LICENSE-2.0
 #
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 import logging
+
 import optparse
 import os
 import sys
-from multiprocessing import Pool
 
-import hexdi
 
-abspath = sys.argv[0] \
-    if len(sys.argv) else \
-    os.path.abspath(__file__)
+from dj_static import Cling, MediaCling
+
+abspath = os.path.abspath(sys.argv[0]) if len(sys.argv) else os.path.abspath(__file__)
 os.chdir(os.path.dirname(abspath))
 
 
-def server(settings=None):
-    host, port, options = settings
+def wrapper(options=[]):
+    if not options: return None
+    if not len(options): return None
 
-    os.environ.setdefault('config', '{}'.format(options.config))
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'aodstore.settings')
+    callback, args = options
+    if not callback: return None
+    if not args: return None
 
-    from gevent.pywsgi import WSGIServer
-    from aodstore.wsgi import get_wsgi_application
-
-    http_server = WSGIServer((
-        str(host), int(port)
-    ), get_wsgi_application())
-
-    http_server.serve_forever()
+    callback(*args)
 
 
 if __name__ == '__main__':
 
     parser = optparse.OptionParser()
-    parser.add_option("--config", default='default.conf', dest="config", help="The config file")
+    parser.add_option("--loglevel", default=logging.ERROR, dest="loglevel", help="Logging level")
+
     (options, args) = parser.parse_args()
 
-    if not os.path.exists(options.config):
-        logger = logging.getLogger('server')
-        logger.error('Config file not found: {}'.format(options.config))
-        sys.exit(1)
+    log_format = '[%(relativeCreated)d][%(name)s] %(levelname)s - %(message)s'
+    logging.basicConfig(level=options.loglevel, format=log_format, stream=sys.stdout)
 
     try:
-        os.environ.setdefault('config', '{}'.format(options.config))
+
+        from gevent.pywsgi import WSGIServer
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'aodstore.settings')
+        
+        from aodstore.wsgi import get_wsgi_application
+        from aodstore import settings
 
-        import django
+        http_server = WSGIServer(
+            ("0.0.0.0", 9000),
+            Cling(MediaCling(get_wsgi_application())),
+            environ={
+                'wsgi.multithread': True,
+                'wsgi.multiprocess': True,
+                'wsgi.run_once': False
+            })
 
-        django.setup()
+        http_server.serve_forever()
 
-        config = hexdi.resolve('config')
-        host = config.get('server.host', '0.0.0.0')
-        ports = config.get('server.port', '8000')
-
-        settings = []
-        for port in ports.split(','):
-            settings.append((host, port, options))
-
-        pool = Pool(len(settings))
-        pool.map(server, settings)
 
     except ImportError as exc:
         raise ImportError(

@@ -80,7 +80,6 @@ class PackageUploadCompleteView(viewsets.GenericViewSet, ChunkedUploadCompleteVi
         if data is None:
             return data
 
-        config = hexdi.resolve('config')
         assert ('file' in data.keys())
 
         uploaded_file.name = data['file']
@@ -95,12 +94,8 @@ class PackageUploadCompleteView(viewsets.GenericViewSet, ChunkedUploadCompleteVi
             file=uploaded_file,
         )
 
-        limit = int(config.get('package.history.limit', 3))
-        if limit is None or limit <= 0:
-            return None
-
         for index, version in enumerate(package.versions, start=1):
-            if index <= int(limit): continue
+            if index <= 3: continue
             version.delete()
 
     def get_response_data(self, chunked_upload, request):
