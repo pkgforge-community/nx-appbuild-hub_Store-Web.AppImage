@@ -1,0 +1,8 @@
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+0 0 * * * bash -c "/root/python3 /srv/manage.py data-cleaner           --loglevel=WARN" >> /var/log/cron.log 2>&1
+0 0 2 * * bash -c "/root/python3 /srv/manage.py data-transfer          --loglevel=WARN" >> /var/log/cron.log 2>&1
+* * * * * bash -c "/root/python3 /srv/manage.py customer-notification  --loglevel=WARN" >> /var/log/cron.log 2>&1
+* * * * * bash -c "/root/python3 /srv/manage.py customer-reminder      --loglevel=WARN" >> /var/log/cron.log 2>&1
+* * * * * bash -c "/root/python3 /srv/manage.py data-processor         --loglevel=WARN" >> /var/log/cron.log 2>&1

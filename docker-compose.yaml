@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+  db:
+    restart: always
+    build:
+      context: ./application
+      dockerfile: docker/mysql/Dockerfile
+    environment:
+      MYSQL_DATABASE: db
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      TZ: Europe/Berlin
+    ports:
+      - 3306:3306
+    volumes:
+      - ${DATABASE_VOLUME:-db}:/var/lib/mysql
+  app:
+    working_dir: /srv
+    restart: always
+    env_file:
+      - dev.env
+    build:
+      context: ./application
+      dockerfile: docker/app/Dockerfile
+      args:
+        ENVIRONMENT: "development"
+        DEBUG: 1
+    ports:
+      - 0.0.0.0:8000:9000
+    volumes:
+      - ./application/src:/srv:cached
+      - ./application/medias:/srv/medias:cached
+      - ./application/static:/srv/static:cached
+    depends_on:
+      - db
+volumes:
+  db:

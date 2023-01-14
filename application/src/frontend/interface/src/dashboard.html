@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" type="text/css" href="static/css/main.css">
+    <link rel="shortcut icon" type="image/png" href="static/img/favicon.svg">
+
+  </head>
+  <body>
+  <section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-5 is-offset-4 has-text-centered">
+                <a href="/" class="logo">
+                    <img title="apprepo" src="/static/img/logo.png">
+                </a>
+                <p class="has-text-centered is-size-6">
+                    The home of 262 high-quality apps which can be easily installed on any modern Linux distribution.
+                </p>
+            </div>
+        </div>
+        <br/>
+
+            <div id="PackageCollectionSearchScreen"
+                 data-source="https://apprepo.de/rest/api/package/"
+                 data-source-preview="/static/preview.json"
+                 data-source-favorite="/static/preview.favorite.json" 
+                 data-source-workout="/static/workout.json"
+            ></div>
+            <script src="static/js/PackageCollectionSearchScreen.js"></script>
+            <br/>
+            <br/>
+
+            <div class="has-text-centered">
+                <div class="columns">
+                    <div class="column">
+                        <h3 class="coaching__text is-4 has-text-weight-light">
+                            Easy
+                        </h3>
+                        <p class="has-text-centered is-size-6">
+                            The key idea of the AppImage format is one app = one file. 
+                            Every AppImage contains an app and all the files the app needs to run.
+                        </p>
+                    </div>
+                    <div class="column">
+                        <h3 class="coaching__text is-4 has-text-weight-light">
+                            User friendly
+                        </h3>
+                        <p class="has-text-centered is-size-6">
+                            Just download the application, make it executable, and run! No need to install. Runs on most 64-bit Linux desktops.
+                        </p>                        
+                    </div>
+                    <div class="column">
+                        <h3 class="coaching__text is-4 has-text-weight-light">
+                            Distro-agnostic
+                        </h3>
+                        <p class="has-text-centered is-size-6">
+                            AppImages can be downloaded and run without installation or the need for root rights.
+                        </p>                        
+                    </div>
+                </div>
+                <br/>
+            </div>
+
+            <div id="GroupCollectionScreen"
+                 data-source="https://apprepo.de/rest/api/package/groups/"
+                 data-source-preview="/static/preview.json"
+                 data-source-favorite="/static/preview.favorite.json" 
+                 data-source-workout="/static/workout.json"
+            ></div>
+
+            <script src="static/js/GroupCollectionScreen.js"></script>
+    </div>
+  </section>
+    <footer class="footer">
+        <div class="content has-text-centered is-size-6">
+                &nbsp;© 2022 A.O.D. 
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <a href="/page/terms-and-conditions" class="right">
+                    &nbsp; Terms and Conditions&nbsp;|&nbsp;
+                </a>                
+                <a href="/page/data-protection" class="right">
+                    Datenschutz&nbsp;|&nbsp;
+                </a>
+                <a href="/page/impressum" class="right">
+                    Impressum&nbsp;|&nbsp;
+                </a>
+                <a href="/api/doc" class="right">
+                    Swagger&nbsp;|&nbsp;
+                </a>
+                <a href="/page/github" class="right">
+                    Github&nbsp;
+                </a>
+        </div>        
+    </footer>  
+  </body>
+</html>
+

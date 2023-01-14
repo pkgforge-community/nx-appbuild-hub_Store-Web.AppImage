@@ -1,0 +1,137 @@
+FROM rockylinux:8
+
+ARG APPLICATION_NAME
+ARG APPLICATION_THEME
+
+ARG SERVER_HOST
+ARG SERVER_SCHEME
+ARG SERVER_PORT
+ARG TIMEZONE
+ARG TIMEZONE_ENABLED
+ARG STATIC_LOCATION
+ARG STATIC_PREFIX
+ARG MEDIA_LOCATION
+ARG MEDIA_PREFIX
+ARG MEDIA_SECURE_LOCATION
+ARG MEDIA_SECURE_PREFIX
+ARG EMAIL_USER
+ARG EMAIL_FROM
+ARG EMAIL_PASSWORD
+ARG EMAIL_HOST
+ARG EMAIL_PORT
+ARG EMAIL_TLS
+
+ARG DATABASE_NAME
+ARG DATABASE_HOST
+ARG DATABASE_PORT
+ARG DATABASE_USER
+ARG DATABASE_PASS
+ARG DATABASE_CHARSET
+
+ARG MESANA_API_MOCKED
+ARG MESANA_API_USERNAME
+ARG MESANA_API_KEY
+ARG MESANA_API_HOST
+ARG MESANA_DEFAULT_CAMPAIGN
+ARG MESANA_DEFAULT_PUBLIC_ID
+ARG MESANA_DEFAULT_ADDRESS
+ARG MESANA_DEFAULT_ZIPCODE
+ARG MESANA_DEFAULT_COUNTRY
+ARG MESANA_DEFAULT_CITY
+ARG MESANA_DEFAULT_LAST_NAME
+ARG MESANA_DEFAULT_FIRST_NAME
+
+ARG ENVIRONMENT
+ARG DEBUG
+
+ENV APPLICATION_NAME=${APPLICATION_NAME}
+ENV APPLICATION_THEME=${APPLICATION_THEME}
+
+ENV SERVER_HOST=${SERVER_HOST}
+ENV SERVER_SCHEME=${SERVER_SCHEME}
+ENV SERVER_PORT=${SERVER_PORT}
+ENV TIMEZONE=${TIMEZONE}
+ENV TIMEZONE_ENABLED=${TIMEZONE_ENABLED}
+ENV STATIC_LOCATION=${STATIC_LOCATION}
+ENV STATIC_PREFIX=${STATIC_PREFIX}
+ENV MEDIA_LOCATION=${MEDIA_LOCATION}
+ENV MEDIA_PREFIX=${MEDIA_PREFIX}
+ENV EMAIL_USER=${EMAIL_USER}
+ENV EMAIL_FROM=${EMAIL_FROM}
+ENV EMAIL_PASSWORD=${EMAIL_PASSWORD}
+ENV EMAIL_HOST=${EMAIL_HOST}
+ENV EMAIL_PORT=${EMAIL_PORT}
+ENV EMAIL_TLS=${EMAIL_TLS}
+
+ENV DATABASE_NAME=${DATABASE_NAME}
+ENV DATABASE_HOST=${DATABASE_HOST}
+ENV DATABASE_PORT=${DATABASE_PORT}
+ENV DATABASE_USER=${DATABASE_USER}
+ENV DATABASE_PASS=${DATABASE_PASS}
+ENV DATABASE_CHARSET=${DATABASE_CHARSET}
+
+ENV MESANA_API_MOCKED=${MESANA_API_MOCKED}
+ENV MESANA_API_USERNAME=${MESANA_API_USERNAME}
+ENV MESANA_API_KEY=${MESANA_API_KEY}
+ENV MESANA_API_HOST=${MESANA_API_HOST}
+ENV MESANA_DEFAULT_CAMPAIGN=${MESANA_DEFAULT_CAMPAIGN}
+ENV MESANA_DEFAULT_PUBLIC_ID=${MESANA_DEFAULT_PUBLIC_ID}
+ENV MESANA_DEFAULT_ADDRESS=${MESANA_DEFAULT_ADDRESS}
+ENV MESANA_DEFAULT_ZIPCODE=${MESANA_DEFAULT_ZIPCODE}
+ENV MESANA_DEFAULT_COUNTRY=${MESANA_DEFAULT_COUNTRY}
+ENV MESANA_DEFAULT_CITY=${MESANA_DEFAULT_CITY}
+ENV MESANA_DEFAULT_LAST_NAME=${MESANA_DEFAULT_LAST_NAME}
+ENV MESANA_DEFAULT_FIRST_NAME=${MESANA_DEFAULT_FIRST_NAME}
+
+ENV ENVIRONMENT=${ENVIRONMENT}
+ENV DEBUG=${DEBUG}
+
+RUN dnf update -y
+
+RUN dnf install -y --nobest crontabs
+RUN dnf install -y --nobest openssl-libs libffi libnotify gcc make wget curl fuse fuse-libs kmod
+RUN dnf install -y --nobest mariadb-devel mariadb-connector-c
+RUN dnf install -y --nobest python38 python38-devel python38-pip python38-setuptools python38-libs
+RUN dnf install -y --nobest iputils telnet traceroute net-tools nmap
+RUN dnf install -y --nobest glibc-langpack-de.x86_64
+
+RUN mkdir --parents /srv/apps
+RUN mkdir --parents /srv/ssl
+RUN mkdir --parents /srv/static
+RUN mkdir --parents /srv/translations
+RUN mkdir --parents /srv/templates
+
+COPY ./src/*.py            /srv/
+# COPY ./src/*.conf          /srv/
+COPY ./requirements.txt    /srv/
+
+COPY ./src/apps/           /srv/apps
+COPY ./src/kkhmc/          /srv/kkhmc
+COPY ./src/translations/   /srv/translations
+COPY ./src/templates/      /srv/templates
+COPY ./ssl/                /srv/ssl
+
+RUN python3 -m pip install --user -r /srv/requirements.txt
+
+RUN echo "#! /bin/bash"                      > /root/start.sh
+RUN echo ""                                  >> /root/start.sh
+RUN echo ""                                  >> /root/start.sh
+RUN echo "rm -f /root/python3"               >> /root/start.sh
+RUN echo "echo \"#! /bin/bash\"                                                                                              > /root/python3" >> /root/start.sh
+RUN echo "echo \"\"                                                                                                          >> /root/python3" >> /root/start.sh
+RUN echo "printenv | awk -F= '{print \"export \" \"\\"\"\"\$1\"\\"\"\"\"=\"\"\\"\"\"\$2\"\\"\" > /dev/null 2>&1 || true\" }' >> /root/python3" >> /root/start.sh
+RUN echo "echo \""python3 \\$\@\""                                                                                           >> /root/python3" >> /root/start.sh
+RUN echo ""                                   >> /root/start.sh
+RUN echo ""                                   >> /root/start.sh
+RUN echo "chmod +x /root/python3"             >> /root/start.sh
+RUN echo ""                                   >> /root/start.sh
+RUN echo ""                                   >> /root/start.sh
+RUN echo "crond && tail -f /var/log/cron.log" >> /root/start.sh
+RUN chmod +x /root/start.sh
+
+COPY ./docker/cron/crontab  /etc/crontabs/root
+RUN crontab -uroot          /etc/crontabs/root
+
+RUN echo "/root/start.sh" > /var/log/cron.log
+CMD ["/root/start.sh"]
+
