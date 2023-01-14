@@ -18,7 +18,8 @@ PWD := $(shell pwd)
 
 .PHONY: all
 
-all: clean $(SCREENS_TO_BUILD) export
+all: clean $(SCREENS_TO_BUILD)
+	make export
 
 export: $(SCREENS_TO_EXPORT)
 	cp --recursive --force $(PWD)/dist/static/ \
