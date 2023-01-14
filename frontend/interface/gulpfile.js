@@ -108,10 +108,11 @@ exports.export = series(series(clear,
 ), function () {
 
     src('./dist/static/css/*')
-        .pipe(dest('../../apps/public/static/css'));
+        .pipe(dest('../../application/src/apps/public/static/css'));
 
-    return src('./dist/static/img/*')
-        .pipe(dest('../../apps/public/static/img'));
+    return src("./dist/static/img/*").pipe(
+      dest("../../application/src/apps/public/static/img")
+    );
 });
 
 // Tasks to define the execution of the functions simultaneously or in series

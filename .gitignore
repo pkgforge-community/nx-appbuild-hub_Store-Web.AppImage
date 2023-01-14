@@ -13,3 +13,13 @@ src/secure_medias/
 build
 src/default.conf
 default.conf
+
+/frontend/interface/node_modules
+/frontend/interface/node_modules/*
+/frontend/interface/node_modules/**
+/frontend/interface/node_modules/**/*
+
+/frontend/screens/node_modules
+/frontend/screens/node_modules/*
+/frontend/screens/node_modules/**
+/frontend/screens/node_modules/**/*
