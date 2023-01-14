@@ -17,10 +17,12 @@ SHELL := $(shell which bash)
 PWD := $(shell pwd)
 
 .PHONY: all
+
 all: clean $(SCREENS_TO_BUILD) export
 
 export: $(SCREENS_TO_EXPORT)
-	cp --recursive --force $(PWD)/dist/static/     $(PWD)/../../apps/public/static || true
+	cp --recursive --force $(PWD)/dist/static/ \
+		$(PWD)/../../application/src/apps/public/static || true
 	
 server:
 	npx webpack  serve --config=$(PWD)/src/$(filter-out $@,$(MAKECMDGOALS))/webpack.config.js
@@ -35,8 +37,8 @@ $(SCREENS_TO_BUILD):
 	npx webpack --mode=production --config=$(PWD)/src/$@/webpack.config.js
 
 $(SCREENS_TO_EXPORT):
-	mkdir --parents $(PWD)/../../apps/public/static/js
-	cp --force $(PWD)/dist/$@  $(PWD)/../../apps/public/static/js
+	mkdir --parents $(PWD)/../../application/src/apps/public/static/js
+	cp --force $(PWD)/dist/$@  $(PWD)/../../application/src/apps/public/static/js
 
 	mkdir --parents $(PWD)/../interface/src/static/js
 	cp --force $(PWD)/dist/$@  $(PWD)/../interface/src/static/js
