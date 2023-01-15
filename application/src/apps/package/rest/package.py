@@ -84,7 +84,10 @@ class PackageListViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
     def get_queryset(self, search=None):
         if search is None or not len(search):
             return self.queryset.all()
-        return self.queryset.filter(Q(name__startswith=search) | Q(description__icontains=search))
+        return self.queryset.filter(
+            Q(name__istartswith=search) | 
+            Q(description__icontains=search)
+        )
 
     @swagger_auto_schema(tags=['API - package-manager'])
     def list(self, request, *args, **kwargs):
