@@ -7,7 +7,7 @@ on:
 env:
   DOCKER_BUILDKIT: 1
   APPREPO_DOCKER_CONTEXT: "apprepo-prod"
-  APPREPO_DEPLOY_SSH: apprepo@apprepo.me
+  APPREPO_DEPLOY_SSH: apprepo@apprepo.de
   APPREPO_SSH_PRIVATE_KEY: ${{ secrets.APPREPO_SSH_PRIVATE_KEY }}
 
   PROD_DATABASE_HOST: ${{ secrets.PROD_DATABASE_HOST }}
