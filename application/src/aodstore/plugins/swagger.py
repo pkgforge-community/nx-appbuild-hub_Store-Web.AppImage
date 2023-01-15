@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # This software is a part of the A.O.D apprepo (https://apprepo.de) project
 # Copyright 2020 Alex Woroschilow (alex.woroschilow@gmail.com)
 #

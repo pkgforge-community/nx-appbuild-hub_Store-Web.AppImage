@@ -54,6 +54,8 @@ if __name__ == '__main__':
         http_server = WSGIServer(
             ("0.0.0.0", 9000),
             Cling(MediaCling(get_wsgi_application())),
+            certfile=settings.SERVER_CRT,
+            keyfile=settings.SERVER_KEY,
             environ={
                 'wsgi.multithread': True,
                 'wsgi.multiprocess': True,

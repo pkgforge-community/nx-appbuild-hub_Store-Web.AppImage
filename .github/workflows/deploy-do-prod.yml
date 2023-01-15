@@ -1,0 +1,55 @@
+name: Deploy to the DO (PROD)
+on:
+  push:
+    branches:
+      - main
+
+env:
+  DOCKER_BUILDKIT: 1
+  APPREPO_DOCKER_CONTEXT: "apprepo-prod"
+  APPREPO_DEPLOY_SSH: apprepo@apprepo.me
+  APPREPO_SSH_PRIVATE_KEY: ${{ secrets.APPREPO_SSH_PRIVATE_KEY }}
+
+  PROD_DATABASE_HOST: ${{ secrets.PROD_DATABASE_HOST }}
+  PROD_DATABASE_PASS: ${{ secrets.PROD_DATABASE_PASS }}
+  PROD_DATABASE_NAME: ${{ secrets.PROD_DATABASE_NAME }}
+  PROD_DATABASE_USER: ${{ secrets.PROD_DATABASE_USER }}
+  PROD_DATABASE_PORT: ${{ secrets.PROD_DATABASE_PORT }}
+
+  PROD_APPLICATION_SECRET: ${{ secrets.PROD_APPLICATION_SECRET }}
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: setup ssh
+        run: |
+          mkdir ~/.ssh
+          chmod 700 ~/.ssh
+          echo "${APPREPO_SSH_PRIVATE_KEY}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          cp deploy/apprepo-prod.ssh_known_hosts ~/.ssh/known_hosts
+
+      - name: deploy
+        run: |
+
+          docker context create --docker "host=ssh://$APPREPO_DEPLOY_SSH" --description="${APPREPO_DOCKER_CONTEXT}" "${APPREPO_DOCKER_CONTEXT}"
+          docker context use ${APPREPO_DOCKER_CONTEXT}
+
+          echo 'DATABASE_HOST="${PROD_DATABASE_HOST}"'               >> ./prod.env
+          echo 'DATABASE_PASS="${PROD_DATABASE_PASS}"'               >> ./prod.env
+          echo 'DATABASE_NAME="${PROD_DATABASE_NAME}"'               >> ./prod.env
+          echo 'DATABASE_USER="${PROD_DATABASE_USER}"'               >> ./prod.env
+          echo 'DATABASE_PORT="${PROD_DATABASE_PORT}"'               >> ./prod.env
+
+          echo 'APPLICATION_SECRET="${PROD_APPLICATION_SECRET}"'     >> ./prod.env
+
+          docker-compose -f docker-compose.production.yml build --no-cache --progress=plain
+          docker-compose -f docker-compose.production.yml up --detach app
+
+          docker-compose -f docker-compose.production.yml exec -T app /bin/sh -c "python3 /srv/manage.py migrate"

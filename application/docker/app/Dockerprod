@@ -7,6 +7,8 @@ ARG APPLICATION_SECRET
 ARG SERVER_HOST
 ARG SERVER_SCHEME
 ARG SERVER_PORT
+ARG SERVER_KEY
+ARG SERVER_CRT
 
 ARG TIMEZONE
 ARG TIMEZONE_ENABLED
@@ -33,6 +35,8 @@ ENV APPLICATION_SECRET=${APPLICATION_SECRET}
 ENV SERVER_HOST=${SERVER_HOST}
 ENV SERVER_SCHEME=${SERVER_SCHEME}
 ENV SERVER_PORT=${SERVER_PORT}
+ENV SERVER_KEY=${SERVER_KEY}
+ENV SERVER_CRT=${SERVER_CRT}
 
 ENV TIMEZONE=${TIMEZONE}
 ENV TIMEZONE_ENABLED=${TIMEZONE_ENABLED}
@@ -59,7 +63,8 @@ RUN dnf install -y --nobest openssl-libs libffi libnotify gcc make wget curl fus
     dnf install -y --nobest python38 python38-devel python38-pip python38-setuptools python38-libs && \
     dnf install -y --nobest mariadb-devel mariadb-connector-c glibc-langpack-de.x86_64
 
-RUN mkdir --parents /srv/apps && \
+RUN mkdir --parents /srv/ssl && \
+    mkdir --parents /srv/apps && \
     mkdir --parents /srv/static && \
     mkdir --parents /srv/templates
 
@@ -69,6 +74,7 @@ COPY ./requirements.txt    /srv/
 COPY ./src/apps/           /srv/apps
 COPY ./src/aodstore/       /srv/aodstore
 COPY ./src/templates/      /srv/templates
+COPY ./ssl/                /srv/ssl
 
 RUN python3 -m pip install --user -r /srv/requirements.txt
 RUN python3 /srv/manage.py collectstatic --noinput
