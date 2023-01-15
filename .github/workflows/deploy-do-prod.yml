@@ -2,7 +2,7 @@ name: Deploy to the DO (PROD)
 on:
   push:
     branches:
-      - main
+      - release
 
 env:
   DOCKER_BUILDKIT: 1
