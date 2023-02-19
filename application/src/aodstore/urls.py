@@ -39,10 +39,11 @@ urlpatterns.append(path('admin/', aod_store_admin.urls))
 urlpatterns.append(path(r'^_nested_admin/', include('nested_admin.urls')))
 urlpatterns.append(path('', DashboardView.as_view(), name='package_dashboard'))
 urlpatterns.append(path(r'sitemap.xml', SitemapView.as_view(), name='sitemap'))
-urlpatterns.append(path(r'group/<id>', GroupView.as_view(), name='package_group'))
 urlpatterns.append(path(r'appimage/download/<slug>', PackageDownloadView.as_view(), name='package_download'))
-urlpatterns.append(path(r'appimage/<slug>', PackageView.as_view(), name='package'))
 urlpatterns.append(path(r'page/<path>', PageView.as_view(), name='page'))
+
+# urlpatterns.append(path(r'group/<id>', GroupView.as_view(), name='package_group'))
+# urlpatterns.append(path(r'appimage/<slug>', PackageView.as_view(), name='package'))
 
 urlpatterns.append(url(r'{}(?P<path>.*)$'.format(settings.STATIC_URL.lstrip('/')), serve, {
     'document_root': settings.STATIC_ROOT
@@ -53,3 +54,7 @@ urlpatterns.append(url(r'^{}(?P<path>.*)$'.format(settings.MEDIA_URL.lstrip('/')
 }))
 
 urlpatterns.append(url('api/doc', aod_store_openapi.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'))
+#
+# from django.conf.urls import ( handler500, handler404)
+# handler404 = 'apps.public.views.errors.DashboardView'
+# handler500 = 'apps.public.views.errors.DashboardView'

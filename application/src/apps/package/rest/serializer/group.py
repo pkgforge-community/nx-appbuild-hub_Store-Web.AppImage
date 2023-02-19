@@ -22,7 +22,7 @@ from apps.package.model.group import PackageGroup
 
 class PackageGroupDetailSerializer(serializers.HyperlinkedModelSerializer):
     unique = serializers.IntegerField(source='pk')
-    page = serializers.SerializerMethodField()
+    # page = serializers.SerializerMethodField()
     packages = serializers.SerializerMethodField()
 
     class Meta:
@@ -30,7 +30,7 @@ class PackageGroupDetailSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             'name',
             'description',
-            'page',
+            # 'page',
             'icon',
             'unique',
             'packages',
@@ -54,14 +54,15 @@ class PackageGroupDetailSerializer(serializers.HyperlinkedModelSerializer):
 
 class PackageGroupSerializer(serializers.HyperlinkedModelSerializer):
     unique = serializers.IntegerField(source='pk')
-    page = serializers.SerializerMethodField()
+
+    # page = serializers.SerializerMethodField()
 
     class Meta:
         model = PackageGroup
         fields = [
             'name',
             'description',
-            'page',
+            # 'page',
             'icon',
             'unique'
         ]

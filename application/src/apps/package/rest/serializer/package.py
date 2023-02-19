@@ -35,7 +35,7 @@ class PackageSerializer(serializers.HyperlinkedModelSerializer):
     hash = serializers.SerializerMethodField()
     icon = serializers.SerializerMethodField()
     preview = serializers.SerializerMethodField()
-    page = serializers.SerializerMethodField()
+    # page = serializers.SerializerMethodField()
     page_home = serializers.SerializerMethodField()
     page_source = serializers.SerializerMethodField()
 
@@ -54,7 +54,7 @@ class PackageSerializer(serializers.HyperlinkedModelSerializer):
             'icon',
             'preview',
             'file',
-            'page',
+            # 'page',
             'page_home',
             'page_source',
             'versions',

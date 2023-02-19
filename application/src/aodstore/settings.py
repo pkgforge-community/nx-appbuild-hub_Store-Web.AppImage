@@ -36,7 +36,6 @@ APP_NAME = os.getenv('APPLICATION_NAME')
 SECRET_KEY = os.getenv('APPLICATION_SECRET')
 SECRET_KEY = SECRET_KEY if len(SECRET_KEY) else str(uuid.uuid4())
 
-
 ROOT_URLCONF = 'aodstore.urls'
 WSGI_APPLICATION = 'aodstore.wsgi.application'
 
@@ -44,7 +43,7 @@ USE_TZ = os.getenv('TIMEZONE_ENABLED', 'False')
 USE_TZ = ast.literal_eval(USE_TZ) if USE_TZ else False
 
 TIME_ZONE = os.getenv('TIMEZONE', 'Europe/Berlin')
-TIME_ZONE =TIME_ZONE if len(TIME_ZONE) else 'Europe/Berlin'
+TIME_ZONE = TIME_ZONE if len(TIME_ZONE) else 'Europe/Berlin'
 assert (len(TIME_ZONE))
 
 JET_SIDE_MENU_COMPACT = True
@@ -60,11 +59,11 @@ SERVER_PORT = os.getenv('SERVER_PORT')
 SERVER_KEY = os.getenv('SERVER_KEY')
 SERVER_CRT = os.getenv('SERVER_CRT')
 
-if len(SERVER_SCHEME) and SERVER_SCHEME == "https": 
+if len(SERVER_SCHEME) and SERVER_SCHEME == "https":
     SECURE_PROXY_SSL_HEADER = ('SERVER_SCHEME', SERVER_SCHEME)
 
 DOMAIN = "{}://{}:{}".format(SERVER_SCHEME, SERVER_HOST, SERVER_PORT) \
-        if len(SERVER_PORT) else "{}://{}".format(SERVER_SCHEME, SERVER_HOST) 
+    if len(SERVER_PORT) else "{}://{}".format(SERVER_SCHEME, SERVER_HOST)
 
 USE_X_FORWARDED_HOST = True
 
@@ -113,20 +112,20 @@ AUTH_PASSWORD_VALIDATORS.append({'NAME': 'django.contrib.auth.password_validatio
 AUTH_PASSWORD_VALIDATORS.append({'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'})
 AUTH_PASSWORD_VALIDATORS.append({'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'})
 
-STATIC_ROOT = os.getenv('STATIC_LOCATION','/srv/static/')
-STATIC_ROOT =STATIC_ROOT if len(STATIC_ROOT) else '/srv/static/'
+STATIC_ROOT = os.getenv('STATIC_LOCATION', '/srv/static/')
+STATIC_ROOT = STATIC_ROOT if len(STATIC_ROOT) else '/srv/static/'
 assert (len(STATIC_ROOT))
 
-STATIC_URL = os.getenv('STATIC_PREFIX','/static/')
-STATIC_URL =STATIC_URL if len(STATIC_URL) else '/static/'
+STATIC_URL = os.getenv('STATIC_PREFIX', '/static/')
+STATIC_URL = STATIC_URL if len(STATIC_URL) else '/static/'
 assert (len(STATIC_URL))
 
-MEDIA_ROOT = os.getenv('MEDIA_LOCATION','/srv/media/')
-MEDIA_ROOT =MEDIA_ROOT if len(MEDIA_ROOT) else '/srv/media/'
+MEDIA_ROOT = os.getenv('MEDIA_LOCATION', '/srv/media/')
+MEDIA_ROOT = MEDIA_ROOT if len(MEDIA_ROOT) else '/srv/media/'
 assert (len(MEDIA_ROOT))
 
-MEDIA_URL = os.getenv('MEDIA_PREFIX','/media/')
-MEDIA_URL =MEDIA_URL if len(MEDIA_URL) else '/media/'
+MEDIA_URL = os.getenv('MEDIA_PREFIX', '/media/')
+MEDIA_URL = MEDIA_URL if len(MEDIA_URL) else '/media/'
 assert (len(MEDIA_URL))
 
 FIXTURE_DIRS = [os.path.join(BASE_DIR, 'fixtures')]
@@ -137,7 +136,7 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 
 EMAIL_PORT = os.getenv('EMAIL_PORT', '587')
-EMAIL_PORT =EMAIL_PORT if len(EMAIL_PORT) else 587
+EMAIL_PORT = EMAIL_PORT if len(EMAIL_PORT) else 587
 
 EMAIL_USE_TLS = os.getenv('EMAIL_TLS', 'True')
-EMAIL_USE_TLS =ast.literal_eval(EMAIL_USE_TLS) if EMAIL_USE_TLS else True
+EMAIL_USE_TLS = ast.literal_eval(EMAIL_USE_TLS) if EMAIL_USE_TLS else True

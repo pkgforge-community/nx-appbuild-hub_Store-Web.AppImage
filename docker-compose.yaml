@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   db:
-    restart: always
+    restart: "no"
     build:
       context: ./application
       dockerfile: docker/mysql/Dockerfile
@@ -15,7 +15,7 @@ services:
       - ${DATABASE_VOLUME:-db}:/var/lib/mysql
   app:
     working_dir: /srv
-    restart: always
+    restart: "no"
     env_file:
       - dev.env
     build:
