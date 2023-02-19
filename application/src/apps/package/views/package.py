@@ -41,10 +41,10 @@ class PackageDownloadView(TemplateView):
         package = service_package.package(slug)
         if not package: raise Exception('package can not be empty')
 
-        version = package.version
-        if not version: raise Exception('package version can not be empty')
+        download_url = package.download
+        if not download_url: raise Exception('download_url can not be empty')
 
-        version.downloads += 1
-        version.save(force_update=True)
+        package.downloads += 1
+        package.save(force_update=True)
 
-        return HttpResponseRedirect(version.url)
+        return HttpResponseRedirect(download_url)

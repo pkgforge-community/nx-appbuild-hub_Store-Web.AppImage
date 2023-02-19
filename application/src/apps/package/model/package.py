@@ -42,7 +42,9 @@ class Package(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     description = models.TextField(null=True, blank=True)
+
     download = models.TextField(null=True, blank=True)
+    downloads = models.IntegerField(null=True, blank=True, default=0)
 
     icon = models.FileField(upload_to='package/icon/%Y/%m/%d/%H%M%S', null=True, blank=True)
     groups = models.ManyToManyField('PackageGroup', through='PackageGroupPackage')
