@@ -18,6 +18,7 @@ import hexdi
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
+from django.http import HttpResponseNotFound
 
 from apps.package.services.package import ServicePackage
 
@@ -27,10 +28,17 @@ class PackageView(TemplateView):
         service_package: ServicePackage = hexdi.resolve('package')
         if not service_package: raise Exception('Unknown service')
 
-        return render(request, "package/package.html", {
-            'entity': service_package.package(slug),
-            'collection': service_package.groups(),
-        })
+        package = service_package.package(slug)
+        if not package: raise Exception('package can not be empty')
+
+        if package.repository is not None:
+            return HttpResponseRedirect(package.repository)
+        raise HttpResponseNotFound('oops')
+
+        # return render(request, "package/package.html", {
+        #     'collection': service_package.groups(),
+        #     'entity': package,
+        # })
 
 
 class PackageDownloadView(TemplateView):

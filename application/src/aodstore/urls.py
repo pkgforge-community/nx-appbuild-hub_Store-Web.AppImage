@@ -43,7 +43,7 @@ urlpatterns.append(path(r'appimage/download/<slug>', PackageDownloadView.as_view
 urlpatterns.append(path(r'page/<path>', PageView.as_view(), name='page'))
 
 # urlpatterns.append(path(r'group/<id>', GroupView.as_view(), name='package_group'))
-# urlpatterns.append(path(r'appimage/<slug>', PackageView.as_view(), name='package'))
+urlpatterns.append(path(r'appimage/<slug>', PackageView.as_view(), name='package'))
 
 urlpatterns.append(url(r'{}(?P<path>.*)$'.format(settings.STATIC_URL.lstrip('/')), serve, {
     'document_root': settings.STATIC_ROOT
