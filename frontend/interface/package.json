@@ -14,7 +14,7 @@
     "@mediapipe/pose": "^0.2.1617147663",
     "babel": "^6.23.0",
     "bulma": "^0.9.3",
-    "copy-webpack-plugin": "^8.1.1",
+    "copy-webpack-plugin": "^13.0.0",
     "css-loader": "^5.2.6",
     "fabric": "^5.2.4",
     "graceful-fs": "4.2.2",
