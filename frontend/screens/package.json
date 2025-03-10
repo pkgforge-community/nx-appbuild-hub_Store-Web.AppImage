@@ -23,7 +23,7 @@
     "@mediapipe/camera_utils": "^0.1.1617146909",
     "@mediapipe/face_detection": "^0.0.1617147085",
     "@mediapipe/pose": "^0.2.1617147663",
-    "axios": "^0.21.1",
+    "axios": "^1.8.2",
     "buffer": "^6.0.3",
     "create-react-class": "^15.7.0",
     "fabric": "^5.2.4",
