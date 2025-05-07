@@ -34,7 +34,7 @@ django-tinymce==3.0.2
 djangorestframework==3.11.2
 dominate==2.4.0
 drf-yasg==1.17.0
-gevent==1.5a4
+gevent==25.4.1
 greenlet==0.4.15
 hexdi==0.2.1
 hyperlink==19.0.0
@@ -82,3 +82,4 @@ requests
 django-fullurl
 django_extensions
 dj_static
+setuptools>=78.1.1 # not directly required, pinned by Snyk to avoid a vulnerability
